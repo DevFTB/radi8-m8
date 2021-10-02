@@ -40,7 +40,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-player_path = NodePath("../../KinematicBody2D")
 
 [node name="HeartEmpty" type="TextureRect" parent="CanvasLayer/Control"]
 margin_left = 10.0
