@@ -54,12 +54,9 @@ func check_collisions():
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider is TileMap:
-#			print(collision.position + collision.normal)
-#			print(global_position)
-#			var tile_pos = collision.collider.world_to_map(collision.position + collision.normal)
-#			var tile_id = collision.collider.get_cellv(tile_pos)
-#			print(tile_id)
-#			if tile_id == 3:
+			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
+			var tile_id = collision.collider.get_cellv(tile_pos)
+			if tile_id == 3:
 				emit_signal("door_collision", [0, 0])
 				
 			
