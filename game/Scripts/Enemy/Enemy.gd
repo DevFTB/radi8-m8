@@ -96,7 +96,7 @@ func genPath():
 		
 func navigate():
 	if (path.size() > 0):
-		velocity = global_position.direction_to(path[1]) * speed
+		var velocity = global_position.direction_to(path[1]) * speed
 		
 		if global_position == path[0]:
 			path.remove(0)
