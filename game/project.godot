@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="radi8-m8"
-run/main_scene="res://MutationTest.tscn"
+run/main_scene="res://NavTest.tscn"
 config/icon="res://icon.png"
 
 [input]
