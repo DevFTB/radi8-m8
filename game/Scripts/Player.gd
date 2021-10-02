@@ -57,7 +57,7 @@ func check_collisions():
 			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
 			var tile_id = collision.collider.get_cellv(tile_pos)
 			if tile_id == 3:
-				emit_signal("door_collision", [0, 0])
+				emit_signal("door_collision", [tile_pos[0], tile_pos[1]])
 				
 			
 
