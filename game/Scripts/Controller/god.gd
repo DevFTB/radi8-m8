@@ -24,13 +24,15 @@ func _ready():
 	level = get_node(level_path)
 	for node in level.get_children():
 		node.queue_free()
-	level.add_child(room_controller.get_current_room())
+	room = room_controller.get_current_room()
+	level.add_child(room)
 	pass # Replace with function body.
 
 func change_room(door_x_index, door_y_index):
 	for node in level.get_children():
 		node.queue_free()
-	level.add_child(room_controller.change_room(door_x_index, door_y_index))
+	room = room_controller.change_room(door_x_index, door_y_index)
+	level.add_child(room)
 	
 	
 		

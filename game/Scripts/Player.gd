@@ -16,7 +16,7 @@ export var dashSpeed : int = 1500
 export var heavyAttackCooldown : float = 1.2
 export var damage : int = 10
 export var dashCooldown : float = 2
-export var invulnerabilityPeriod = 0.3
+export var invulnerabilityPeriod = 1
 
 
 export (PackedScene) var bullet
@@ -34,16 +34,19 @@ enum {
 	HEAVY_ATTACK
 }
 var state = MOVE
+
 var canAttack = true
 var canDash = true
 var canHeavyAttack = true
 
 
-export(int) var max_health = 4
-onready var health = 2 setget set_health
+export(int) var max_health = 10
+var health = null setget set_health
 
 
 
+func _enter_tree():
+	health = max_health
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,8 +102,6 @@ func perform_heavy_attack():
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
 
-
-
 func on_action_complete():
 	state = MOVE
 
@@ -136,15 +137,14 @@ func move_process(delta):
 
 func set_health(value):
 	health = clamp(value, 0, max_health)
-	emit_signal("health_changed")
+	emit_signal("health_changed", value)
 	if (health == 0):
 		emit_signal("no_health")
 
 func perform_dash():
 	state = DASH
 	canDash = false
-	get_input_direction()
-	dashDir = directionFacing;
+	dashDir = get_input_direction();
 	var cooldownTimer = get_tree().create_timer(dashCooldown)
 	cooldownTimer.connect("timeout", self, "on_dash_cooldown_complete")
 	
@@ -153,8 +153,6 @@ func dash_process(delta):
 	move_and_slide(dashDir * dashSpeed)
 	var dashTimer = get_tree().create_timer(dashDuration)
 	dashTimer.connect("timeout", self, "on_action_complete")
-	
-		
 
 
 func get_input_direction():
@@ -197,5 +195,4 @@ func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
 
 func _on_Hurtbox_area_entered(area):
-	print("somebody touch player hut box")
 	take_damage(area.damage)

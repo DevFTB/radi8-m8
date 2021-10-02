@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/radiation-in-heart-shape_1410580.png-ce8065f44bb2d14d9b09562178e0de0d.stex"
+path="res://.import/extra_life (11).png-6d221e8ca19ae301144fe36b3f85b5be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/player/radiation-in-heart-shape_1410580.png"
-dest_files=[ "res://.import/radiation-in-heart-shape_1410580.png-ce8065f44bb2d14d9b09562178e0de0d.stex" ]
+source_file="res://Assets/player/extra_life (11).png"
+dest_files=[ "res://.import/extra_life (11).png-6d221e8ca19ae301144fe36b3f85b5be.stex" ]
 
 [params]
 
