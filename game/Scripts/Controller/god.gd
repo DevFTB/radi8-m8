@@ -11,6 +11,7 @@ var room_controller
 const n_rooms = 10
 var level
 var navmesh = null
+var room = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

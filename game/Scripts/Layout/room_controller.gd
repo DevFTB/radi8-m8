@@ -76,9 +76,10 @@ func change_room(door_x_index, door_y_index):
 func replace_doors(room_scene, doors):
 	var door_locations = get_scene_door_locations(room_scene)
 	# root node of room_scene is tilemap
+	var tilemap = room_scene.get_node("TileMap")
 	for door in range(0, len(doors)):
 		if doors[door]:
-			room_scene.set_cellv(room_scene.world_to_map(door_locations[door]), 3)
+			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 3)
 		
 	
 	
