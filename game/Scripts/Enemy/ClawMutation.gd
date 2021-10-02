@@ -34,6 +34,7 @@ func cease():
 func fire():
 	if(swipeCount < amountOfSwipes):
 		swipeCount += 1
+
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
 		print(swipeCount)

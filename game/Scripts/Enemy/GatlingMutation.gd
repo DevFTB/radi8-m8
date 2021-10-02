@@ -10,6 +10,11 @@ var player: Node2D = null
 var timer: float = 0.0;
 var burstCount: int = 0;
 var attacking: bool = false;
+
+enum {
+	LEFT,
+	RIGHT
+}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.play("equip")
@@ -36,11 +41,12 @@ func fire():
 		if(player):
 			
 			var b = bullet.instance()
-			b.position = $"Fire Point".position
+			b.position = $"Fire Point".global_position
 			b.fire_direction = (player.global_position - global_position).normalized()
-			owner.add_child(b)
-			print(burstCount)
-			print("pew")
+			if (owner.horizontal_dir == RIGHT):
+				b.fire_direction.x *= -1
+
+			owner.owner.add_child(b)
 		
 		
 	else:
