@@ -5,7 +5,6 @@ extends Node
 # var a = 2
 # var b = "text"
 
-const room_path = "res://Assets/Rooms"
 enum Direction {TOP, RIGHT, BOTTOM, LEFT}
 const DoorPath = {
 	"res://Assets/Doors/Top.tscn": Direction.TOP,
@@ -18,31 +17,29 @@ var room = {}
 var connections = {}
 var current_room = [0, 0]
 var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
-
-func _init(n):
-	build_room_network(n);
+export (Array, PackedScene) var room_possibilities
 
 func allocate_room():
 	pass
 
 #todo: ensure directory checking works in build project, pass in rooms as array in inspector?
 func get_allowed_rooms():
-	var room_possibilities = []
-	var dir = Directory.new()
-	
-	if dir.open("res://Assets/Rooms") == OK:
-		dir.list_dir_begin()
-		while true:
-			var file = dir.get_next()
-			if file == "":
-				break
-			elif not file.begins_with("."):
-				room_possibilities.append(dir.get_current_dir() + "/" + file)
-		dir.list_dir_end();
-	else:
-		print("An error occurred when trying to access the path.")
-	
+#	var room_possibilities = []
+#	var dir = Directory.new()
+#
+#	if dir.open("res://Assets/Rooms") == OK:
+#		dir.list_dir_begin()
+#		while true:
+#			var file = dir.get_next()
+#			if file == "":
+#				break
+#			elif not file.begins_with("."):
+#				room_possibilities.append(dir.get_current_dir() + "/" + file)
+#		dir.list_dir_end();
+#	else:
+#		print("An error occurred when trying to access the path.")
 	return room_possibilities
+	
 	
 	
 func get_room(x_index, y_index):
@@ -50,8 +47,8 @@ func get_room(x_index, y_index):
 		print("room does not exist")
 		return
 	# get correct room scene
-	var cur_room_path = room[[x_index, y_index]]
-	var new_room_scene = load(cur_room_path).instance()
+	var room_packedscene = room[[x_index, y_index]]
+	var new_room_scene = room_packedscene.instance()
 	replace_doors(new_room_scene, get_doors(x_index, y_index))
 	
 	return new_room_scene

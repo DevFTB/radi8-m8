@@ -1,26 +1,27 @@
 extends Node
 
 signal move_player(x, y)
+export (NodePath) var room_controller_path
+export (NodePath) var level_path
+var room_controller
 
-const RoomController = preload("res://Scripts/Layout/room_controller.gd")
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var room_controller
 const n_rooms = 10
-
+var level
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	room_controller = RoomController.new(10)
-	var level = get_node("/root/Node2D/Layout")
+	room_controller = get_node(room_controller_path)
+	room_controller.build_room_network(n_rooms)
+	level = get_node(level_path)
 	for node in level.get_children():
 		node.queue_free()
 	level.add_child(room_controller.get_current_room())
 	pass # Replace with function body.
 
 func change_room(door_x_index, door_y_index):
-	var level = get_node("/root/Node2D/Layout")
 	for node in level.get_children():
 		node.queue_free()
 	level.add_child(room_controller.change_room(door_x_index, door_y_index))

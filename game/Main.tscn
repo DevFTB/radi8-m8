@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Resources/zombie.png" type="Texture" id=2]
@@ -6,12 +6,17 @@
 [ext_resource path="res://Resources/radiation-in-heart-shape_14101`123123123580.png" type="Texture" id=4]
 [ext_resource path="res://Resources/radiation-in-heart-shape_1410580.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Layout/room_controller.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Rooms/room_1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Rooms/room_2.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 513.271, 292.436 )
 script = ExtResource( 6 )
+room_controller_path = NodePath("RoomController")
+level_path = NodePath("Layout")
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 scale = Vector2( 5, 5 )
@@ -67,6 +72,10 @@ __meta__ = {
 
 [node name="Layout" type="Node2D" parent="."]
 position = Vector2( -513.271, -292.436 )
+
+[node name="RoomController" type="Node" parent="."]
+script = ExtResource( 7 )
+room_possibilities = [ ExtResource( 8 ), ExtResource( 9 ) ]
 
 [connection signal="move_player" from="." to="KinematicBody2D" method="_on_Node2D_move_player"]
 [connection signal="door_collision" from="KinematicBody2D" to="." method="_on_KinematicBody2D_door_collision"]
