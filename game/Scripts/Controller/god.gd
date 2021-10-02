@@ -1,30 +1,42 @@
 extends Node
 
-const RoomController = preload("res://Scripts/Layout/room_controller.gd")
+signal move_player(x, y)
+export (NodePath) var room_controller_path
+export (NodePath) var level_path
+export (NodePath) var player
+var room_controller
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var room_controller
-var room = null
+const n_rooms = 10
+var level
 var navmesh = null
+var room = null
 
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	room_controller = RoomController.new()
-	change_room(0, 0)
-	pass # Replace with function body.
-
-func change_room(x_index, y_index):
-	var level = $Layout
+func _ready():
+	room_controller = get_node(room_controller_path)
+	room_controller.build_room_network(n_rooms)
+	level = get_node(level_path)
 	for node in level.get_children():
 		node.queue_free()
-	print(room_controller.get_room(x_index, y_index))
-	room = room_controller.get_room(x_index, y_index)	
-	level.add_child(room)
-	print(level.get_children())
+	level.add_child(room_controller.get_current_room())
+	pass # Replace with function body.
+
+func change_room(door_x_index, door_y_index):
+	for node in level.get_children():
+		node.queue_free()
+	level.add_child(room_controller.change_room(door_x_index, door_y_index))
 	
 	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass
+#	pass	
+
+
+func _on_Player_door_collision(tile_index):
+	change_room(tile_index[0], tile_index[1])
+	get_node(player).position = Vector2(300, 100)
+	
