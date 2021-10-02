@@ -7,6 +7,7 @@ extends KinematicBody2D
 
 signal health_changed
 signal no_health
+signal door_collision(tile_index)
 
 export var attackInterval = 0.1
 
@@ -148,6 +149,7 @@ func move_process(delta):
 		start_idling()
 		
 	move_and_slide(velocity * movementSpeed)
+	check_collisions()
 	
 
 
@@ -190,6 +192,18 @@ func get_input_direction():
 		directionFacing.x = 1 
 	return velocity.normalized()
 	
+	
+func check_collisions():
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.collider is TileMap:
+			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
+			var tile_id = collision.collider.get_cellv(tile_pos)
+			if tile_id == 3:
+				emit_signal("door_collision", tile_pos)
+				return
+				
+			
 
 func take_damage(value):
 	set_health(health - value)
