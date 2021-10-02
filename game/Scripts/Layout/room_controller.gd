@@ -64,7 +64,7 @@ func get_scene_door_locations(room_scene):
 	var door_locations = [0, 0, 0, 0]
 	for door in room_scene.get_children():
 		if DoorPath.has(door.get_filename()):
-			door_locations[DoorPath[door.get_filename()]] = door.global_position
+			door_locations[DoorPath[door.get_filename()]] = door.position
 	return door_locations
 	
 func get_doors(x_index, y_index):
