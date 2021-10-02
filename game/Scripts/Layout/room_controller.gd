@@ -20,23 +20,28 @@ func allocate_room():
 func get_allowed_rooms():
 	var room_possibilities = []
 	var dir = Directory.new()
-	dir.list_dir_begin()
 	
-	if dir.open(room_path):
+	if dir.open("res://Assets/Rooms") == OK:
+		dir.list_dir_begin()
 		while true:
 			var file = dir.get_next()
 			if file == "":
 				break
 			elif not file.begins_with("."):
-				room_possibilities.append(file)
+				room_possibilities.append(dir.get_current_dir() + "/" + file)
 		dir.list_dir_end();
-		
+	else:
+		print("An error occurred when trying to access the path.")
+	
 	return room_possibilities
+	
 	
 func get_room(x_index, y_index):
 	# get correct room scene
 	var cur_room_path = get_allowed_rooms()[0]
 	var new_room_scene = load(cur_room_path).instance()
+	
+	return new_room_scene
 	
 #func replace_doors(room_scene, doors):
 	
