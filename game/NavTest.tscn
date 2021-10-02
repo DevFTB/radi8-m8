@@ -17,7 +17,7 @@ vertices = PoolVector2Array( 536.222, 275.398, 852.756, 472.952, 58.0535, 470.70
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 1, 0, 5 ), PoolIntArray( 6, 4, 5, 7 ), PoolIntArray( 2, 6, 7, 3 ) ]
 outlines = [ PoolVector2Array( 55.3155, -40.0348, 852.415, -35.5399, 852.756, 472.952, 58.0535, 470.707 ), PoolVector2Array( 383.567, 196.826, 381.322, 275.398, 536.222, 275.398, 536.222, 194.581 ) ]
 
-[node name="Node2D2" type="Node2D"]
+[node name="Node2D3" type="Node2D"]
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 level_path = NodePath("Layout")

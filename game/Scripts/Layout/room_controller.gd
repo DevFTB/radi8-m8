@@ -17,6 +17,9 @@ var room = {}
 var connections = {}
 var current_room = [0, 0]
 var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
+
+const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
+var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 
 func allocate_room():
@@ -44,7 +47,7 @@ func get_allowed_rooms():
 	
 func get_room(x_index, y_index):
 	if not room.has([x_index, y_index]):
-		print("room does not exist")
+		print("room does not exist", x_index, y_index)
 		return
 	# get correct room scene
 	var room_packedscene = room[[x_index, y_index]]
@@ -70,6 +73,7 @@ func change_room(door_x_index, door_y_index):
 	for door in range(0, len(door_locations)):
 		if tilemap.world_to_map(door_locations[door])[0] == door_x_index and tilemap.world_to_map(door_locations[door])[1] == door_y_index:
 			var dir = door_to_dir[door]
+			exited_door = door_to_new_door[door]
 			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
@@ -104,4 +108,11 @@ func build_room_network(n):
 		for j in range(0, n):
 			visited[[i, j]] = 0
 			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+			
+func get_door_world_location(door):
+	var room_scene = get_current_room()
+	if(room_scene):
+		return get_scene_door_locations(room_scene)[door]
 		
+func get_last_exited_door():
+	return exited_door
