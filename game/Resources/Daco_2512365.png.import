@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player.png-0f0c5f65541b51bf07685359063dd152.stex"
+path="res://.import/Daco_2512365.png-6e835c41a0df460c25041cce5424dcf4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/player/player.png"
-dest_files=[ "res://.import/player.png-0f0c5f65541b51bf07685359063dd152.stex" ]
+source_file="res://Resources/Daco_2512365.png"
+dest_files=[ "res://.import/Daco_2512365.png-6e835c41a0df460c25041cce5424dcf4.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
