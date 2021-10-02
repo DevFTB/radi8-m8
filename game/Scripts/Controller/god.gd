@@ -6,6 +6,9 @@ export (NodePath) var level_path
 export (NodePath) var player
 var room_controller
 
+const spawn_offset_dir = {0: Vector2.DOWN, 1: Vector2.LEFT, 2: Vector2.UP, 3: Vector2.RIGHT}
+export (int) var spawn_offset = 140
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -40,5 +43,6 @@ func change_room(door_x_index, door_y_index):
 
 func _on_Player_door_collision(tile_index):
 	change_room(tile_index[0], tile_index[1])
-	get_node(player).position = Vector2(300, 100)
-	
+	var door = room_controller.get_last_exited_door()
+	get_node(player).position = room_controller.get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door])
+#	get_node(player).position = Vector2(300, 100)	

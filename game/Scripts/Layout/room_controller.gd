@@ -17,12 +17,12 @@ var room = {}
 var connections = {}
 var current_room = [0, 0]
 var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
+
+const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
+var exited_door = 0
 export (Array, PackedScene) var room_possibilities
+export (int) var initial_edges = 150
 
-func allocate_room():
-	pass
-
-#todo: ensure directory checking works in build project, pass in rooms as array in inspector?
 func get_allowed_rooms():
 #	var room_possibilities = []
 #	var dir = Directory.new()
@@ -44,7 +44,7 @@ func get_allowed_rooms():
 	
 func get_room(x_index, y_index):
 	if not room.has([x_index, y_index]):
-		print("room does not exist")
+		print("room does not exist", x_index, y_index)
 		return
 	# get correct room scene
 	var room_packedscene = room[[x_index, y_index]]
@@ -70,6 +70,7 @@ func change_room(door_x_index, door_y_index):
 	for door in range(0, len(door_locations)):
 		if tilemap.world_to_map(door_locations[door])[0] == door_x_index and tilemap.world_to_map(door_locations[door])[1] == door_y_index:
 			var dir = door_to_dir[door]
+			exited_door = door_to_new_door[door]
 			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
@@ -80,8 +81,24 @@ func replace_doors(room_scene, doors):
 	var tilemap = room_scene.get_node("TileMap")
 	for door in range(0, len(doors)):
 		if doors[door]:
-			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 3)
-		
+#			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 2)
+			add_door_to_tilemap(tilemap, door_locations[door], door)
+
+# doors this code is poo soz
+# duplicate doors to make version 1 with offset 0 and 1 with offset -64
+func add_door_to_tilemap(tilemap, loc, door):
+	var idx = tilemap.world_to_map(loc)
+	match door:
+		0:
+			tilemap.set_cellv(idx, 2)
+		1:
+			tilemap.set_cellv(idx, 3, true, false, true)
+		2:
+			tilemap.set_cellv(idx, 3, true, true, false)
+		3:
+			tilemap.set_cellv(idx, 2, false, true, true)
+		_:
+			print(door, " is not a valid door value")
 	
 	
 
@@ -93,15 +110,86 @@ func get_scene_door_locations(room_scene):
 	return door_locations
 	
 func get_doors(x_index, y_index):
-	return [1, 1, 1, 1]
+	var doors = [0, 0, 0, 0]
+	for door in door_to_dir.keys():
+		var dir = door_to_dir[door]
+		var neighbour = [x_index + dir[0], y_index + dir[1]]
+		if connections.has([[x_index, y_index], neighbour]):
+			doors[door] = 1
+	return doors
 	
 func rebuild_room_connections():
 	pass
 	
 func build_room_network(n):
+	randomize()
 	var allowed_rooms = get_allowed_rooms()
 	for i in range(0, n):
 		for j in range(0, n):
 			visited[[i, j]] = 0
 			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+	build_connections()
+			
+func build_connections():
+#	for room_idx in room.keys():
+#		for neighbour in get_adjacent_rooms(room_idx):
+#			add_connection(room_idx, neighbour)
+	var possible_connections = []
+	for room_idx in room.keys():
+		for neighbour in get_adjacent_rooms(room_idx):
+			possible_connections.append([room_idx, neighbour])
+	possible_connections.shuffle()
+	
+	dfs_edge_add(current_room)
+	while len(connections.keys())/2 < initial_edges and len(possible_connections) > 0:
+		var newEdge = possible_connections.pop_back()
+		if not connection_exists(newEdge[0], newEdge[1]):
+			add_connection(newEdge[0], newEdge[1])
+	
+func get_door_world_location(door):
+	var room_scene = get_current_room()
+	if(room_scene):
+		return get_scene_door_locations(room_scene)[door]
 		
+func get_last_exited_door():
+	return exited_door
+	
+func dfs_edge_add(v, dfs_visited={}):
+	dfs_visited[v] = true
+	var neighbours = get_adjacent_rooms(v)
+	neighbours.shuffle()
+	for neighbour in neighbours:
+		if not dfs_visited.has(neighbour):
+			add_connection(v, neighbour)
+			dfs_edge_add(neighbour, dfs_visited)
+	
+
+# i, j 2-tuples of room coordinates
+func add_connection(i, j):
+	connections[[i, j]] = true
+	connections[[j, i]] = true
+		
+func connection_exists(i, j):
+	if connections.has([i, j]):
+		return true
+	return false
+	
+func remove_connection(i, j):
+	connections.erase([i, j])
+	connections.erase([j, i])
+
+func get_neighbours(i):
+	var neighbours = []
+	for dir in door_to_dir.values():
+		var neighbour = [i[0] + dir[0], i[1] + dir[1]]
+		if connections.has([i, neighbour]):
+			neighbours.append(neighbour)
+	return neighbours
+			
+func get_adjacent_rooms(i):
+	var neighbours = []
+	for dir in door_to_dir.values():
+		var neighbour = [i[0] + dir[0], i[1] + dir[1]]
+		if room.has(neighbour):
+			neighbours.append(neighbour)
+	return neighbours
