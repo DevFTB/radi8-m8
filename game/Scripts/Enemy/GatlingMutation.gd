@@ -9,7 +9,7 @@ var burstCount: int = 0;
 var attacking: bool = false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite.play()
+	$AnimatedSprite.play("equip")
 	pass # Replace with function body.
 
 func _process(delta):
@@ -23,6 +23,8 @@ func attack():
 
 func fire():
 	if(burstCount < burstAmount):
+		$AnimatedSprite.frame = 0;
+		$AnimatedSprite.play("attack")
 		burstCount += 1
 		print(burstCount)
 		print("pew")
