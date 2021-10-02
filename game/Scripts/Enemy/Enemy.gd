@@ -30,6 +30,11 @@ func _ready():
 	mutations = $Mutations.get_children()
 	
 	activeMutations.append(mutations[0])
+	
+	if(activeMutations[0].has_method("set_player")):
+			print("set player")
+			activeMutations[0].set_player(player)
+	
 	inactiveMutations.append_array(mutations.slice(1, mutations.size()))
 	for mut in inactiveMutations:
 		print(mut)
@@ -69,6 +74,11 @@ func mutate():
 		var index = randi() % inactiveMutations.size()
 		var newMutation = inactiveMutations[index]
 		$Mutations.add_child(newMutation)
+		
+		if(newMutation.has_method("set_player")):
+			print("set player")
+			newMutation.set_player(player)
+		
 		activeMutations.append(newMutation)
 		inactiveMutations.remove(index)
 
