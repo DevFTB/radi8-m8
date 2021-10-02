@@ -1,11 +1,15 @@
-extends Node2D
+extends KinematicBody2D
 
-export(float) var speed = 5
+export(float) var speed = 40
 export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10;
+export (NodePath) var playerPath
 
-onready var navigation = get_node("/root/Map/Navigation2D")
-onready var player = get_node("/root/Player")
+onready var navigation = get_node("/root/Level/Map/Navigation2D")
+onready var player = get_node(playerPath)
+
+var path = null
+var velocity = Vector2.ZERO
 
 var attackTimer: float = 0.0
 var mutationTimer: float = 0.0
@@ -25,9 +29,6 @@ func _ready():
 		get_node("Mutations").remove_child(mut)
 	
 func _process(delta):
-	if(player != null): 
-		move(delta)
-	
 	attackTimer += delta
 	mutationTimer += delta
 	
@@ -39,7 +40,11 @@ func _process(delta):
 		mutationTimer = 0.0
 		mutate();
 
-	
+func _physics_process(delta):
+	if(player and navigation): 
+		genPath()
+		navigate()
+	move()
 		
 func attack():
 	var index = randi() % activeMutations.size()
@@ -58,14 +63,17 @@ func mutate():
 		get_node("Mutations").add_child(newMutation)
 		activeMutations.append(newMutation)
 		inactiveMutations.remove(index)
-		
 
-func move(delta):
-	var vectorArr = navigation.get_simple_path(get_global_position(), player.get_global_position())
-	var targetDir = vectorArr[0]
-	
-	var moveVec = targetDir * delta * speed
-	translate(moveVec)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func genPath():
+	if(navigation != null and player != null):
+		path = navigation.get_simple_path(get_global_position(), player.get_global_position())
+		
+func navigate():
+	if (path.size() > 0):
+		velocity = global_position.direction_to(path[1]) * speed
+		
+		if global_position == path[0]:
+			path.remove(0)
+
+func move():
+	velocity = move_and_slide(velocity)

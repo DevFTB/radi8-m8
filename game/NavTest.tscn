@@ -9,13 +9,17 @@
 extents = Vector2( 76.404, 41.2686 )
 
 [sub_resource type="NavigationPolygon" id=1]
+vertices = PoolVector2Array( 536.222, 275.398, 852.756, 472.952, 58.0535, 470.707, 381.322, 275.398, 852.415, -35.5399, 536.222, 194.581, 55.3155, -40.0348, 383.567, 196.826 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 1, 0, 5 ), PoolIntArray( 6, 4, 5, 7 ), PoolIntArray( 2, 6, 7, 3 ) ]
+outlines = [ PoolVector2Array( 55.3155, -40.0348, 852.415, -35.5399, 852.756, 472.952, 58.0535, 470.707 ), PoolVector2Array( 383.567, 196.826, 381.322, 275.398, 536.222, 275.398, 536.222, 194.581 ) ]
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Ground" type="Sprite" parent="Map"]
 position = Vector2( 399.263, 256.289 )
+z_index = -2
 texture = ExtResource( 1 )
 
 [node name="Rock" type="Node2D" parent="Map"]
@@ -38,7 +42,8 @@ texture = ExtResource( 2 )
 position = Vector2( -57.3981, 36.0407 )
 navpoly = SubResource( 1 )
 
-[node name="KinematicBody2D" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 167.061, 132.6 )
 
 [node name="LightEnemy" parent="." instance=ExtResource( 3 )]
+playerPath = NodePath("../Player")
