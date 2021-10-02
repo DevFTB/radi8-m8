@@ -1,17 +1,16 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Enemy/GatlingMutation.gd" type="Script" id=1]
-[ext_resource path="res://scripts/Enemy/ClawMutation.gd" type="Script" id=2]
+[ext_resource path="res://Assets/enemy/mutations/ClawMutation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/enemy/mutations/gatling mutation.png" type="Texture" id=3]
 [ext_resource path="res://Assets/enemy/skitterbug.png" type="Texture" id=4]
-[ext_resource path="res://assets/enemy/mutations/claw mutation.png" type="Texture" id=5]
 [ext_resource path="res://scripts/Enemy/Enemy.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.4904, 65.2148 )
 
 [node name="Skitterbug" type="KinematicBody2D"]
-position = Vector2( 498.187, 350.604 )
+position = Vector2( 375.277, 347.798 )
 script = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -19,6 +18,10 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="Mutations" type="Node2D" parent="."]
+
+[node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
+position = Vector2( -67.09, -24.6183 )
+scale = Vector2( 2, 2 )
 
 [node name="Gatling Mutation" type="Node2D" parent="Mutations"]
 position = Vector2( 0.643242, -25.921 )
@@ -29,15 +32,6 @@ position = Vector2( 28.9106, -25.2394 )
 scale = Vector2( 2, 2 )
 z_index = -1
 texture = ExtResource( 3 )
-
-[node name="ClawMutation" type="Node2D" parent="Mutations"]
-position = Vector2( -13.773, 3.44324 )
-script = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Mutations/ClawMutation"]
-position = Vector2( -82.8896, -55.2464 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.82123, 0.982574 )
