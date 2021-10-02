@@ -21,6 +21,7 @@ outlines = [ PoolVector2Array( 55.3155, -40.0348, 852.415, -35.5399, 852.756, 47
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 level_path = NodePath("Layout")
+player = NodePath("Player")
 
 [node name="Layout" type="Node2D" parent="."]
 
@@ -60,3 +61,5 @@ playerPath = NodePath("../Player")
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
 room_possibilities = [ ExtResource( 8 ), ExtResource( 7 ) ]
+
+[connection signal="door_collision" from="Player" to="." method="_on_Player_door_collision"]

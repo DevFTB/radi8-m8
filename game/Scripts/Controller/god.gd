@@ -3,6 +3,7 @@ extends Node
 signal move_player(x, y)
 export (NodePath) var room_controller_path
 export (NodePath) var level_path
+export (NodePath) var player
 var room_controller
 
 # Declare member variables here. Examples:
@@ -32,10 +33,10 @@ func change_room(door_x_index, door_y_index):
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass
+#	pass	
 
 
-func _on_KinematicBody2D_door_collision(tile_index):
+func _on_Player_door_collision(tile_index):
 	change_room(tile_index[0], tile_index[1])
-	emit_signal("move_player", 0, 0)
+	get_node(player).position = Vector2(300, 100)
 	

@@ -66,8 +66,9 @@ func change_room(door_x_index, door_y_index):
 	# refactor to not instansiate another scene if possible
 	var room_scene = get_current_room()
 	var door_locations = get_scene_door_locations(room_scene)
+	var tilemap = room_scene.get_node("TileMap")
 	for door in range(0, len(door_locations)):
-		if room_scene.world_to_map(door_locations[door])[0] == door_x_index and room_scene.world_to_map(door_locations[door])[1] == door_y_index:
+		if tilemap.world_to_map(door_locations[door])[0] == door_x_index and tilemap.world_to_map(door_locations[door])[1] == door_y_index:
 			var dir = door_to_dir[door]
 			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")

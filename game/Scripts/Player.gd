@@ -130,6 +130,7 @@ func move_process(delta):
 	
 	velocity = get_input_direction()
 	move_and_slide(velocity * movementSpeed)
+	check_collisions()
 	
 
 
@@ -173,9 +174,6 @@ func get_input_direction():
 
 	return velocity.normalized()
 	
-	velocity = velocity.normalized()
-	move_and_slide(velocity * movementSpeed)
-	check_collisions()
 	
 func check_collisions():
 	for i in get_slide_count():
@@ -184,7 +182,8 @@ func check_collisions():
 			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
 			var tile_id = collision.collider.get_cellv(tile_pos)
 			if tile_id == 3:
-				emit_signal("door_collision", [tile_pos[0], tile_pos[1]])
+				emit_signal("door_collision", tile_pos)
+				return
 				
 			
 
@@ -199,6 +198,3 @@ func on_invulnerability_end():
 
 func _on_Hurtbox_area_entered(area):
 	take_damage(area.damage)
-
-func _on_Node2D_move_player(x, y):
-	position = Vector2(x, y)
