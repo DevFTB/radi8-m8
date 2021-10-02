@@ -5,7 +5,6 @@ extends Node
 # var a = 2
 # var b = "text"
 
-const n_rooms = 10
 const room_path = "res://Assets/Rooms"
 enum Direction {TOP, RIGHT, BOTTOM, LEFT}
 const DoorPath = {
@@ -14,10 +13,14 @@ const DoorPath = {
 	"res://Assets/Doors/Bottom.tscn": Direction.BOTTOM,
 	"res://Assets/Doors/Left.tscn": Direction.LEFT
 }
+var visited = {}
+var room = {}
+var connections = {}
+var current_room = [0, 0]
+var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _init(n):
+	build_room_network(n);
 
 func allocate_room():
 	pass
@@ -43,12 +46,35 @@ func get_allowed_rooms():
 	
 	
 func get_room(x_index, y_index):
+	if not room.has([x_index, y_index]):
+		print("room does not exist")
+		return
 	# get correct room scene
-	var cur_room_path = get_allowed_rooms()[0]
+	var cur_room_path = room[[x_index, y_index]]
 	var new_room_scene = load(cur_room_path).instance()
 	replace_doors(new_room_scene, get_doors(x_index, y_index))
 	
 	return new_room_scene
+	
+func get_current_room():
+	return get_room(current_room[0], current_room[1])
+	
+func set_room(x_index, y_index):
+	current_room = [x_index, y_index]
+	print("room changed to " + str(x_index) + ", " + str(y_index))
+	return get_room(x_index, y_index)
+	
+# refactor to increase perfomance if necessary
+func change_room(door_x_index, door_y_index):
+	# refactor to not instansiate another scene if possible
+	var room_scene = get_current_room()
+	var door_locations = get_scene_door_locations(room_scene)
+	for door in range(0, len(door_locations)):
+		if room_scene.world_to_map(door_locations[door])[0] == door_x_index and room_scene.world_to_map(door_locations[door])[1] == door_y_index:
+			var dir = door_to_dir[door]
+			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
+	print("no valid doors found")
+	
 	
 func replace_doors(room_scene, doors):
 	var door_locations = get_scene_door_locations(room_scene)
@@ -68,10 +94,15 @@ func get_scene_door_locations(room_scene):
 	return door_locations
 	
 func get_doors(x_index, y_index):
-	return [1, 0, 0, 1]
+	return [1, 1, 1, 1]
 	
 func rebuild_room_connections():
 	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	
+func build_room_network(n):
+	var allowed_rooms = get_allowed_rooms()
+	for i in range(0, n):
+		for j in range(0, n):
+			visited[[i, j]] = 0
+			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+		
