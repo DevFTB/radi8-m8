@@ -1,30 +1,71 @@
 extends Node2D
 
+export(float) var speed = 5
+export(float) var attackPeriod = 3
+export(float) var mutationPeriod = 10;
 
-export (float) var firingSpeed = 5
-export (float) var burstAmount = 10;
+onready var navigation = get_node("/root/Map/Navigation2D")
+onready var player = get_node("/root/Player")
 
-var timer: float = 0.0;
-var burstCount: int = 0;
-var attacking: bool = false;
+var attackTimer: float = 0.0
+var mutationTimer: float = 0.0
+
+var mutations = []
+var activeMutations: Array
+var inactiveMutations: Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	print(get_children())
+	mutations = $Mutations.get_children()
+	
+	activeMutations.append(mutations[0])
+	inactiveMutations.append_array(mutations.slice(1, mutations.size()))
+	for mut in inactiveMutations:
+		print(mut)
+		get_node("Mutations").remove_child(mut)
+	
 func _process(delta):
-	timer += delta;
-	if(attacking && timer > 1 / firingSpeed):
-		fire();
-		timer = 0.0;
+	if(player != null): 
+		move(delta)
+	
+	attackTimer += delta
+	mutationTimer += delta
+	
+	if(attackTimer > attackPeriod):
+		attackTimer = 0.0
+		attack();
+		
+	if(mutationTimer > mutationPeriod):
+		mutationTimer = 0.0
+		mutate();
 
+	
+		
 func attack():
-	attacking = true;
+	var index = randi() % activeMutations.size()
+	var mutation = activeMutations[index]
+	
+	print("attempt an attack")
+	if(mutation.has_method("attack")):
+		mutation.attack()
+		
+func mutate():
+	print("attempt mutations")
+	if (activeMutations.size() < mutations.size()):
+		print("mutate")
+		var index = randi() % inactiveMutations.size()
+		var newMutation = inactiveMutations[index]
+		get_node("Mutations").add_child(newMutation)
+		activeMutations.append(newMutation)
+		inactiveMutations.remove(index)
+		
 
-func fire():
-	if(burstCount < burstAmount):
-		burstCount += 1
-		print(burstCount)
-		print("pew")
-	else:
-		attacking = false; 
-		burstCount = 0
+func move(delta):
+	var vectorArr = navigation.get_simple_path(get_global_position(), player.get_global_position())
+	var targetDir = vectorArr[0]
+	
+	var moveVec = targetDir * delta * speed
+	translate(moveVec)
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
