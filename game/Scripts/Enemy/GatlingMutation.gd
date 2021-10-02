@@ -37,7 +37,6 @@ func fire():
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
 		burstCount += 1
-<<<<<<< Updated upstream
 		
 		if(player):
 			
@@ -49,9 +48,6 @@ func fire():
 
 			owner.owner.add_child(b)
 		
-		
-=======
->>>>>>> Stashed changes
 	else:
 		attacking = false; 
 		burstCount = 0

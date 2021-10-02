@@ -1,17 +1,47 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/player/player.png" type="Texture" id=2]
+[ext_resource path="res://Assets/player/player idle.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/player/player run.png" type="Texture" id=5]
+[ext_resource path="res://Assets/player/man firing.png" type="Texture" id=6]
+[ext_resource path="res://Assets/player/player_spritesheet.png" type="Texture" id=7]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=18]
 radius = 7.59809
 height = 4.81401
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=19]
 radius = 7.2772
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 6 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 384, 0, 128, 128 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 5 )
@@ -53,13 +83,107 @@ region = Rect2( 1024, 0, 128, 128 )
 atlas = ExtResource( 5 )
 region = Rect2( 1152, 0, 128, 128 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ) ],
+"loop": true,
+"name": "fire",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "run",
 "speed": 15.0
 } ]
+
+[sub_resource type="Animation" id=31]
+resource_name = "fire"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13 ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "idle"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "run"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 29, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=34]
+animation = "fire"
+
+[sub_resource type="AnimationNodeAnimation" id=33]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=35]
+animation = "run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachine" id=29]
+states/fire/node = SubResource( 34 )
+states/fire/position = Vector2( 322, 183 )
+states/idle/node = SubResource( 33 )
+states/idle/position = Vector2( 244, 63 )
+states/run/node = SubResource( 35 )
+states/run/position = Vector2( 417, 73 )
+transitions = [ "idle", "run", SubResource( 36 ), "idle", "fire", SubResource( 37 ), "run", "idle", SubResource( 38 ), "fire", "idle", SubResource( 39 ), "run", "fire", SubResource( 41 ) ]
+start_node = "idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=30]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 5, 5 )
@@ -71,12 +195,7 @@ bullet = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.109076, 8.97259 )
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 2 )
+shape = SubResource( 18 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -88,12 +207,31 @@ collision_mask = 2
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0.0840881, 1.34543 )
-shape = SubResource( 2 )
+shape = SubResource( 19 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
 scale = Vector2( 0.3, 0.3 )
-frames = SubResource( 7 )
-animation = "run"
+frames = SubResource( 20 )
+animation = "fire"
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1, 1 )
+texture = ExtResource( 7 )
+hframes = 10
+vframes = 8
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fire = SubResource( 31 )
+anims/idle = SubResource( 28 )
+anims/run = SubResource( 32 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 29 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 30 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 

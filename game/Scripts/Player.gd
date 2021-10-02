@@ -21,7 +21,7 @@ export var invulnerabilityPeriod = 1
 
 export (PackedScene) var bullet
 var velocity : Vector2 = Vector2()
-var directionFacing : Vector2 = Vector2()
+var facingLeft : bool = false;
 export var dashDuration = 0.2;
 
 
@@ -43,7 +43,7 @@ var canHeavyAttack = true
 export(int) var max_health = 10
 var health = null setget set_health
 
-
+onready var animator: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
 
 func _enter_tree():
 	health = max_health
@@ -60,7 +60,6 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	print(state)
 	process_input()
 	match state:
 		MOVE:
@@ -76,23 +75,34 @@ func _physics_process(delta):
 
 func start_idling():
 	state = IDLE
-	$AnimatedSprite.stop()
 	
 func attack_process(delta):
 	pass
 
 func perform_attack():
+	#subject to change
 	state = ATTACK
+
+	animator.travel("fire")
 	canAttack = false
 	var b = bullet.instance()
 	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
 	owner.add_child(b)
 
-	b.transform = transform
+	b.position = position
+	b.rotation = (get_global_mouse_position() - position).normalized().angle()
 	var cooldownTimer = get_tree().create_timer(attackInterval)
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
+	if((b.fire_direction.x < 0 && !facingLeft) || (b.fire_direction.x > 0 && facingLeft)):
+		toggle_facing()
+	
+func toggle_facing():
+		$Sprite.set_flip_h(!facingLeft)
+		facingLeft = !facingLeft;
+		
 func perform_heavy_attack():
+	animator.travel("fire")
 	state = HEAVY_ATTACK
 	canHeavyAttack = false
 	var rng = RandomNumberGenerator.new()
@@ -108,19 +118,14 @@ func perform_heavy_attack():
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
 
-func on_action_complete():
-	state = IDLE
 
 func on_attack_cooldown_complete():
-	on_action_complete() #TODO: this needs to be based on animation, not cooldown.
 	canAttack = true
 	
 func on_heavy_attack_cooldown_complete():
-	on_action_complete()
 	canHeavyAttack = true
 	
 func on_dash_cooldown_complete():
-	on_action_complete()
 	canDash = true
 
 func process_input():
@@ -137,19 +142,21 @@ func process_input():
 	velocity = get_input_direction()
 	if(state == IDLE and velocity.length() > 0):
 		state = MOVE
+		animator.travel("run")
 	
 	
 	
 func move_process(delta):
-	if($AnimatedSprite.get_animation() != "run" or !$AnimatedSprite.is_playing()):
-		print("try running")
-		$AnimatedSprite.play("run")
-		
 	if(velocity.length() == 0):
 		start_idling()
 		
+	if(state != ATTACK):
+		if((velocity.x < 0 && !facingLeft) || (velocity.x > 0 && facingLeft)):
+			toggle_facing()
+		
 	move_and_slide(velocity * movementSpeed)
 	check_collisions()
+	
 	
 
 
@@ -177,16 +184,12 @@ func get_input_direction():
 	var velocity = Vector2(0, 0)
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
-		directionFacing.y = -1
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
-		directionFacing.y = 1
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1 
-		directionFacing.x = -1
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
-		directionFacing.x = 1 
 	return velocity.normalized()
 	
 	
