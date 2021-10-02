@@ -81,7 +81,7 @@ func replace_doors(room_scene, doors):
 	var tilemap = room_scene.get_node("TileMap")
 	for door in range(0, len(doors)):
 		if doors[door]:
-			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 3)
+			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 2)
 		
 	
 	
@@ -130,8 +130,6 @@ func build_connections():
 		if not connection_exists(newEdge[0], newEdge[1]):
 			add_connection(newEdge[0], newEdge[1])
 	
-	
-		
 func get_door_world_location(door):
 	var room_scene = get_current_room()
 	if(room_scene):
