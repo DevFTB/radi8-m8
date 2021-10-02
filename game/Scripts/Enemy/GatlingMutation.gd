@@ -1,8 +1,11 @@
 extends Node2D
 
+export (PackedScene) var bullet
 
 export (float) var firingSpeed = 5
 export (float) var burstAmount = 10;
+
+var player: Node2D = null
 
 var timer: float = 0.0;
 var burstCount: int = 0;
@@ -20,14 +23,26 @@ func _process(delta):
 
 func attack():
 	attacking = true;
+	
+func set_player(node):
+	player = node
 
 func fire():
 	if(burstCount < burstAmount):
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
 		burstCount += 1
-		print(burstCount)
-		print("pew")
+		
+		if(player):
+			
+			var b = bullet.instance()
+			b.position = $"Fire Point".position
+			b.fire_direction = (player.global_position - global_position).normalized()
+			owner.add_child(b)
+			print(burstCount)
+			print("pew")
+		
+		
 	else:
 		attacking = false; 
 		burstCount = 0

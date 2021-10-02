@@ -25,7 +25,7 @@ texture = ExtResource( 4 )
 [node name="Mutations" type="Node2D" parent="."]
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
-position = Vector2( 13.6579, -52.9515 )
+position = Vector2( 13.6579, -53.2852 )
 scale = Vector2( 2, 2 )
 z_index = -1
 

@@ -10,6 +10,7 @@ var attacking: bool = false;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.play("equip")
+	$Hitbox/CollisionShape2D.disabled = true
 
 	pass # Replace with function body.
 
@@ -22,7 +23,14 @@ func _process(delta):
 func attack():
 	$AnimatedSprite.set_speed_scale(attackSpeed);
 	attacking = true;
-
+	$Hitbox/CollisionShape2D.disabled = false
+	
+func cease():
+	$AnimatedSprite.set_speed_scale(1);
+	attacking = false; 
+	swipeCount = 0
+	$Hitbox/CollisionShape2D.disabled = true
+	
 func fire():
 	if(swipeCount < amountOfSwipes):
 		swipeCount += 1
@@ -31,6 +39,4 @@ func fire():
 		print(swipeCount)
 		print("swipe")
 	else:
-		$AnimatedSprite.set_speed_scale(1);
-		attacking = false; 
-		swipeCount = 0
+		cease()
