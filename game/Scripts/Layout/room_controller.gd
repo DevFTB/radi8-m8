@@ -21,6 +21,7 @@ var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
 const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
+export (int) var initial_edges = 150
 
 func get_allowed_rooms():
 #	var room_possibilities = []
@@ -114,13 +115,21 @@ func build_room_network(n):
 	build_connections()
 			
 func build_connections():
-	for room_idx in room.keys():
-		for neighbour in get_adjacent_rooms(room_idx):
-			add_connection(room_idx, neighbour)
 #	for room_idx in room.keys():
 #		for neighbour in get_adjacent_rooms(room_idx):
 #			add_connection(room_idx, neighbour)
-#	dfs_edge_add(current_room)
+	var possible_connections = []
+	for room_idx in room.keys():
+		for neighbour in get_adjacent_rooms(room_idx):
+			possible_connections.append([room_idx, neighbour])
+	possible_connections.shuffle()
+	
+	dfs_edge_add(current_room)
+	while len(connections.keys())/2 < initial_edges and len(possible_connections) > 0:
+		var newEdge = possible_connections.pop_back()
+		if not connection_exists(newEdge[0], newEdge[1]):
+			add_connection(newEdge[0], newEdge[1])
+	
 	
 		
 func get_door_world_location(door):
