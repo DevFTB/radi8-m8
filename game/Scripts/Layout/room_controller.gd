@@ -116,3 +116,27 @@ func get_door_world_location(door):
 		
 func get_last_exited_door():
 	return exited_door
+
+# i, j 2-tuples of room coordinates
+func add_connection(i, j):
+	connections[[i, j]] = true
+	connections[[j, i]] = true
+		
+func connection_exists(i, j):
+	if connections.has([i, j]):
+		return true
+	return false
+	
+func remove_connection(i, j):
+	connections.erase([i, j])
+	connections.erase([j, i])
+
+func get_neighbours(i):
+	var neighbours = []
+	for dir in door_to_dir.values():
+		var neighbour = [i[0] + dir[0], i[1] + dir[1]]
+		if connections.has([i, neighbour]):
+			neighbours.append(neighbour)
+	return neighbours
+			
+		
