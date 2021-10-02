@@ -51,13 +51,3 @@ position = Vector2( 167.061, 132.6 )
 collision_layer = 0
 collision_mask = 0
 playerPath = NodePath("../Player")
-
-[node name="FatMan" parent="." instance=ExtResource( 5 )]
-position = Vector2( 617.302, 118.366 )
-speed = 30.0
-playerPath = NodePath("../Player")
-
-[node name="Skitterbug" parent="." instance=ExtResource( 6 )]
-position = Vector2( 194.275, 423.229 )
-speed = 80.0
-playerPath = NodePath("../Player")
