@@ -67,3 +67,6 @@ __meta__ = {
 
 [node name="Layout" type="Node2D" parent="."]
 position = Vector2( -513.271, -292.436 )
+
+[connection signal="move_player" from="." to="KinematicBody2D" method="_on_Node2D_move_player"]
+[connection signal="door_collision" from="KinematicBody2D" to="." method="_on_KinematicBody2D_door_collision"]

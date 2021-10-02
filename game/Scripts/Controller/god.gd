@@ -1,5 +1,7 @@
 extends Node
 
+signal move_player(x, y)
+
 const RoomController = preload("res://Scripts/Layout/room_controller.gd")
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,11 +18,16 @@ func change_room(x_index, y_index):
 	var level = get_node("/root/Node2D/Layout")
 	for node in level.get_children():
 		node.queue_free()
-	print(room_controller.get_room(x_index, y_index))
 	level.add_child(room_controller.get_room(x_index, y_index))
-	print(level.get_children())
+	print("room changed")
 	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_KinematicBody2D_door_collision(tile_index):
+	change_room(tile_index[0], tile_index[1])
+	emit_signal("move_player", 0, 0)
+	
