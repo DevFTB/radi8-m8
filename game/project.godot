@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="radi8-m8"
+run/main_scene="res://MutationTest.tscn"
 config/icon="res://icon.png"
 
 [physics]
