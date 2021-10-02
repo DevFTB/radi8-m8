@@ -1,6 +1,63 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=1]
+[ext_resource path="res://Script/Player.gd" type="Script" id=1]
+[ext_resource path="res://Resources/zombie.png" type="Texture" id=2]
+[ext_resource path="res://Script/HealthUI.gd" type="Script" id=3]
+[ext_resource path="res://Resources/radiation-in-heart-shape_14101`123123123580.png" type="Texture" id=4]
+[ext_resource path="res://Resources/radiation-in-heart-shape_1410580.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 513.271, 292.436 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+scale = Vector2( 5, 5 )
 script = ExtResource( 1 )
+movementSpeed = 250
+max_health = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( 5.21541e-08, -0.315338 )
+scale = Vector2( 0.313487, 0.313487 )
+texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
+smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+player_path = NodePath("../../KinematicBody2D")
+
+[node name="HeartEmpty" type="TextureRect" parent="CanvasLayer/Control"]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 266.0
+margin_bottom = 65.0
+texture = ExtResource( 5 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartFull" type="TextureRect" parent="CanvasLayer/Control"]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 138.0
+margin_bottom = 65.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
