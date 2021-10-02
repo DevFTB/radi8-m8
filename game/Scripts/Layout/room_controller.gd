@@ -97,7 +97,13 @@ func get_scene_door_locations(room_scene):
 	return door_locations
 	
 func get_doors(x_index, y_index):
-	return [1, 1, 1, 1]
+	var doors = [0, 0, 0, 0]
+	for door in door_to_dir.keys():
+		var dir = door_to_dir[door]
+		var neighbour = [x_index + dir[0], y_index + dir[1]]
+		if connections.has([[x_index, y_index], neighbour]):
+			doors[door] = 1
+	return doors
 	
 func rebuild_room_connections():
 	pass
@@ -108,7 +114,14 @@ func build_room_network(n):
 		for j in range(0, n):
 			visited[[i, j]] = 0
 			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+	build_connections()
 			
+func build_connections():
+	for room_idx in room.keys():
+		for neighbour in get_adjacent_rooms(room_idx):
+			add_connection(room_idx, neighbour)
+	
+		
 func get_door_world_location(door):
 	var room_scene = get_current_room()
 	if(room_scene):
@@ -139,4 +152,10 @@ func get_neighbours(i):
 			neighbours.append(neighbour)
 	return neighbours
 			
-		
+func get_adjacent_rooms(i):
+	var neighbours = []
+	for dir in door_to_dir.values():
+		var neighbour = [i[0] + dir[0], i[1] + dir[1]]
+		if room.has(neighbour):
+			neighbours.append(neighbour)
+	return neighbours
