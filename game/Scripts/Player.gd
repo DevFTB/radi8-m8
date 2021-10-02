@@ -1,4 +1,4 @@
-extends KinematicBody2D
+xtends KinematicBody2D
 
 
 # Declare member variables here. Examples:
@@ -52,7 +52,7 @@ func _physics_process(delta):
 
 
 func set_health(value):
-	health = clamp(health, 0, max_health)
+	health = clamp(value, 0, max_health)
 	emit_signal("health_changed")
 	if (health == 0):
 		emit_signal("no_health")
