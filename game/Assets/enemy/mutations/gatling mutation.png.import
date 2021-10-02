@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/radiation-in-heart-shape_1410580.png-e4612909b381404120dfe2363066580a.stex"
+path="res://.import/gatling mutation.png-aec93ddbab6b97626cd414ff685c873d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/radiation-in-heart-shape_1410580.png"
-dest_files=[ "res://.import/radiation-in-heart-shape_1410580.png-e4612909b381404120dfe2363066580a.stex" ]
+source_file="res://Assets/enemy/mutations/gatling mutation.png"
+dest_files=[ "res://.import/gatling mutation.png-aec93ddbab6b97626cd414ff685c873d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

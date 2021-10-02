@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=6 format=2]
+[gd_resource type="TileSet" load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Tiles/green_square.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles/blue_square.png" type="Texture" id=2]
@@ -7,7 +7,11 @@
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 
 [resource]
@@ -21,7 +25,7 @@ points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 1/autotile/tile_size = Vector2( 64, 64 )
 1/autotile/spacing = 0
 1/autotile/occluder_map = [  ]
-1/autotile/navpoly_map = [  ]
+1/autotile/navpoly_map = [ Vector2( 0, 0 ), SubResource( 3 ) ]
 1/autotile/priority_map = [  ]
 1/autotile/z_index_map = [  ]
 1/occluder_offset = Vector2( 0, 0 )

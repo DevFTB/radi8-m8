@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Resources/zombie.png" type="Texture" id=2]
+[ext_resource path="res://Assets/player/zombie.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/HealthUI.gd" type="Script" id=3]
-[ext_resource path="res://Resources/radiation-in-heart-shape_14101`123123123580.png" type="Texture" id=4]
-[ext_resource path="res://Resources/radiation-in-heart-shape_1410580.png" type="Texture" id=5]
+[ext_resource path="res://Assets/player/radiation-in-heart-shape_14101`123123123580.png" type="Texture" id=4]
+[ext_resource path="res://Assets/player/radiation-in-heart-shape_1410580.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Layout/room_controller.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Rooms/room_1.tscn" type="PackedScene" id=8]
@@ -23,7 +23,6 @@ scale = Vector2( 5, 5 )
 z_index = 1
 script = ExtResource( 1 )
 movementSpeed = 250
-max_health = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 shape = SubResource( 1 )
@@ -46,7 +45,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-player_path = NodePath("../../KinematicBody2D")
 
 [node name="HeartEmpty" type="TextureRect" parent="CanvasLayer/Control"]
 margin_left = 10.0

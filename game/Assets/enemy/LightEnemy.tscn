@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/enemy/mutations/Gatling Mutation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/enemy/mutations/ClawMutation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/enemy/zombie.png" type="Texture" id=4]
+[ext_resource path="res://scripts/Enemy/Enemy.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 38.9888, 26.9597 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 35.7179
+height = 52.6489
+
+[node name="LightEnemy" type="KinematicBody2D"]
+position = Vector2( 498.187, 350.604 )
+script = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="Mutations" type="Node2D" parent="."]
+
+[node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
+position = Vector2( 13.6579, -52.9515 )
+scale = Vector2( 2, 2 )
+z_index = -1
+
+[node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
+position = Vector2( -79.514, -28.2592 )
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -3.25598, 36.7954 )
+shape = SubResource( 1 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 7 )]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 4.23785, 2.11896 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
+[editable path="Hurtbox"]

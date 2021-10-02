@@ -10,6 +10,7 @@ var room_controller
 # var b = "text"
 const n_rooms = 10
 var level
+var navmesh = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +26,7 @@ func change_room(door_x_index, door_y_index):
 	for node in level.get_children():
 		node.queue_free()
 	level.add_child(room_controller.change_room(door_x_index, door_y_index))
+	
 	
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
