@@ -22,10 +22,6 @@ const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 
-func allocate_room():
-	pass
-
-#todo: ensure directory checking works in build project, pass in rooms as array in inspector?
 func get_allowed_rooms():
 #	var room_possibilities = []
 #	var dir = Directory.new()
@@ -109,6 +105,7 @@ func rebuild_room_connections():
 	pass
 	
 func build_room_network(n):
+	randomize()
 	var allowed_rooms = get_allowed_rooms()
 	for i in range(0, n):
 		for j in range(0, n):
@@ -120,6 +117,10 @@ func build_connections():
 	for room_idx in room.keys():
 		for neighbour in get_adjacent_rooms(room_idx):
 			add_connection(room_idx, neighbour)
+#	for room_idx in room.keys():
+#		for neighbour in get_adjacent_rooms(room_idx):
+#			add_connection(room_idx, neighbour)
+#	dfs_edge_add(current_room)
 	
 		
 func get_door_world_location(door):
@@ -129,6 +130,16 @@ func get_door_world_location(door):
 		
 func get_last_exited_door():
 	return exited_door
+	
+func dfs_edge_add(v, dfs_visited={}):
+	dfs_visited[v] = true
+	var neighbours = get_adjacent_rooms(v)
+	neighbours.shuffle()
+	for neighbour in neighbours:
+		if not dfs_visited.has(neighbour):
+			add_connection(v, neighbour)
+			dfs_edge_add(neighbour, dfs_visited)
+	
 
 # i, j 2-tuples of room coordinates
 func add_connection(i, j):
