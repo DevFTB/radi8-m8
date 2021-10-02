@@ -12,11 +12,12 @@ script = ExtResource( 2 )
 speed = 40
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.238873, 0.238873 )
+position = Vector2( 0.0371606, 0.0557449 )
+scale = Vector2( 0.0565434, 0.0513174 )
 texture = ExtResource( 1 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]
-collision_layer = 16
+collision_layer = 2
 collision_mask = 16
 damage = 1.0
 

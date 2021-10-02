@@ -34,9 +34,13 @@ func cease():
 func fire():
 	if(swipeCount < amountOfSwipes):
 		swipeCount += 1
+<<<<<<< Updated upstream
+
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
 		print(swipeCount)
 		print("swipe")
+=======
+>>>>>>> Stashed changes
 	else:
 		cease()

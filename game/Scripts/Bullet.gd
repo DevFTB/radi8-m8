@@ -18,3 +18,7 @@ var fire_direction = Vector2()
 
 func _physics_process(delta):
 	position += fire_direction * speed
+
+
+func _on_Hitbox_area_entered(area):
+	queue_free() # Replace with function body.
