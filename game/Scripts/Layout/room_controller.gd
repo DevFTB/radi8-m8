@@ -81,8 +81,24 @@ func replace_doors(room_scene, doors):
 	var tilemap = room_scene.get_node("TileMap")
 	for door in range(0, len(doors)):
 		if doors[door]:
-			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 2)
-		
+#			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 2)
+			add_door_to_tilemap(tilemap, door_locations[door], door)
+
+# doors this code is poo soz
+# duplicate doors to make version 1 with offset 0 and 1 with offset -64
+func add_door_to_tilemap(tilemap, loc, door):
+	var idx = tilemap.world_to_map(loc)
+	match door:
+		0:
+			tilemap.set_cellv(idx, 2)
+		1:
+			tilemap.set_cellv(idx, 3, true, false, true)
+		2:
+			tilemap.set_cellv(idx, 3, true, true, false)
+		3:
+			tilemap.set_cellv(idx, 2, false, true, true)
+		_:
+			print(door, " is not a valid door value")
 	
 	
 
