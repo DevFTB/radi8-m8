@@ -27,12 +27,13 @@ export var dashDuration = 0.2;
 var dashDir = Vector2()
 
 enum {
+	IDLE,
 	MOVE,
 	DASH,
 	ATTACK,
 	HEAVY_ATTACK
 }
-var state = MOVE
+var state = IDLE
 var canAttack = true
 var canDash = true
 var canHeavyAttack = true
@@ -56,6 +57,8 @@ func _process(delta):
 
 
 func _physics_process(delta):
+	print(state)
+	process_input()
 	match state:
 		MOVE:
 			move_process(delta)
@@ -68,6 +71,10 @@ func _physics_process(delta):
 			dash_process(delta)
 
 
+func start_idling():
+	state = IDLE
+	$AnimatedSprite.stop()
+	
 func attack_process(delta):
 	pass
 
@@ -101,7 +108,7 @@ func perform_heavy_attack():
 
 
 func on_action_complete():
-	state = MOVE
+	state = IDLE
 
 func on_attack_cooldown_complete():
 	on_action_complete() #TODO: this needs to be based on animation, not cooldown.
@@ -115,8 +122,7 @@ func on_dash_cooldown_complete():
 	on_action_complete()
 	canDash = true
 
-	
-func move_process(delta):
+func process_input():
 	if Input.is_action_pressed("attack"):
 		if (canAttack):
 			perform_attack()
@@ -126,8 +132,21 @@ func move_process(delta):
 	if Input.is_action_pressed("dash"):
 		if (canDash):
 			perform_dash()
-	
+			
 	velocity = get_input_direction()
+	if(state == IDLE and velocity.length() > 0):
+		state = MOVE
+	
+	
+	
+func move_process(delta):
+	if($AnimatedSprite.get_animation() != "run" or !$AnimatedSprite.is_playing()):
+		print("try running")
+		$AnimatedSprite.play("run")
+		
+	if(velocity.length() == 0):
+		start_idling()
+		
 	move_and_slide(velocity * movementSpeed)
 	
 
@@ -168,8 +187,7 @@ func get_input_direction():
 		directionFacing.x = -1
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
-		directionFacing.x = 1
-
+		directionFacing.x = 1 
 	return velocity.normalized()
 	
 
@@ -183,5 +201,5 @@ func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
 
 func _on_Hurtbox_area_entered(area):
-	print("somebody touch player hut box")
+	print("somebody touch player hut box ")
 	take_damage(area.damage)

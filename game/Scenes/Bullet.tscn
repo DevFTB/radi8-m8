@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 1.61262
 
-[node name="Area2D" type="Node2D"]
+[node name="Area2D2" type="Node2D"]
 script = ExtResource( 2 )
 speed = 40
 
