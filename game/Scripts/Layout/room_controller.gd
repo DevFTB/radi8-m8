@@ -24,7 +24,6 @@ var room = {}
 var connections = {}
 var current_room = [0, 0]
 var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
-var mutation_level = {}
 
 const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
@@ -266,9 +265,6 @@ func get_adjacent_rooms(i):
 		if room.has(neighbour):
 			neighbours.append(neighbour)
 	return neighbours
-
-func get_current_mutation():
-	return mutation_level[current_room]
 
 ## todo
 #func get_current_room_instance():
