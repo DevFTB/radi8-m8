@@ -7,7 +7,8 @@ export(float) var speed = 40
 export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10
 export(int) var max_health = 5
-export(int) var engagementRadius = 100
+export(int) var engagementRadius = 170
+export(float) var dispersion_factor = 2000
 
 export (PackedScene) var deathSplosion
 export (NodePath) var playerPath
@@ -34,10 +35,13 @@ enum {
 	RIGHT
 }
 
+var enemies
+
 var horizontal_dir = LEFT
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
+	enemies = get_tree().get_nodes_in_group("Enemy")
 	print(get_children())
 	mutations = $Mutations.get_children()
 	
@@ -46,6 +50,12 @@ func _ready():
 	if(activeMutations[0].has_method("set_player")):
 			print("set player")
 			activeMutations[0].set_player(player)
+			
+	if(activeMutations[0].has_method("set_owner")):
+		print("set owner")
+		activeMutations[0].set_owner(self)
+	
+	activeMutations[0].equip()
 	
 	inactiveMutations.append_array(mutations.slice(1, mutations.size()))
 
@@ -91,7 +101,7 @@ func mutate():
 		var index = randi() % inactiveMutations.size()
 		var newMutation = inactiveMutations[index]
 		$Mutations.add_child(newMutation)
-		
+
 		if(newMutation.has_method("set_player")):
 			print("set player")
 			newMutation.set_player(player)
@@ -99,6 +109,8 @@ func mutate():
 		if(newMutation.has_method("set_owner")):
 			print("set owner")
 			newMutation.set_owner(self)
+			
+		newMutation.equip() 
 		
 		activeMutations.append(newMutation)
 		inactiveMutations.remove(index)
@@ -118,7 +130,9 @@ func set_move_speed(multiplier):
 	speed *= multiplier;
 
 func move():
-	if(!((global_position + velocity) - player.get_global_position()).length() < engagementRadius):
+	var distance_to_player = get_global_position().distance_to(player.get_global_position())
+	velocity += get_dispersion_velocity()
+	if(distance_to_player > engagementRadius):
 		velocity = move_and_slide(velocity)
 	
 func take_damage(value):
@@ -161,3 +175,11 @@ func play_sound(audio):
 	$Sound.set_stream(audio)
 	$Sound.play()
 
+func get_dispersion_velocity():
+	var result = Vector2()
+	for enemy in enemies:
+		if enemy != self:
+			var vector = get_global_position() - enemy.get_global_position()
+			result += vector.normalized() * dispersion_factor * 1/vector.length()
+			
+	return result
