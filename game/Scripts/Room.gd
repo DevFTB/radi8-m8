@@ -13,9 +13,12 @@ export (Array, int) var quantity
 func _ready():
 	pass # Replace with function body.
 
-func init_room():
+func init_room(visited, tier, prev_state):
 	pass
 
+
+func get_state():
+	return null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

@@ -24,7 +24,6 @@ func _ready():
 	pass # Replace with function body.
 
 func _process(delta):
-	print(timer)
 	if(detonating):
 		timer += delta;
 		
@@ -33,7 +32,6 @@ func _process(delta):
 
 func attack():
 	if(!detonating):
-		print("bring on the destruction")
 		timer = 0
 		detonating = true
 		
@@ -45,7 +43,6 @@ func attack():
 		#$AnimatedSprite.set_speed_scale(amntOfFrames / detonationTime)
 
 func fire():
-	print("kabloom")
 	var areas = $Area2D.get_overlapping_areas()
 	
 	var instance = explosion.instance()

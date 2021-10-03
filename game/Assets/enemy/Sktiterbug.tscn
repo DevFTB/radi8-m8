@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/enemy/mutations/gatling/Gatling Mutation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/enemy/mutations/claw/ClawMutation.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scripts/Enemy/Enemy.gd" type="Script" id=6]
 [ext_resource path="res://Assets/enemy/mutations/detonation/detonation mutation.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/MeatExplosion.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/skitterhurt.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/skitterdeath.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.4904, 26.9042 )
@@ -19,7 +21,12 @@ radius = 65.0602
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
+speed = 230.0
+attackPeriod = 2.5
+mutationPeriod = 12.0
 deathSplosion = ExtResource( 8 )
+hurtSounds = [ ExtResource( 9 ) ]
+deathSound = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -53,5 +60,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
 
 [editable path="Hurtbox"]

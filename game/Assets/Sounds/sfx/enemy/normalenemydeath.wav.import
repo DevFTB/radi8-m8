@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/normalenemydeath.wav-4cf60eb084c0a093d670e3d054580b85.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/normalenemydeath.wav"
+dest_files=[ "res://.import/normalenemydeath.wav-4cf60eb084c0a093d670e3d054580b85.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
