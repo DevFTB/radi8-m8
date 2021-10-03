@@ -12,7 +12,14 @@ const DoorPath = {
 	"res://Assets/Doors/Bottom.tscn": Direction.BOTTOM,
 	"res://Assets/Doors/Left.tscn": Direction.LEFT
 }
-var visited = {}
+
+enum {
+	SHOP, 
+	TIER1,
+	TIER2,
+	TIER3
+}
+
 var room = {}
 var connections = {}
 var current_room = [0, 0]
@@ -22,9 +29,11 @@ const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 export (PackedScene) var shop
+export var shop_chance = 0.1
 export (int) var initial_edges = 150
 export (int) var mutate_edge_num = 10
 var possible_connections = []
+var room_info = {}
 
 const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
 
@@ -53,7 +62,7 @@ func get_room(x_index, y_index):
 		print("room does not exist", x_index, y_index)
 		return
 	# get correct room scene
-	var room_packedscene = room[[x_index, y_index]]
+	var room_packedscene = room[[x_index, y_index]].scene
 	var new_room_scene = room_packedscene.instance()
 #	replace_doors(new_room_scene, get_doors(x_index, y_index))
 	var tile_map = new_room_scene.get_node("TileMap")
@@ -67,10 +76,14 @@ func get_current_room():
 func set_room(x_index, y_index):
 	current_room = [x_index, y_index]
 	print("room changed to " + str(x_index) + ", " + str(y_index))
-	return get_room(x_index, y_index)
+	var this_room = get_room(x_index, y_index)
+	return this_room
 	
 func change_room(tile_name):
 	# refactor to not instansiate another scene if possible
+
+	var curr = room[current_room]
+	curr["state"] =	get_parent().room.get_state()
 	var room_scene = get_current_room()
 	var door = door_tile_names.find(tile_name)
 	if(door != -1):
@@ -167,8 +180,10 @@ func build_room_network(n):
 	var allowed_rooms = get_allowed_rooms()
 	for i in range(0, n):
 		for j in range(0, n):
-			visited[[i, j]] = 0
-			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+			if (randf() < shop_chance):
+				room[[i, j]] = {"scene": shop, "type": SHOP, "visited": false, "state": null}
+			else:
+				room[[i, j]] =  {"scene": allowed_rooms[randi() % len(allowed_rooms)], "type": TIER1, "visited": false, "state": null}
 	
 	for room_idx in room.keys():
 		for neighbour in get_adjacent_rooms(room_idx):

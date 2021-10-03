@@ -19,12 +19,9 @@ position = Vector2( -3, 0.178 )
 scale = Vector2( 1.3624, 1.3624 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" parent="Item" index="3"]
+[node name="CollisionShape2D" parent="Item" index="4"]
 position = Vector2( 0.165283, -3.21314 )
 shape = SubResource( 1 )
-
-[node name="shadow" parent="Item" index="4"]
-position = Vector2( 0, 30 )
 
 [connection signal="body_entered" from="Item" to="Item" method="_on_Item_area_entered"]
 
