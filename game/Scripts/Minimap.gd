@@ -7,7 +7,6 @@ export (Color) var connection_colour = "#FFFF00"
 
 onready var room_controller = get_node(room_controller_path)
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -30,19 +29,44 @@ func _draw():
 		for j in range(0, n_rooms):
 			draw_rect(Rect2(current_x, current_y, room_width, -room_height), room_colour)
 			
-			if(room_controller.connection_exists([i, j], [i+1, j])):
-				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), connection_colour)
-			if(room_controller.connection_exists([i, j], [i, j+1])):
+#			if(room_controller.connection_exists([i, j], [i+1, j])):
+#				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), connection_colour)
+#			if(room_controller.connection_exists([i, j], [i, j+1])):
+#				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), connection_colour)
+			var removed = room_controller.connection_removed([i, j], [i+1, j])
+			var colour
+			var draw = false
+			if(room_controller.connection_added([i, j], [i+1, j]) and not removed):
+				colour = "#00FF00"
+				draw = true
+			elif(room_controller.connection_exists([i, j], [i+1, j])):
+				colour = connection_colour
+				draw = true
+			elif(removed):
+				print("red")
+				colour = "#FF0000"
+				draw = true
+			if draw:
+				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), colour)
+
+			removed = room_controller.connection_removed([i, j], [i, j+1])
+			draw = false
+			if(room_controller.connection_added([i, j], [i, j+1]) and not removed):
+				colour = "#00FF00"
+				draw = true
+			elif(room_controller.connection_exists([i, j], [i, j+1])):
+				colour = connection_colour
+				draw = true
+			elif(removed):
+				colour = "#FF0000"
+				draw = true
+			if draw:
 				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), connection_colour)
+				
 			current_y -= room_padding + room_height
-			
-			
-		
-		print("looppassed")	
 		
 		current_x += room_padding + room_width
 		
-	print("done")
+
 	
-#func _process(delta):
-#	update()
+	
