@@ -12,7 +12,7 @@ height = 4.81401
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 7.2772
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=3]
 resource_name = "dash"
 length = 0.5
 step = 0.05
@@ -29,7 +29,7 @@ tracks/0/keys = {
 "values": [ 30, 30, 31, 32, 33, 34, 34 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=4]
 resource_name = "fire"
 length = 0.5
 loop = true
@@ -47,7 +47,7 @@ tracks/0/keys = {
 "values": [ 10, 11, 12, 13 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=5]
 resource_name = "idle"
 length = 1.8
 loop = true
@@ -64,7 +64,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=6]
 resource_name = "run"
 loop = true
 tracks/0/type = "value"
@@ -80,53 +80,53 @@ tracks/0/keys = {
 "values": [ 29, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=36]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "dash"
 
-[sub_resource type="AnimationNodeAnimation" id=24]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "fire"
 
-[sub_resource type="AnimationNodeAnimation" id=25]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=26]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "run"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
 priority = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
 priority = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
 priority = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 switch_mode = 2
 auto_advance = true
 
-[sub_resource type="AnimationNodeStateMachine" id=32]
-states/dash/node = SubResource( 36 )
+[sub_resource type="AnimationNodeStateMachine" id=19]
+states/dash/node = SubResource( 7 )
 states/dash/position = Vector2( 609.408, 145 )
-states/fire/node = SubResource( 24 )
+states/fire/node = SubResource( 8 )
 states/fire/position = Vector2( 321, 198 )
-states/idle/node = SubResource( 25 )
+states/idle/node = SubResource( 9 )
 states/idle/position = Vector2( 245, 63 )
-states/run/node = SubResource( 26 )
+states/run/node = SubResource( 10 )
 states/run/position = Vector2( 417, 73 )
-transitions = [ "idle", "run", SubResource( 27 ), "idle", "fire", SubResource( 28 ), "run", "idle", SubResource( 29 ), "fire", "idle", SubResource( 30 ), "run", "fire", SubResource( 31 ), "fire", "run", SubResource( 34 ), "run", "dash", SubResource( 37 ), "dash", "run", SubResource( 38 ) ]
+transitions = [ "idle", "run", SubResource( 11 ), "idle", "fire", SubResource( 12 ), "run", "idle", SubResource( 13 ), "fire", "idle", SubResource( 14 ), "run", "fire", SubResource( 15 ), "fire", "run", SubResource( 16 ), "run", "dash", SubResource( 17 ), "dash", "run", SubResource( 18 ) ]
 start_node = "idle"
 graph_offset = Vector2( 96.4077, 0 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 3.5, 3.5 )
@@ -157,20 +157,20 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
-frame = 26
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/dash = SubResource( 35 )
-anims/fire = SubResource( 21 )
-anims/idle = SubResource( 22 )
-anims/run = SubResource( 23 )
+anims/dash = SubResource( 3 )
+anims/fire = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/run = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 32 )
+tree_root = SubResource( 19 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 33 )
+parameters/playback = SubResource( 20 )
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
+[connection signal="damage" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
 
 [editable path="Hurtbox"]

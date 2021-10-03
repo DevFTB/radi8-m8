@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/claw mutation.png-fd0bb265b18aec9dd66c67b8d87b9c5f.stex"
+path="res://.import/claw mutation.png-15507abe6e4820b78a5ee22a7373ac64.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/enemy/mutations/claw mutation.png"
-dest_files=[ "res://.import/claw mutation.png-fd0bb265b18aec9dd66c67b8d87b9c5f.stex" ]
+source_file="res://Assets/enemy/mutations/claw/claw mutation.png"
+dest_files=[ "res://.import/claw mutation.png-15507abe6e4820b78a5ee22a7373ac64.stex" ]
 
 [params]
 

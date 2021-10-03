@@ -237,6 +237,7 @@ func take_damage(value):
 func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
 
-func _on_Hurtbox_area_entered(area):
+func _on_Hurtbox_damage(source):
 	print("somebody touch player hut box ")
-	take_damage(area.damage)
+	if("damage" in source):
+		take_damage(source.damage)
