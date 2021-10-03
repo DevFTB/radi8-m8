@@ -21,6 +21,7 @@ var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
 const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
+export (PackedScene) var shop
 export (int) var initial_edges = 150
 export (int) var mutate_edge_num = 10
 var possible_connections = []

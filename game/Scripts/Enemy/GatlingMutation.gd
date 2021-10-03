@@ -44,7 +44,9 @@ func fire():
 			b.position = $"Fire Point".global_position
 			b.fire_direction = (player.global_position - global_position).normalized()
 
-			owner.owner.add_child(b)
+			owner.get_parent().add_child(b)
+
+			b.look_at(player.global_position)
 		
 	else:
 		attacking = false; 

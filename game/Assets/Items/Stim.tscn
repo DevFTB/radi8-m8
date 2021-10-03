@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Items/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Items/Buff.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Items/Shield.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 27.0677
+height = 13.4265
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+value = 0.2
+buff_type = "dodge_chance"
+
+[node name="Item" parent="." instance=ExtResource( 1 )]
+cost = 5
+
+[node name="Sprite" parent="Item" index="0"]
+position = Vector2( 1.76773, 4.59625 )
+scale = Vector2( 1.34251, 1.34251 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="Item" index="3"]
+position = Vector2( 0.165283, -3.21314 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Item" to="Item" method="_on_Item_area_entered"]
+
+[editable path="Item"]

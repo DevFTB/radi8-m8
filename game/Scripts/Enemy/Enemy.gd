@@ -7,6 +7,7 @@ export(float) var speed = 40
 export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10
 export(int) var max_health = 5
+export(int) var engagementRadius = 100
 export (NodePath) var playerPath
 
 onready var navigation = get_parent().room
@@ -47,6 +48,9 @@ func _ready():
 		print(mut)
 		$Mutations.remove_child(mut)
 	
+	$Hurtbox.connect("damage", self, "_on_Hurtbox_damage")
+	$Hurtbox.connect("area_entered", self, "_on_Hurtbox_damage")
+	
 func _process(delta):
 	attackTimer += delta
 	mutationTimer += delta
@@ -86,6 +90,10 @@ func mutate():
 		if(newMutation.has_method("set_player")):
 			print("set player")
 			newMutation.set_player(player)
+			
+		if(newMutation.has_method("set_owner")):
+			print("set owner")
+			newMutation.set_owner(self)
 		
 		activeMutations.append(newMutation)
 		inactiveMutations.remove(index)
@@ -100,9 +108,13 @@ func navigate():
 		
 		if global_position == path[0]:
 			path.remove(0)
+			
+func set_move_speed(multiplier):
+	speed *= multiplier;
 
 func move():
-	velocity = move_and_slide(velocity)
+	if(!((global_position + velocity) - player.get_global_position()).length() < engagementRadius):
+		velocity = move_and_slide(velocity)
 	
 func take_damage(value):
 	set_health(health - value)
@@ -114,8 +126,9 @@ func set_health(value):
 		emit_signal("no_health")
 		die()
 
-func _on_Hurtbox_area_entered(area):
-	take_damage(area.damage)
+func _on_Hurtbox_damage(area):
+	if("damage" in area):
+		take_damage(area.damage)
 
 func die():
 	queue_free()
