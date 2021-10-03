@@ -49,7 +49,7 @@ func change_room(tile_name):
 	match door:
 		0: door_offset = 256
 		3: door_offset = 128
-	get_node(player).global_position = room.get_node("TileMap").get_door_world_location(door) + ((spawn_offset + door_offset) * spawn_offset_dir[door])
+	player.global_position = room.get_node("TileMap").get_door_world_location(door) + ((spawn_offset + door_offset) * spawn_offset_dir[door])
 	
 	
 		
