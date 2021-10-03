@@ -9,7 +9,7 @@ export (Array, PackedScene) var enemies
 export (Array, int) var quantity
 
 export (Array, String) var spawnable_tile_names = ["floors"]
-export (int) var min_spawn_distance = 50
+export (int) var min_spawn_distance = 500
 
 export (NodePath) var root
 
@@ -41,7 +41,9 @@ func spawn_enemies(mutation_level):
 			spawn(enemy, mutation_level)
 
 func spawn(enemy_scene, mutation_level):
-	var root = get_tree().get_root().get_node("Node2D2")
+	var root = get_tree().get_root().get_children()[0]
+#	var player = root.player
+#	var loc = find_spawn_tile(player.global_position)
 	var loc = find_spawn_tile()
 	if loc:
 		var enemy = enemy_scene.instance()
@@ -50,11 +52,11 @@ func spawn(enemy_scene, mutation_level):
 		root.spawn(enemy, loc)
 		
 
-# non collision tiles and far enough away from player
+# player distance spawning not currently working as spawns occur before player moved
 func find_spawn_tile():
 	while len(spawnable_tiles) > 0:
 		var spawn_tile = $TileMap.map_to_world(spawnable_tiles.pop_back())
-#		if spawn_tile.distance_to()
+#		if spawn_tile.distance_to(player_pos) >= min_spawn_distance:
 		return spawn_tile
 		 
 	
