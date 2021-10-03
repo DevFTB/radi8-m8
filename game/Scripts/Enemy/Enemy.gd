@@ -122,7 +122,6 @@ func genPath():
 func navigate():
 	if (path.size() > 0):
 		velocity = global_position.direction_to(path[1]) * speed
-		
 		if global_position == path[0]:
 			path.remove(0)
 			
@@ -131,7 +130,13 @@ func set_move_speed(multiplier):
 
 func move():
 	var distance_to_player = get_global_position().distance_to(player.get_global_position())
-	velocity += get_dispersion_velocity()
+	var dispersion_velocity = get_dispersion_velocity()
+	var dot_product = velocity.dot(dispersion_velocity)
+	if (dot_product > 0):
+		velocity += dispersion_velocity - dispersion_velocity.project(velocity)
+	else:
+		velocity += dispersion_velocity  
+	
 	if(distance_to_player > engagementRadius):
 		velocity = move_and_slide(velocity)
 	
@@ -178,7 +183,7 @@ func play_sound(audio):
 func get_dispersion_velocity():
 	var result = Vector2()
 	for enemy in enemies:
-		if enemy != self:
+		if is_instance_valid(enemy) && enemy != self:
 			var vector = get_global_position() - enemy.get_global_position()
 			result += vector.normalized() * dispersion_factor * 1/vector.length()
 			
