@@ -28,10 +28,10 @@ func _ready():
 	level.add_child(room)
 	pass # Replace with function body.
 
-func change_room(door_x_index, door_y_index):
+func change_room(tile_name):
 	for node in level.get_children():
 		node.queue_free()
-	room = room_controller.change_room(door_x_index, door_y_index)
+	room = room_controller.change_room(tile_name)
 	level.add_child(room)
 	room_controller.rebuild_room_connections()
 	
@@ -42,8 +42,8 @@ func change_room(door_x_index, door_y_index):
 #	pass	
 
 
-func _on_Player_door_collision(tile_index):
-	change_room(tile_index[0], tile_index[1])
+func _on_Player_door_collision(tile_name):
+	change_room(tile_name)
 	var door = room_controller.get_last_exited_door()
 	get_node(player).position = room_controller.get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door])
 #	get_node(player).position = Vector2(300, 100)	
