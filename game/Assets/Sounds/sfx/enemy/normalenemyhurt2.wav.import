@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/normalenemyhurt2.wav-8e319235cb49977112dda389caa2186b.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/normalenemyhurt2.wav"
+dest_files=[ "res://.import/normalenemyhurt2.wav-8e319235cb49977112dda389caa2186b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

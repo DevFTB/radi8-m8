@@ -53,6 +53,13 @@ var health = null setget set_health
 
 onready var animator: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
 
+export (AudioStream) var runSound
+export (AudioStream) var dashSound
+export (AudioStream) var hurtSound
+export (AudioStream) var attackSound
+export (AudioStream) var heavyAttackSound
+export (AudioStream) var healSound
+
 func _enter_tree():
 	health = max_health
 
@@ -98,6 +105,7 @@ func transition(newState):
 		IDLE:
 			animator.travel("idle")
 		MOVE:
+			play_sound(runSound)
 			animator.travel("run")
 		ATTACK:
 			if(velocity.length() == 0):
@@ -156,6 +164,8 @@ func perform_attack():
 	if(velocity.length() == 0):
 		 animator.travel("fire")
 		
+	play_sound(attackSound)
+		
 	canAttack = false
 	var b = bullet.instance()
 	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
@@ -180,6 +190,8 @@ func perform_heavy_attack():
 	transition(HEAVY_ATTACK)
 	
 	canHeavyAttack = false
+	
+	play_sound(heavyAttackSound)
 
 	for x in range(5):
 		var b = bullet.instance()
@@ -217,13 +229,18 @@ func move_process(delta):
 	check_collisions()
 	
 func set_health(value):
+	if(health - value < 0):
+		play_sound(healSound)
+		
 	health = clamp(value, 0, max_health)
 	emit_signal("health_changed", value)
+
 	if (health == 0):
 		emit_signal("no_health")
 
 func perform_dash():
 	transition(DASH)
+	play_sound(dashSound)
 	canDash = false
 	dashDir = get_input_direction();
 	var cooldownTimer = get_tree().create_timer(dashCooldown)
@@ -254,6 +271,7 @@ func check_collisions():
 				
 func take_damage(value):
 	if (!(buffs["dodge_chance"] > randf())):
+		play_sound(hurtSound)
 		set_health(health - value)
 		$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
 		var timer = get_tree().create_timer(invulnerabilityPeriod + buffs["invulnerability_period"])
@@ -288,3 +306,7 @@ func _on_Hurtbox_damage(source):
 	if("damage" in source):
 		take_damage(source.damage)
 
+
+func play_sound(audio):
+	$PlayerSound.set_stream(audio)
+	$PlayerSound.play()
