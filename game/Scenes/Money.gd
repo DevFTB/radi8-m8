@@ -10,6 +10,7 @@ onready var player = get_parent().player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player.connect("money_changed", self, "set_money")
+	set_money(player.money)
 
 func set_money(value):
 	money = value

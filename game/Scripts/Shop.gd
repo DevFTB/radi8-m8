@@ -20,7 +20,7 @@ func init_room():
 	for location in item_locations:
 		var item = items[i].instance()
 		item.position = location.position
-		add_child(item)
+		get_parent().add_child(item)
 		if ("shop_items" in item):
 			item.shop_items = shop_items.duplicate()
 		if (i < (items.size() - 1)):

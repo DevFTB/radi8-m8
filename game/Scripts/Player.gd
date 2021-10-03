@@ -9,6 +9,7 @@ signal health_changed(health)
 signal max_health_changed(max_health)
 signal no_health
 signal door_collision(tile_index)
+signal money_changed(money)
 
 export var attackInterval = 0.5
 
@@ -127,12 +128,12 @@ func _physics_process(delta):
 			move_process(delta)
 			attack_process(delta)
 			
-			if(velocity.length() == 0 and state != IDLE and canAttack and canHeavyAttack):
+			if(state != IDLE and canAttack and canHeavyAttack):
 				transition(IDLE)
 				
 		HEAVY_ATTACK:
 #			attack_process(delta)
-			if(velocity.length() == 0 and state != IDLE and canHeavyAttack):
+			if(state != IDLE and canHeavyAttack):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
@@ -270,6 +271,7 @@ func pickup_item(item, cost):
 	
 func set_money(value):
 	money = value
+	emit_signal("money_changed", money)
 	
 func set_max_health(value):
 	max_health = value
