@@ -75,6 +75,7 @@ func change_room(tile_name):
 	if(door != -1):
 		var dir = door_to_dir[door]
 		exited_door = door_to_new_door[door]
+		print(door, exited_door, tile_name)
 		return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
@@ -188,11 +189,12 @@ func build_connections():
 		if not connection_exists(newEdge[0], newEdge[1]):
 			add_connection(newEdge[0], newEdge[1])
 	
-func get_door_world_location(door):
-	var room_scene = get_current_room()
-	var tile_map = get_node("TileMap")
-	if(room_scene):
-		return tile_map.map_to_world(tile_map.get_scene_door_locations(room_scene)[door])
+#func get_door_world_location(door):
+#	var room_scene = get_current_room()
+#	var tile_map = get_node("TileMap")
+#	print(room_scene, tile_map)
+#	if(room_scene):
+#		return tile_map.map_to_world(tile_map.get_scene_door_locations(room_scene)[door])
 		
 func get_last_exited_door():
 	return exited_door

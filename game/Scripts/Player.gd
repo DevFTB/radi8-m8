@@ -222,9 +222,11 @@ func dash_process(delta):
 	
 func check_collisions():
 	pass
-#	for i in get_slide_count():
-#		var collision = get_slide_collision(i)
-#		if collision.collider is TileMap:
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		var name = collision.collider.name
+		if collision.collider is StaticBody2D and door_tilenames.find(name) != -1:
+			emit_signal("door_collision", name)
 #			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
 #			print(tile_pos)
 #			var tile_id = collision.collider.get_cellv(tile_pos)
@@ -233,6 +235,7 @@ func check_collisions():
 #			if door_tilenames.has(tile_name):
 #				emit_signal("door_collision", tile_name)
 #				return
+			
 				
 func take_damage(value):
 	set_health(health - value)

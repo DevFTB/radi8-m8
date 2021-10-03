@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Layout/room_controller.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Rooms/coolertooms1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Rooms/newroom.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
