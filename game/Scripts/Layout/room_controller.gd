@@ -22,6 +22,8 @@ const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 export (int) var initial_edges = 150
+export (int) var mutate_edge_num = 10
+var possible_connections = []
 
 func get_allowed_rooms():
 #	var room_possibilities = []
@@ -119,7 +121,24 @@ func get_doors(x_index, y_index):
 	return doors
 	
 func rebuild_room_connections():
-	pass
+	var removed = 0;
+	var possible_connections_instance = possible_connections.duplicate(true)
+	possible_connections_instance.shuffle()
+	var spanning_tree_edges = dfs_get_spanning_tree(current_room)
+	while len(possible_connections_instance) > 0 and removed < mutate_edge_num:
+		var newEdge = possible_connections_instance.pop_back()
+		if not spanning_tree_edges.has(newEdge) and connection_exists(newEdge[0], newEdge[1]):
+			remove_connection(newEdge[0], newEdge[1])
+			removed += 1
+	
+	var possible_connection_instance_add = possible_connections.duplicate(true)
+	possible_connection_instance_add.shuffle()
+	while removed > 0 and len(possible_connection_instance_add) > 0:
+		var newEdge = possible_connection_instance_add.pop_back()
+		if not connection_exists(newEdge[0], newEdge[1]):
+			add_connection(newEdge[0], newEdge[1])
+			removed -= 1
+	
 	
 func build_room_network(n):
 	randomize()
@@ -128,21 +147,23 @@ func build_room_network(n):
 		for j in range(0, n):
 			visited[[i, j]] = 0
 			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+	
+	for room_idx in room.keys():
+		for neighbour in get_adjacent_rooms(room_idx):
+			possible_connections.append([room_idx, neighbour])
+			
 	build_connections()
 			
 func build_connections():
 #	for room_idx in room.keys():
 #		for neighbour in get_adjacent_rooms(room_idx):
 #			add_connection(room_idx, neighbour)
-	var possible_connections = []
-	for room_idx in room.keys():
-		for neighbour in get_adjacent_rooms(room_idx):
-			possible_connections.append([room_idx, neighbour])
-	possible_connections.shuffle()
+	var possible_connections_instance = possible_connections.duplicate(true)
+	possible_connections_instance.shuffle()
 	
 	dfs_edge_add(current_room)
-	while len(connections.keys())/2 < initial_edges and len(possible_connections) > 0:
-		var newEdge = possible_connections.pop_back()
+	while len(connections.keys())/2 < initial_edges and len(possible_connections_instance) > 0:
+		var newEdge = possible_connections_instance.pop_back()
 		if not connection_exists(newEdge[0], newEdge[1]):
 			add_connection(newEdge[0], newEdge[1])
 	
@@ -162,6 +183,18 @@ func dfs_edge_add(v, dfs_visited={}):
 		if not dfs_visited.has(neighbour):
 			add_connection(v, neighbour)
 			dfs_edge_add(neighbour, dfs_visited)
+			
+func dfs_get_spanning_tree(v, dfs_visited={}, edges={}):
+	dfs_visited[v] = true
+	var neighbours = get_neighbours(v)
+	neighbours.shuffle()
+	for neighbour in neighbours:
+		if not dfs_visited.has(neighbour):
+			edges[[v, neighbour]] = true
+			edges[[neighbour, v]] = true
+			dfs_get_spanning_tree(neighbour, dfs_visited, edges)
+	return edges
+		
 	
 
 # i, j 2-tuples of room coordinates
