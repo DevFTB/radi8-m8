@@ -76,7 +76,7 @@ func change_room(door_x_index, door_y_index):
 			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
-	
+# REFACTOR map starts with doors, TRY AUTOTILE COORD FOR ATLAS replace with walls where necessary make seperate asset files for each wall
 func replace_doors(room_scene, doors):
 	var door_locations = get_scene_door_locations(room_scene)
 	# root node of room_scene is tilemap
