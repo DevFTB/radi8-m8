@@ -13,7 +13,7 @@ height = 4.81401
 radius = 7.2772
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
-scale = Vector2( 5, 5 )
+scale = Vector2( 3.5, 3.5 )
 z_index = 1
 collision_layer = 64
 script = ExtResource( 1 )

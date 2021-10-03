@@ -43,11 +43,8 @@ func fire():
 			var b = bullet.instance()
 			b.position = $"Fire Point".global_position
 			b.fire_direction = (player.global_position - global_position).normalized()
-			if (owner.horizontal_dir == RIGHT):
-				b.fire_direction.x *= -1
 
 			owner.owner.add_child(b)
-		
 	else:
 		attacking = false; 
 		burstCount = 0
