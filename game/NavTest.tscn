@@ -23,7 +23,10 @@ player_path = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 167.061, 400 )
-movementSpeed = 160
+movementSpeed = 400
+
+[node name="Sprite" parent="Player" index="4"]
+frame = 0
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
