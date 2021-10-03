@@ -6,8 +6,8 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Layout/room_controller.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Rooms/coolroom2.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Rooms/coolroom1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Rooms/room_2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Rooms/test.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -18,7 +18,7 @@ vertices = PoolVector2Array( 536.222, 275.398, 852.756, 472.952, 58.0535, 470.70
 polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 1, 0, 5 ), PoolIntArray( 6, 4, 5, 7 ), PoolIntArray( 2, 6, 7, 3 ) ]
 outlines = [ PoolVector2Array( 55.3155, -40.0348, 852.415, -35.5399, 852.756, 472.952, 58.0535, 470.707 ), PoolVector2Array( 383.567, 196.826, 381.322, 275.398, 536.222, 275.398, 536.222, 194.581 ) ]
 
-[node name="Node2D3" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 level_path = NodePath("Layout")
@@ -55,8 +55,6 @@ navpoly = SubResource( 2 )
 position = Vector2( 167.061, 132.6 )
 
 [node name="LightEnemy" parent="." instance=ExtResource( 3 )]
-collision_layer = 0
-collision_mask = 0
 playerPath = NodePath("../Player")
 
 [node name="RoomController" type="Node" parent="."]
