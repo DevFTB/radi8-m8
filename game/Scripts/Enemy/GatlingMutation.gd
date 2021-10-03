@@ -45,6 +45,7 @@ func fire():
 			b.fire_direction = (player.global_position - global_position).normalized()
 
 			owner.owner.add_child(b)
+		
 	else:
 		attacking = false; 
 		burstCount = 0

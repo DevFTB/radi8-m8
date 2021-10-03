@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/player/player.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/player/player_spritesheet.png" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.59809
@@ -11,6 +11,122 @@ height = 4.81401
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 7.2772
+
+[sub_resource type="Animation" id=35]
+resource_name = "dash"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0756714, 0.146781, 0.212569, 0.379473, 0.420932, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 30, 31, 32, 33, 34, 34 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "fire"
+length = 0.5
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 10, 11, 12, 13 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "idle"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "run"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 29, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "dash"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "fire"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+priority = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+priority = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+priority = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=32]
+states/dash/node = SubResource( 36 )
+states/dash/position = Vector2( 609.408, 145 )
+states/fire/node = SubResource( 24 )
+states/fire/position = Vector2( 321, 198 )
+states/idle/node = SubResource( 25 )
+states/idle/position = Vector2( 245, 63 )
+states/run/node = SubResource( 26 )
+states/run/position = Vector2( 417, 73 )
+transitions = [ "idle", "run", SubResource( 27 ), "idle", "fire", SubResource( 28 ), "run", "idle", SubResource( 29 ), "fire", "idle", SubResource( 30 ), "run", "fire", SubResource( 31 ), "fire", "run", SubResource( 34 ), "run", "dash", SubResource( 37 ), "dash", "run", SubResource( 38 ) ]
+start_node = "idle"
+graph_offset = Vector2( 96.4077, 0 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 3.5, 3.5 )
@@ -24,10 +140,6 @@ bullet = ExtResource( 3 )
 position = Vector2( 0.109076, 8.97259 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 2 )
-
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
@@ -39,6 +151,25 @@ collision_mask = 2
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0.0840881, 1.34543 )
 shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+hframes = 10
+vframes = 8
+frame = 26
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dash = SubResource( 35 )
+anims/fire = SubResource( 21 )
+anims/idle = SubResource( 22 )
+anims/run = SubResource( 23 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 32 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 33 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 

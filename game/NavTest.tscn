@@ -48,7 +48,7 @@ texture = ExtResource( 2 )
 [node name="Navigation2D" type="Navigation2D" parent="Layout"]
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Layout/Navigation2D"]
-position = Vector2( -57.3981, 36.0407 )
+position = Vector2( -55.2768, 37.4549 )
 navpoly = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
