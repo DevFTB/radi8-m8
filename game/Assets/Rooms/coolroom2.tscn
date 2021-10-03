@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Tilesets/room.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/Doors/Top.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Doors/Bottom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Doors/Right.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Doors/Left.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Room.gd" type="Script" id=6]
 
 [node name="Node2D2" type="Navigation2D"]
+script = ExtResource( 6 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

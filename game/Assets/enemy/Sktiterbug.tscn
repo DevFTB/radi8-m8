@@ -10,6 +10,7 @@ extents = Vector2( 63.4904, 65.2148 )
 
 [node name="Skitterbug" type="KinematicBody2D"]
 position = Vector2( 375.277, 347.798 )
+z_index = 127
 script = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
