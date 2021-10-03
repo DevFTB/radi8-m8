@@ -265,3 +265,6 @@ func get_adjacent_rooms(i):
 		if room.has(neighbour):
 			neighbours.append(neighbour)
 	return neighbours
+
+## todo
+#func get_current_room_instance():
