@@ -12,6 +12,9 @@ export(int) var engagementRadius = 100
 export (PackedScene) var deathSplosion
 export (NodePath) var playerPath
 
+export (Array, AudioStream) var hurtSounds
+export (AudioStream) var deathSound
+
 onready var navigation = get_parent().room
 onready var player = get_node(playerPath)
 
@@ -119,6 +122,7 @@ func move():
 		velocity = move_and_slide(velocity)
 	
 func take_damage(value):
+	play_sound(hurtSounds[randi() % hurtSounds.size()])
 	set_health(health - value)
 
 func set_health(value):
@@ -133,6 +137,7 @@ func _on_Hurtbox_damage(area):
 		take_damage(area.damage)
 
 func die():
+	play_sound(deathSound)
 	var ins = deathSplosion.instance()
 	get_tree().root.add_child(ins)
 	
@@ -151,3 +156,8 @@ func turn():
 		if (horizontal_dir == RIGHT):
 			scale.x = -1
 			horizontal_dir = LEFT
+			
+func play_sound(audio):
+	$Sound.set_stream(audio)
+	$Sound.play()
+
