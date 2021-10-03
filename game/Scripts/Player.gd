@@ -86,7 +86,6 @@ func process_input():
 		
 func transition(newState):
 	state = newState
-	print(state)
 	match state:
 		IDLE:
 			animator.travel("idle")
@@ -102,6 +101,7 @@ func transition(newState):
 		HEAVY_ATTACK:
 			animator.travel("fire")
 		DASH:
+			animator.travel("dash")
 			pass
 			
 func _physics_process(delta):
@@ -189,6 +189,9 @@ func on_heavy_attack_cooldown_complete():
 func on_dash_cooldown_complete():
 	canDash = true
 	
+func on_dash_complete():
+	transition(MOVE)	
+	
 func move_process(delta):
 	if(state != ATTACK):
 		if((velocity.x < 0 && !facingLeft) || (velocity.x > 0 && facingLeft)):
@@ -213,7 +216,7 @@ func perform_dash():
 func dash_process(delta):
 	move_and_slide(dashDir * dashSpeed)
 	var dashTimer = get_tree().create_timer(dashDuration)
-	dashTimer.connect("timeout", self, "on_action_complete")
+	dashTimer.connect("timeout", self, "on_dash_complete")
 	
 func check_collisions():
 	for i in get_slide_count():

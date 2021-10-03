@@ -1,11 +1,8 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/player/player idle.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/player/player run.png" type="Texture" id=5]
-[ext_resource path="res://Assets/player/man firing.png" type="Texture" id=6]
 [ext_resource path="res://Assets/player/player_spritesheet.png" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -15,96 +12,10 @@ height = 4.81401
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 7.2772
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 6 )
-region = Rect2( 128, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 6 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 6 )
-region = Rect2( 384, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 5 )
-region = Rect2( 128, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 5 )
-region = Rect2( 256, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 5 )
-region = Rect2( 384, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 5 )
-region = Rect2( 512, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 5 )
-region = Rect2( 640, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 5 )
-region = Rect2( 768, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 5 )
-region = Rect2( 896, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 5 )
-region = Rect2( 1024, 0, 128, 128 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 5 )
-region = Rect2( 1152, 0, 128, 128 )
-
-[sub_resource type="SpriteFrames" id=20]
-animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "fire",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "run",
-"speed": 15.0
-} ]
-
-[sub_resource type="Animation" id=21]
-resource_name = "fire"
-length = 0.4
-loop = true
+[sub_resource type="Animation" id=35]
+resource_name = "dash"
+length = 0.5
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -112,7 +23,25 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.0756714, 0.146781, 0.212569, 0.379473, 0.420932, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 30, 30, 31, 32, 33, 34, 34 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "fire"
+length = 0.5
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 10, 11, 12, 13 ]
@@ -151,6 +80,9 @@ tracks/0/keys = {
 "values": [ 29, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "dash"
+
 [sub_resource type="AnimationNodeAnimation" id=24]
 animation = "fire"
 
@@ -175,15 +107,24 @@ priority = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 priority = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachine" id=32]
+states/dash/node = SubResource( 36 )
+states/dash/position = Vector2( 609.408, 145 )
 states/fire/node = SubResource( 24 )
 states/fire/position = Vector2( 321, 198 )
 states/idle/node = SubResource( 25 )
-states/idle/position = Vector2( 244, 63 )
+states/idle/position = Vector2( 245, 63 )
 states/run/node = SubResource( 26 )
 states/run/position = Vector2( 417, 73 )
-transitions = [ "idle", "run", SubResource( 27 ), "idle", "fire", SubResource( 28 ), "run", "idle", SubResource( 29 ), "fire", "idle", SubResource( 30 ), "run", "fire", SubResource( 31 ), "fire", "run", SubResource( 34 ) ]
+transitions = [ "idle", "run", SubResource( 27 ), "idle", "fire", SubResource( 28 ), "run", "idle", SubResource( 29 ), "fire", "idle", SubResource( 30 ), "run", "fire", SubResource( 31 ), "fire", "run", SubResource( 34 ), "run", "dash", SubResource( 37 ), "dash", "run", SubResource( 38 ) ]
 start_node = "idle"
+graph_offset = Vector2( 96.4077, 0 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=33]
 
@@ -211,20 +152,15 @@ collision_mask = 2
 position = Vector2( 0.0840881, 1.34543 )
 shape = SubResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-visible = false
-scale = Vector2( 0.3, 0.3 )
-frames = SubResource( 20 )
-animation = "fire"
-
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
-frame = 10
+frame = 26
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dash = SubResource( 35 )
 anims/fire = SubResource( 21 )
 anims/idle = SubResource( 22 )
 anims/run = SubResource( 23 )
