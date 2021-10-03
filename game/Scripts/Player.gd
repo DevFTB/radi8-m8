@@ -258,9 +258,6 @@ func dodge():
 func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
 
-func _on_Hurtbox_area_entered(area):
-	take_damage(area.damage)
-
 func pickup_item(item, cost):
 	if (cost <= money):
 		if (!item.has_method("can_pickup") || item.can_pickup(self)):
@@ -276,3 +273,9 @@ func set_money(value):
 func set_max_health(value):
 	max_health = value
 	emit_signal("max_health_changed", max_health)
+
+func _on_Hurtbox_damage(source):
+	print("somebody touch player hut box ")
+	if("damage" in source):
+		take_damage(source.damage)
+

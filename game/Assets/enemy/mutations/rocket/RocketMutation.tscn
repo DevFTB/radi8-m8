@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/enemy/mutations/rocket/rocket.png" type="Texture" id=1]
+[ext_resource path="res://Assets/enemy/mutations/rocket/RocketMutation.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "equip",
+"speed": 10.0
+} ]
+
+[node name="RocketMutation" type="Node2D"]
+position = Vector2( -13.773, 3.44324 )
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "attack"
+playing = true

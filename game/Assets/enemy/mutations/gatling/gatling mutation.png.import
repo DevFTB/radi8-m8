@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gatling mutation.png-aec93ddbab6b97626cd414ff685c873d.stex"
+path="res://.import/gatling mutation.png-a1be88910c18e7c6439a42e418b87885.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/enemy/mutations/gatling mutation.png"
-dest_files=[ "res://.import/gatling mutation.png-aec93ddbab6b97626cd414ff685c873d.stex" ]
+source_file="res://Assets/enemy/mutations/gatling/gatling mutation.png"
+dest_files=[ "res://.import/gatling mutation.png-a1be88910c18e7c6439a42e418b87885.stex" ]
 
 [params]
 
