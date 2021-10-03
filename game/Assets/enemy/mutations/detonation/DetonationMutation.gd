@@ -36,6 +36,8 @@ func attack():
 		detonating = true
 		
 		$AnimatedSprite.play("detonate")
+		$AudioStreamPlayer2D.play()
+		
 		
 		#var sprite_frames = $AnimatedSprite.get_sprite_frames()
 		#var amntOfFrames = sprite_frames.get_frame_count("detonate")

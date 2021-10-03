@@ -36,6 +36,10 @@ texture = ExtResource( 4 )
 
 [node name="Mutations" type="Node2D" parent="."]
 
+[node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
+position = Vector2( -79.514, -28.2592 )
+scale = Vector2( 2, 2 )
+
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 5 )]
 position = Vector2( 6.00677, -71.0803 )
 
@@ -43,10 +47,6 @@ position = Vector2( 6.00677, -71.0803 )
 position = Vector2( 13.6579, -53.2852 )
 scale = Vector2( 2, 2 )
 z_index = -1
-
-[node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
-position = Vector2( -79.514, -28.2592 )
-scale = Vector2( 2, 2 )
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -1.08453, 14.4461 )
