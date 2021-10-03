@@ -169,6 +169,7 @@ func perform_attack():
 	canAttack = false
 	var b = bullet.instance()
 	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
+	face_horizontal(b.fire_direction)
 	owner.add_child(b)
 
 	b.global_position = $Sprite/FirePosition.global_position
@@ -176,7 +177,7 @@ func perform_attack():
 	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
-	face_horizontal(b.fire_direction)
+
 	
 func toggle_facing():
 		$Sprite.scale.x = $Sprite.scale.x * -1
@@ -196,6 +197,7 @@ func perform_heavy_attack():
 	for x in range(5):
 		var b = bullet.instance()
 		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.1, 0.1)).normalized()
+		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
 
@@ -206,7 +208,7 @@ func perform_heavy_attack():
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
 	
-	face_horizontal((get_global_mouse_position() - global_position).normalized())
+
 
 func on_attack_cooldown_complete():
 	canAttack = true

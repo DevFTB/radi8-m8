@@ -140,6 +140,7 @@ z_index = 128
 collision_layer = 64
 collision_mask = 129
 script = ExtResource( 1 )
+movementSpeed = 250
 bullet = ExtResource( 3 )
 runSound = ExtResource( 5 )
 dashSound = ExtResource( 6 )
