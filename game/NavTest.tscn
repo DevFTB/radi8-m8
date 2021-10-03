@@ -6,8 +6,8 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Layout/room_controller.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Rooms/room_2.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Rooms/test.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Rooms/coolroom1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Rooms/coolroom2.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -55,13 +55,11 @@ navpoly = SubResource( 2 )
 position = Vector2( 167.061, 132.6 )
 
 [node name="LightEnemy" parent="." instance=ExtResource( 3 )]
-collision_layer = 0
-collision_mask = 0
 playerPath = NodePath("../Player")
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
-room_possibilities = [ ExtResource( 8 ), ExtResource( 7 ) ]
+room_possibilities = [ ExtResource( 7 ), ExtResource( 8 ) ]
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 

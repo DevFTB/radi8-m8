@@ -37,8 +37,5 @@ func fire():
 
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
-		print(swipeCount)
-		print("swipe")
-		
 	else:
 		cease()

@@ -129,7 +129,7 @@ graph_offset = Vector2( 96.4077, 0 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=33]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
-scale = Vector2( 5, 5 )
+scale = Vector2( 3.5, 3.5 )
 z_index = 1
 collision_layer = 64
 script = ExtResource( 1 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/red_square.png-366f176ba25be523f12ef55e3397537c.stex"
+path="res://.import/Tileset_Door_1.png-0be26dfb888a5a7b3f27439c49a77e45.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tiles/red_square.png"
-dest_files=[ "res://.import/red_square.png-366f176ba25be523f12ef55e3397537c.stex" ]
+source_file="res://Assets/Tiles/Tileset_Door_1.png"
+dest_files=[ "res://.import/Tileset_Door_1.png-0be26dfb888a5a7b3f27439c49a77e45.stex" ]
 
 [params]
 
