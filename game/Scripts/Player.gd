@@ -5,24 +5,32 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 
-signal health_changed
+signal health_changed(health)
+signal max_health_changed(max_health)
 signal no_health
 signal door_collision(tile_index)
+signal money_changed(money)
 
-export var attackInterval = 0.1
+export var attackInterval = 0.5
 
-export var movementSpeed : int = 500
+export var movementSpeed : int = 300
 export var dashSpeed : int = 1500
 export var heavyAttackCooldown : float = 1.2
 export var damage : int = 10
 export var dashCooldown : float = 2
 export var invulnerabilityPeriod = 1
+export var money = 42069
+
+var rng = RandomNumberGenerator.new()
 
 
 export (PackedScene) var bullet
 var velocity : Vector2 = Vector2()
 var facingLeft : bool = false;
 export var dashDuration = 0.2;
+
+export (Array, String) var door_tilenames = ["backdoor", "frontdoor", "leftdoor", "rightdoor"] 
+var buffs = {"max_health": 0, "dodge_chance": 0, "invulnerability_period": 0, "movement_speed": 0, "attack_interval": 0}
 
 
 var dashDir = Vector2()
@@ -121,12 +129,12 @@ func _physics_process(delta):
 			move_process(delta)
 			attack_process(delta)
 			
-			if(velocity.length() == 0 and state != IDLE and canAttack):
+			if(state != IDLE and canAttack and canHeavyAttack):
 				transition(IDLE)
 				
 		HEAVY_ATTACK:
-			attack_process(delta)
-			if(velocity.length() == 0 and state != IDLE and canHeavyAttack):
+#			attack_process(delta)
+			if(state != IDLE and canHeavyAttack):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
@@ -138,6 +146,8 @@ func attack_process(delta):
 	if(velocity.length_squared()> 0):
 		animator.travel("run")
 	pass
+
+
 
 func perform_attack():
 	#subject to change
@@ -151,37 +161,44 @@ func perform_attack():
 	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
 	owner.add_child(b)
 
-	b.position = position
+	b.global_position = $Sprite/FirePosition.global_position
 	b.rotation = (get_global_mouse_position() - position).normalized().angle()
-	var cooldownTimer = get_tree().create_timer(attackInterval)
+	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
-	if((b.fire_direction.x < 0 && !facingLeft) || (b.fire_direction.x > 0 && facingLeft)):
-		toggle_facing()
+	face_horizontal(b.fire_direction)
 	
 func toggle_facing():
-		$Sprite.set_flip_h(!facingLeft)
+		$Sprite.scale.x = $Sprite.scale.x * -1
 		facingLeft = !facingLeft;
+		
+func face_horizontal(dir):
+	if((dir.x < 0 && !facingLeft) || (dir.x > 0 && facingLeft)):
+		toggle_facing()
 		
 func perform_heavy_attack():
 	transition(HEAVY_ATTACK)
 	
 	canHeavyAttack = false
-	var rng = RandomNumberGenerator.new()
+
 	for x in range(5):
 		var b = bullet.instance()
 		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.1, 0.1)).normalized()
 		
 		owner.add_child(b)
 
-		b.transform = transform
+		b.global_position = $Sprite/FirePosition.global_position
+		b.rotation = (get_global_mouse_position() - position).normalized().angle()
 		yield(get_tree().create_timer(0.05), "timeout")
 	
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
+	
+	face_horizontal((get_global_mouse_position() - global_position).normalized())
 
 func on_attack_cooldown_complete():
 	canAttack = true
+
 	
 func on_heavy_attack_cooldown_complete():
 	canHeavyAttack = true
@@ -194,10 +211,9 @@ func on_dash_complete():
 	
 func move_process(delta):
 	if(state != ATTACK):
-		if((velocity.x < 0 && !facingLeft) || (velocity.x > 0 && facingLeft)):
-			toggle_facing()
+		face_horizontal(velocity)
 		
-	move_and_slide(velocity * movementSpeed)
+	move_and_slide(velocity * (movementSpeed + buffs["movement_speed"]))
 	check_collisions()
 	
 func set_health(value):
@@ -219,25 +235,56 @@ func dash_process(delta):
 	dashTimer.connect("timeout", self, "on_dash_complete")
 	
 func check_collisions():
+	pass
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if collision.collider is TileMap:
-			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
-			var tile_id = collision.collider.get_cellv(tile_pos)
-			if tile_id == 2 || tile_id == 3:
-				emit_signal("door_collision", tile_pos)
-				return
+		var name = collision.collider.name
+		if collision.collider is StaticBody2D and door_tilenames.find(name) != -1:
+			emit_signal("door_collision", name)
+			return
+#			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
+#			print(tile_pos)
+#			var tile_id = collision.collider.get_cellv(tile_pos)
+#			var tile_name = collision.collider.tile_set.tile_get_name(tile_id)
+#			print(tile_name)
+#			if door_tilenames.has(tile_name):
+#				emit_signal("door_collision", tile_name)
+#				return
+			
 				
 func take_damage(value):
-	set_health(health - value)
-	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
-	var timer = get_tree().create_timer(invulnerabilityPeriod)
-	timer.connect("timeout", self, "on_invulnerability_end")
+	if (!(buffs["dodge_chance"] > randf())):
+		set_health(health - value)
+		$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
+		var timer = get_tree().create_timer(invulnerabilityPeriod + buffs["invulnerability_period"])
+		timer.connect("timeout", self, "on_invulnerability_end")
+	else:
+		dodge()
+
+func dodge():
+	pass
 
 func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
+
+func pickup_item(item, cost):
+	if (cost <= money):
+		if (!item.has_method("can_pickup") || item.can_pickup(self)):
+			item.on_pickup(self)
+			set_money(money - cost)
+			return true
+	return false
+	
+func set_money(value):
+	money = value
+	emit_signal("money_changed", money)
+	
+func set_max_health(value):
+	max_health = value
+	emit_signal("max_health_changed", max_health)
 
 func _on_Hurtbox_damage(source):
 	print("somebody touch player hut box ")
 	if("damage" in source):
 		take_damage(source.damage)
+

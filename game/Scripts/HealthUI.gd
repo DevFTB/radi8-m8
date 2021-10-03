@@ -5,15 +5,17 @@ extends Control
 # var a = 2
 # var b = "text"
 
-export (NodePath) var player_path;
+
 var hearts = 4 setget set_hearts
 var max_hearts = 4 setget set_max_hearts
-onready var player = get_node(player_path)
+onready var player = get_node(get_parent().player_path)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player = get_parent().player
 	player.connect("health_changed", self, "set_hearts")
+	player.connect("max_health_changed", self, "set_max_hearts")
 	set_max_hearts(player.max_health)
 
 	set_hearts(player.health)

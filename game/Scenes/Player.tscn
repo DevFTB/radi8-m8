@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/player/player_spritesheet.png" type="Texture" id=7]
@@ -130,10 +131,10 @@ graph_offset = Vector2( 96.4077, 0 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 scale = Vector2( 3.5, 3.5 )
-z_index = 1
+z_index = 128
 collision_layer = 64
+collision_mask = 129
 script = ExtResource( 1 )
-attackInterval = 0.5
 bullet = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -152,11 +153,23 @@ collision_mask = 2
 position = Vector2( 0.0840881, 1.34543 )
 shape = SubResource( 2 )
 
+[node name="shadow" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.627451 )
+position = Vector2( 0.663288, 12.2403 )
+scale = Vector2( 0.287635, 0.287635 )
+texture = ExtResource( 2 )
+
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
+frame = 2
+
+[node name="FirePosition" type="Position2D" parent="Sprite"]
+position = Vector2( 47.6207, -11.6665 )
+scale = Vector2( 3.33333, 3.33333 )
+
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/dash = SubResource( 3 )
@@ -169,6 +182,9 @@ tree_root = SubResource( 19 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 20 )
+
+[node name="Tween" type="Tween" parent="."]
+
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
