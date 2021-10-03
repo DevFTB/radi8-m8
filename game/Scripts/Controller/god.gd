@@ -68,3 +68,10 @@ func change_room(tile_name):
 func _on_Player_door_collision(tile_name):
 	change_room(tile_name)
 #	get_node(player).position = Vector2(300, 100)	
+
+func spawn(enemy_scene, loc):
+	add_child(enemy_scene)
+	if "player" in enemy_scene:
+		enemy_scene.player = player
+	enemy_scene.global_position = loc
+	

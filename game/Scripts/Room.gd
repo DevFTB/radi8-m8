@@ -9,6 +9,9 @@ export (Array, PackedScene) var enemies
 export (Array, int) var quantity
 
 export (Array, String) var spawnable_tile_names = ["floors"]
+export (int) var min_spawn_distance = 50
+
+export (NodePath) var root
 
 var spawnable_tiles = []
 
@@ -19,7 +22,7 @@ func _ready():
 func init_room(visited, tier, prev_state):
 	randomize()
 	for name in spawnable_tile_names:
-		spawnable_tiles.append($TileMap.get_used_cells_by_id($TileMap.tile_set.find_tile_by_name(name)))
+		spawnable_tiles += $TileMap.get_used_cells_by_id($TileMap.tile_set.find_tile_by_name(name))
 	spawnable_tiles.shuffle()
 	
 	spawn_enemies(tier)
@@ -38,21 +41,23 @@ func spawn_enemies(mutation_level):
 			spawn(enemy, mutation_level)
 
 func spawn(enemy_scene, mutation_level):
-	pass
-#	var root = get_tree.get_root()
-#	var loc = find_spawn_tile()
-#	if loc:
-#		var enemy = enemy_scene.instance()
-#		for i in range(0, mutation_level):
-#			enemy.mutate()
-#		root.add_child(enemy)
-#		enemy.global_position = loc
-#
-## non collision tiles and far enough away from player
-#func find_spawn_tile():
-#	while len(spawnable_tiles) > 0:
-#		var spawn_tile = $TileMap.map_to_world(spawnable_tiles.pop_back())
-#		if
+	print("spawn")
+	var root = get_tree().get_root().get_node("Node2D2")
+	var loc = find_spawn_tile()
+	if loc:
+		var enemy = enemy_scene.instance()
+		for i in range(0, mutation_level):
+			enemy.mutate()
+		print("spawned called")
+		root.spawn(enemy, loc)
+		
+
+# non collision tiles and far enough away from player
+func find_spawn_tile():
+	while len(spawnable_tiles) > 0:
+		var spawn_tile = $TileMap.map_to_world(spawnable_tiles.pop_back())
+#		if spawn_tile.distance_to()
+		return spawn_tile
 		 
 	
 	
