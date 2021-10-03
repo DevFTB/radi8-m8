@@ -2,6 +2,7 @@ extends TileMap
 
 export (Array, PackedScene) var DoorColliders
 const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
+const wall_replacement_names = ["frontwall", "rightwall", "backwall", "leftwall"]
 
 
 # Declare member variables here. Examples:
@@ -13,7 +14,6 @@ var door_locations
 # Called when the node enters the scene tree for the first time.
 
 func add_colliders(locations, doors):
-	print(locations, doors)
 	for door in range(0, len(locations)):
 		if(doors[door]):
 			var collider = DoorColliders[door].instance()
@@ -58,19 +58,18 @@ func replace_doors(doors):
 	
 			
 func remove_door_from_tilemap(door_location, door):
+	var wall_replacement_name = wall_replacement_names[door]
+	var tile_id = tile_set.find_tile_by_name(wall_replacement_name)
+	set_cell(door_location[0], door_location[1], tile_id)
 	match door:
 		0: 
-			set_cell(door_location[0], door_location[1], 0)
-			set_cell(door_location[0] + 1, door_location[1], 0)
+			set_cell(door_location[0] + 1, door_location[1], tile_id)
 		1: 
-			set_cell(door_location[0], door_location[1], 0)
-			set_cell(door_location[0], door_location[1] + 1, 0)
+			set_cell(door_location[0], door_location[1] + 1, tile_id)
 		2: 
-			set_cell(door_location[0], door_location[1], 0)
-			set_cell(door_location[0] + 1, door_location[1], 0)
+			set_cell(door_location[0] + 1, door_location[1], tile_id)
 		3: 
-			set_cell(door_location[0], door_location[1], 0)
-			set_cell(door_location[0], door_location[1] + 1, 0)
+			set_cell(door_location[0], door_location[1] + 1, tile_id)
 			
 func get_door_world_location(door):
 	return map_to_world(get_scene_door_locations()[door])

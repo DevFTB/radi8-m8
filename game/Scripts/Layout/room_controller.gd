@@ -75,7 +75,6 @@ func change_room(tile_name):
 	if(door != -1):
 		var dir = door_to_dir[door]
 		exited_door = door_to_new_door[door]
-		print(door, exited_door, tile_name)
 		return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
