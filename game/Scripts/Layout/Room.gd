@@ -11,17 +11,15 @@ const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
 var door_locations
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	add_colliders()
 
-func add_colliders():
-	var locations = get_scene_door_locations()
+func add_colliders(locations, doors):
+	print(locations, doors)
 	for door in range(0, len(locations)):
-		if(locations[door]):
+		if(doors[door]):
 			var collider = DoorColliders[door].instance()
 			add_child(collider)
 			collider.global_position = map_to_world(locations[door])
-		
+			
 
 func get_door_tileid():
 	return {
@@ -56,6 +54,8 @@ func replace_doors(doors):
 	for door in range(0, len(doors)):
 		if not doors[door] and door_locations[door]:
 			remove_door_from_tilemap(door_locations[door], door)
+	add_colliders(door_locations, doors)
+	
 			
 func remove_door_from_tilemap(door_location, door):
 	match door:

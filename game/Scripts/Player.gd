@@ -227,6 +227,7 @@ func check_collisions():
 		var name = collision.collider.name
 		if collision.collider is StaticBody2D and door_tilenames.find(name) != -1:
 			emit_signal("door_collision", name)
+			return
 #			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
 #			print(tile_pos)
 #			var tile_id = collision.collider.get_cellv(tile_pos)

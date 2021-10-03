@@ -7,7 +7,7 @@ export (NodePath) var player
 var room_controller
 
 const spawn_offset_dir = {0: Vector2.DOWN, 1: Vector2.LEFT, 2: Vector2.UP, 3: Vector2.RIGHT}
-export (int) var spawn_offset = 150
+export (int) var spawn_offset = 80
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -31,12 +31,15 @@ func change_room(tile_name):
 	for node in level.get_children():
 		node.queue_free()
 	room = room_controller.change_room(tile_name)
-	print(tile_name, room)
 	level.add_child(room)
 	room_controller.rebuild_room_connections()
 	
 	var door = room_controller.get_last_exited_door()
-	get_node(player).global_position = room.get_node("TileMap").get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door])
+	var door_offset = 0
+	match door:
+		0: door_offset = 256
+		3: door_offset = 128
+	get_node(player).global_position = room.get_node("TileMap").get_door_world_location(door) + ((spawn_offset + door_offset) * spawn_offset_dir[door])
 	
 	
 		
