@@ -47,9 +47,11 @@ func change_room(tile_name):
 	var door = room_controller.get_last_exited_door()
 	var door_offset = 0
 	match door:
-		0: door_offset = 256
-		3: door_offset = 128
-	player.global_position = room.get_node("TileMap").get_door_world_location(door) + ((spawn_offset + door_offset) * spawn_offset_dir[door])
+		0: door_offset = Vector2(128, 256)
+		1: door_offset = Vector2(0, 128)
+		2: door_offset = Vector2(128, 0)
+		3: door_offset = Vector2(128, 128)
+	player.global_position = room.get_node("TileMap").get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door]) + door_offset
 	
 	
 		
