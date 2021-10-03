@@ -14,7 +14,7 @@ func _ready():
 	for path in item_location_paths:
 		item_locations.append(get_node(path))
 
-func init_room():
+func init_room(_mutation_level):
 	var items = get_items(rarity_list, item_locations.size())
 	var i = 0
 	for location in item_locations:
