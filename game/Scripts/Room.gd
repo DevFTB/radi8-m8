@@ -41,14 +41,12 @@ func spawn_enemies(mutation_level):
 			spawn(enemy, mutation_level)
 
 func spawn(enemy_scene, mutation_level):
-	print("spawn")
 	var root = get_tree().get_root().get_node("Node2D2")
 	var loc = find_spawn_tile()
 	if loc:
 		var enemy = enemy_scene.instance()
 		for i in range(0, mutation_level):
 			enemy.mutate()
-		print("spawned called")
 		root.spawn(enemy, loc)
 		
 
