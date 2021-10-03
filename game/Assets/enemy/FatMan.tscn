@@ -18,6 +18,10 @@ extents = Vector2( 63.5049, 35.5909 )
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
+speed = 150.0
+attackPeriod = 4.0
+mutationPeriod = 15.0
+max_health = 10
 deathSplosion = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

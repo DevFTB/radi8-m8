@@ -135,6 +135,7 @@ z_index = 128
 collision_layer = 64
 collision_mask = 129
 script = ExtResource( 1 )
+movementSpeed = 250
 bullet = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -170,7 +171,6 @@ frame = 2
 position = Vector2( 47.6207, -11.6665 )
 scale = Vector2( 3.33333, 3.33333 )
 
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/dash = SubResource( 3 )
 anims/fire = SubResource( 4 )
@@ -184,7 +184,6 @@ active = true
 parameters/playback = SubResource( 20 )
 
 [node name="Tween" type="Tween" parent="."]
-
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_Hurtbox_damage"]

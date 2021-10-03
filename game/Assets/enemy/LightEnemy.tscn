@@ -21,6 +21,8 @@ position = Vector2( 498.187, 350.604 )
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
+speed = 150.0
+mutationPeriod = 12.0
 deathSplosion = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
