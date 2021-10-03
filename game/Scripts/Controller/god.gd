@@ -32,7 +32,10 @@ func _ready():
 		node.queue_free()
 	room = room_controller.get_current_room()
 	level.add_child(room)
-	room.init_room(room_controller.get_current_mutation())
+	
+	var room_data = room_controller.room[room_controller.current_room]
+	room.init_room(room_data["visited"], room_data["type"], room_data["state"])
+	room_data["visited"] = true
 	pass # Replace with function body.
 
 func change_room(tile_name):
@@ -40,8 +43,10 @@ func change_room(tile_name):
 		node.queue_free()
 	room = room_controller.change_room(tile_name)
 	level.add_child(room)
-
-	room.init_room(room_controller.get_current_mutation())
+	
+	var room_data = room_controller.room[room_controller.current_room]
+	room.init_room(room_data["visited"], room_data["type"], room_data["state"])
+	room_data["visited"] = true
 	room_controller.rebuild_room_connections()
 	
 	var door = room_controller.get_last_exited_door()

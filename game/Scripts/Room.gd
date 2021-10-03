@@ -24,6 +24,9 @@ func init_room(mutation_level):
 	
 	spawn_enemies(mutation_level)
 
+
+func get_state():
+	return null
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
