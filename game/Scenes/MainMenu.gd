@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 export (PackedScene) var firstLevel
 export (PackedScene) var instructions
