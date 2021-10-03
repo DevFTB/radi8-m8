@@ -33,6 +33,7 @@ func change_room(door_x_index, door_y_index):
 		node.queue_free()
 	room = room_controller.change_room(door_x_index, door_y_index)
 	level.add_child(room)
+	room_controller.rebuild_room_connections()
 	
 	
 		
