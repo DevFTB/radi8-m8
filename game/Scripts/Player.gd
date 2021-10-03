@@ -29,6 +29,7 @@ var velocity : Vector2 = Vector2()
 var facingLeft : bool = false;
 export var dashDuration = 0.2;
 
+export (Array, String) var door_tilenames = ["backdoor", "frontdoor", "leftdoor", "rightdoor"] 
 var buffs = {"max_health": 0, "dodge_chance": 0, "invulnerability_period": 0, "movement_speed": 0, "attack_interval": 0}
 
 
@@ -234,14 +235,22 @@ func dash_process(delta):
 	dashTimer.connect("timeout", self, "on_dash_complete")
 	
 func check_collisions():
+	pass
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		if collision.collider is TileMap:
-			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
-			var tile_id = collision.collider.get_cellv(tile_pos)
-			if tile_id == 2 || tile_id == 3:
-				emit_signal("door_collision", tile_pos)
-				return
+		var name = collision.collider.name
+		if collision.collider is StaticBody2D and door_tilenames.find(name) != -1:
+			emit_signal("door_collision", name)
+			return
+#			var tile_pos = collision.collider.world_to_map(collision.position - collision.normal)
+#			print(tile_pos)
+#			var tile_id = collision.collider.get_cellv(tile_pos)
+#			var tile_name = collision.collider.tile_set.tile_get_name(tile_id)
+#			print(tile_name)
+#			if door_tilenames.has(tile_name):
+#				emit_signal("door_collision", tile_name)
+#				return
+			
 				
 func take_damage(value):
 	if (!(buffs["dodge_chance"] > randf())):

@@ -11,7 +11,7 @@ onready var level = get_node(level_path)
 
 
 const spawn_offset_dir = {0: Vector2.DOWN, 1: Vector2.LEFT, 2: Vector2.UP, 3: Vector2.RIGHT}
-export (int) var spawn_offset = 140
+export (int) var spawn_offset = 80
 
 
 # Declare member variables here. Examples:
@@ -35,14 +35,21 @@ func _ready():
 	room.init_room()
 	pass # Replace with function body.
 
-func change_room(door_x_index, door_y_index):
+func change_room(tile_name):
 	for node in level.get_children():
 		node.queue_free()
-	room = room_controller.change_room(door_x_index, door_y_index)
+	room = room_controller.change_room(tile_name)
 	level.add_child(room)
 
 	room.init_room()
 	room_controller.rebuild_room_connections()
+	
+	var door = room_controller.get_last_exited_door()
+	var door_offset = 0
+	match door:
+		0: door_offset = 256
+		3: door_offset = 128
+	player.global_position = room.get_node("TileMap").get_door_world_location(door) + ((spawn_offset + door_offset) * spawn_offset_dir[door])
 	
 	
 		
@@ -51,8 +58,6 @@ func change_room(door_x_index, door_y_index):
 #	pass	
 
 
-func _on_Player_door_collision(tile_index):
-	change_room(tile_index[0], tile_index[1])
-	var door = room_controller.get_last_exited_door()
-	player.position = room_controller.get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door])
+func _on_Player_door_collision(tile_name):
+	change_room(tile_name)
 #	get_node(player).position = Vector2(300, 100)	
