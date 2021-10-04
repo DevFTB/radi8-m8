@@ -69,7 +69,8 @@ z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
 speed = 150.0
-mutationPeriod = 12.0
+mutationPeriod = 11.0
+max_health = 4
 coin_drop_chance = 0.5
 deathSplosion = ExtResource( 8 )
 coin = ExtResource( 14 )
@@ -95,7 +96,7 @@ position = Vector2( 3, 0 )
 position = Vector2( 0, -6 )
 rotation = 0.139626
 relativeProbability = 15
-healthBonus = 5.0
+healthBonus = 4.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -0.630676, 2.10223 )
@@ -111,13 +112,13 @@ relativeProbability = 25
 position = Vector2( 13.6579, -53.2852 )
 scale = Vector2( 2, 2 )
 z_index = -1
-relativeProbability = 15
+relativeProbability = 10
 equipSound = ExtResource( 16 )
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -1.08453, 14.7267 )
 scale = Vector2( 3, 3 )
-relativeProbability = 8
+relativeProbability = 15
 duration = 1.2
 boostSound = ExtResource( 15 )
 

@@ -58,6 +58,7 @@ hideout = "res://Scenes/Hideout.tscn"
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 500, 500 )
 z_index = 127
+shootMovementSpeed = 200
 
 [node name="Sprite" parent="Player" index="4"]
 frame = 0
