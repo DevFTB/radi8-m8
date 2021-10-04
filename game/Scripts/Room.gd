@@ -13,6 +13,8 @@ export (int) var min_spawn_distance = 500
 
 export (NodePath) var root
 
+const max_spawn_attempts = 10
+
 var spawnable_tiles = []
 
 # Called when the node enters the scene tree for the first time.
@@ -49,7 +51,12 @@ func spawn(enemy_scene, mutation_level):
 		var enemy = enemy_scene.instance()
 		for i in range(0, mutation_level):
 			enemy.mutate()
-		root.spawn(enemy, loc)
+			
+		var spawn_attempt = 0
+		while !root.spawn(enemy, loc) and spawn_attempt < max_spawn_attempts:
+			loc = find_spawn_tile(player.global_position)
+			spawn_attempt += 1
+			
 		
 
 func find_spawn_tile(player_pos):

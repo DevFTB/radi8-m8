@@ -18,6 +18,8 @@ export (int) var spawn_offset = 80
 onready var container = get_node(container_path)
 onready var minimap = get_node(minimap_path)
 
+onready var root = get_tree().get_root()
+onready var space_state = root.find_world_2d().direct_space_state
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -84,13 +86,22 @@ func enemies_exist():
 			return true
 	return false
 
-
 func spawn(enemy_scene, loc):
-	enemies.append(enemy_scene)
-	call_deferred("add_child" ,enemy_scene)
-	if "player" in enemy_scene:
-		enemy_scene.player = player
-	enemy_scene.global_position = loc
+	#	var shape = CircleShape2D.new()
+	#	shape.set_radius(32)
+	var query = Physics2DShapeQueryParameters.new()
+	query.set_shape(enemy_scene.get_node("CollisionShape2D").shape)
+	query.set_transform(Transform2D(0, loc))
+	var res = space_state.intersect_shape(query, 1)
+	
+	if len(res) == 0:
+		enemies.append(enemy_scene)
+		call_deferred("add_child" ,enemy_scene)
+		if "player" in enemy_scene:
+			enemy_scene.player = player
+		enemy_scene.global_position = loc
+		return true
+	return false
 	
 
 func get_current_tier():
