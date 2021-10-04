@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=3]
 [ext_resource path="res://Assets/UI/Main menu/title.png" type="Texture" id=4]
 [ext_resource path="res://NavTest.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/Sounds/music/menu.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Sounds/music/RogueRadiateMenu.wav" type="AudioStream" id=6]
 
 [node name="Main Menu" type="Node"]
 script = ExtResource( 3 )
