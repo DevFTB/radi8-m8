@@ -6,11 +6,11 @@
 [ext_resource path="res://Assets/enemy/pooplet.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 3.73128
+radius = 11.5841
 
 [node name="Area2D" type="Node2D"]
 script = ExtResource( 2 )
-speed = 7
+speed = 6
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.0371606, 0.0557449 )
@@ -22,7 +22,7 @@ texture = ExtResource( 4 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 2
-collision_mask = 16
+collision_mask = 17
 damage = 1.0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]

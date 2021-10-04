@@ -12,6 +12,8 @@ export (AudioStream) var boostSoundTail
 var timer: float = 0.0;
 var boosting: bool = false
 
+export var engagementRadius = 50
+
 var enemy = null
 
 func equip():
@@ -27,6 +29,7 @@ func _process(delta):
 				if(enemy.has_method("set_move_speed")):
 					enemy.set_move_speed(1 / boostMultiplier)
 					play_sound(boostSoundTail)
+				boosting = false
 		else:
 			play_sound(boostSound)
 	
@@ -38,7 +41,7 @@ func attack():
 		if(enemy.has_method("set_move_speed")):
 			enemy.set_move_speed(boostMultiplier)
 
-func set_owner(en):
+func set_enemy(en):
 	enemy = en
 	
 func set_player(player):

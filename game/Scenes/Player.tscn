@@ -16,7 +16,8 @@ radius = 7.59809
 height = 4.81401
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 7.2772
+radius = 6.91026
+height = 18.0801
 
 [sub_resource type="Animation" id=3]
 resource_name = "dash"
@@ -143,6 +144,7 @@ script = ExtResource( 1 )
 movementSpeed = 280
 shootMovementSpeed = 230
 bullet = ExtResource( 3 )
+max_health = 4
 runSound = ExtResource( 5 )
 dashSound = ExtResource( 6 )
 hurtSound = ExtResource( 9 )
@@ -176,7 +178,7 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
-frame = 1
+frame = 2
 
 [node name="FirePosition" type="Position2D" parent="Sprite"]
 position = Vector2( 47.6207, -11.6665 )

@@ -15,7 +15,6 @@
 [ext_resource path="res://Assets/Items/HealthUp.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Items/Boots.tscn" type="PackedScene" id=14]
 
-
 [node name="Node2D2" type="Navigation2D"]
 script = ExtResource( 7 )
 shop_items = [ ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ) ]

@@ -22,6 +22,7 @@ animations = [ {
 position = Vector2( -13.773, 3.44324 )
 script = ExtResource( 2 )
 relativeProbability = 1
+boostMultiplier = 3.0
 equipSound = ExtResource( 3 )
 boostSound = ExtResource( 4 )
 boostSoundTail = ExtResource( 4 )

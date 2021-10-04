@@ -6,6 +6,9 @@ export (float) var detonationTime = 5
 export (float) var damage = 10
 export (float) var detonationRange = 800
 
+
+export var engagementRadius = 30
+
 var timer: float = 0.0;
 var detonating: bool = false;
 

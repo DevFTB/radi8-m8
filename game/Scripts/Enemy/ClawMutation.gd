@@ -8,13 +8,18 @@ export (float) var amountOfSwipes = 10;
 export (AudioStream) var equipSound
 export (AudioStream) var attackSound
 
+export var engagementRadius = 150
+
 var timer: float = 0.0;
 var swipeCount: int = 0;
 var attacking: bool = false;
 
 func equip():
 	$AnimatedSprite.play("equip")
-		
+	$AudioStreamPlayer2D.set_stream(equipSound)
+	$AudioStreamPlayer2D.play()
+	
+	$Hitbox/CollisionShape2D.disabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

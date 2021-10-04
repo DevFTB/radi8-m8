@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Assets/Rooms/roomy/room c.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Rooms/roomy/room e.tscn" type="PackedScene" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://YouDied.gd" type="Script" id=29]
 [ext_resource path="res://Assets/UI/You died/bg.png" type="Texture" id=30]
 [ext_resource path="res://Assets/UI/You died/You Died.png" type="Texture" id=31]
+[ext_resource path="res://Assets/FontBig.tres" type="DynamicFont" id=32]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -41,21 +42,19 @@ container_path = NodePath("MinimapCanvasLayer/PanelContainer")
 level_path = NodePath("Layout")
 player_path = NodePath("Player")
 minimap_path = NodePath("MinimapCanvasLayer/PanelContainer/MarginContainer/Minimap")
-
-[node name="Layout" type="Node2D" parent="."]
+hideout = "res://Scenes/Hideout.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 500, 500 )
 z_index = 127
-attackInterval = 0.1
-movementSpeed = 600
-shootMovementSpeed = 170
 
 [node name="Sprite" parent="Player" index="4"]
-frame = 0
+frame = 1
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
+
+[node name="Layout" type="Node2D" parent="."]
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -136,11 +135,12 @@ custom_constants/separation = 50
 alignment = 1
 
 [node name="Return to Hideout" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 863.0
-margin_top = 193.0
-margin_right = 977.0
+margin_left = 548.0
+margin_top = 125.0
+margin_right = 1292.0
 margin_bottom = 224.0
 size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 32 )
 text = "Return to Hideout
 "
 align = 1
@@ -155,11 +155,12 @@ __meta__ = {
 }
 
 [node name="Exit Game" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 887.0
+margin_left = 716.0
 margin_top = 274.0
-margin_right = 952.0
-margin_bottom = 305.0
+margin_right = 1124.0
+margin_bottom = 373.0
 size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 32 )
 text = "Exit Game
 "
 align = 1

@@ -60,7 +60,7 @@ position = Vector2( 3, 0 )
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 12 )]
 position = Vector2( 0, -6 )
 rotation = 0.139626
-relativeProbability = 12
+relativeProbability = 15
 healthBonus = 5.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
@@ -69,7 +69,7 @@ scale = Vector2( 1.88219, 2.0916 )
 frames = SubResource( 2 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
-position = Vector2( -79.514, -28.2592 )
+position = Vector2( -90.4275, -34.2728 )
 scale = Vector2( 2, 2 )
 relativeProbability = 25
 
@@ -84,7 +84,6 @@ equipSound = ExtResource( 16 )
 position = Vector2( -1.08453, 14.7267 )
 scale = Vector2( 3, 3 )
 relativeProbability = 8
-boostMultiplier = 3.0
 duration = 1.2
 boostSound = ExtResource( 15 )
 
