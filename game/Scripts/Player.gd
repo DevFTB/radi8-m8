@@ -23,6 +23,7 @@ export var damage : int = 10
 export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
 export var money = 0
+export var rads = 0 
 
 var rads = 1
 
@@ -45,8 +46,8 @@ enum {
 	MOVE,
 	DASH,
 	ATTACK,
-	HEAVY_ATTACK
-	STOP,
+	HEAVY_ATTACK,
+	STOP
 }
 var state = IDLE
 var canAttack = true
@@ -356,6 +357,13 @@ func pickup_item(item, cost):
 func set_money(value):
 	money = value
 	emit_signal("money_changed", money)
+	
+# for hideout objective
+func add_max_health(value):
+	print("adding max health")
+	max_health += value
+	health = max_health
+	emit_signal("max_health_changed", max_health)
 	
 func set_max_health(value):
 	max_health = value

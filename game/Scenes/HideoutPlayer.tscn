@@ -162,6 +162,7 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
+frame = 2
 
 [node name="FirePosition" type="Position2D" parent="Sprite"]
 position = Vector2( 47.6207, -11.6665 )
