@@ -10,6 +10,11 @@ export (AudioStream) var attackSound
 var timer: float = 0.0;
 var swipeCount: int = 0;
 var attacking: bool = false;
+
+func equip():
+	$AnimatedSprite.play("equip")
+		
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.play("equip")

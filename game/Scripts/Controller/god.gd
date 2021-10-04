@@ -21,6 +21,7 @@ const n_rooms = 10
 
 var navmesh = null
 var room = null
+var enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,5 +67,23 @@ func change_room(tile_name):
 
 
 func _on_Player_door_collision(tile_name):
-	change_room(tile_name)
+	if not enemies_exist():
+		enemies = []
+		change_room(tile_name)
+	
 #	get_node(player).position = Vector2(300, 100)	
+
+func enemies_exist():
+	for enemy in enemies:
+		if is_instance_valid(enemy):
+			return true
+	return false
+
+
+func spawn(enemy_scene, loc):
+	enemies.append(enemy_scene)
+	add_child(enemy_scene)
+	if "player" in enemy_scene:
+		enemy_scene.player = player
+	enemy_scene.global_position = loc
+	

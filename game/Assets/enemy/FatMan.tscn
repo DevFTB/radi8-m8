@@ -16,7 +16,9 @@ extents = Vector2( 63.5049, 35.5909 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 
-[node name="FatMan" type="KinematicBody2D"]
+[node name="FatMan" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
