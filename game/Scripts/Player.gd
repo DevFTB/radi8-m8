@@ -148,6 +148,8 @@ func _physics_process(delta):
 			dash_process(delta)
 
 func idle_process(delta):
+	if ($PlayerSound.playing):
+		$PlayerSound.stop()
 	pass
 
 func attack_process(delta):

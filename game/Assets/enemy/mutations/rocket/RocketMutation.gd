@@ -1,7 +1,7 @@
 extends Node2D
 
 
-export (float) var boostMultiplier = 5
+export (float) var boostMultiplier = 1.5
 export (float) var duration = 10;
 
 var timer: float = 0.0;
@@ -9,11 +9,10 @@ var boosting: bool = false
 
 var enemy = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func equip():
 	$AnimatedSprite.play("equip")
 
-	pass # Replace with function body.
+
 
 func _process(delta):
 	timer += delta;

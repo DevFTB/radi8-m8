@@ -17,7 +17,9 @@ extents = Vector2( 63.4904, 26.9042 )
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 65.0602
 
-[node name="Skitterbug" type="KinematicBody2D"]
+[node name="Skitterbug" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )

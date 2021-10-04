@@ -15,13 +15,15 @@ enum {
 	LEFT,
 	RIGHT
 }
+
+func equip():
+	$AnimatedSprite.play("equip")
+	$Area2D/CollisionShape2D.shape.radius = detonationRange
+		
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("equip nukes")
-	$AnimatedSprite.play("equip")
-	
-	$Area2D/CollisionShape2D.shape.radius = detonationRange
-	pass # Replace with function body.
+	pass
 
 func _process(delta):
 	if(detonating):
