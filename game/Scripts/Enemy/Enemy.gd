@@ -225,4 +225,8 @@ func get_dispersion_velocity():
 			var vector = get_global_position() - enemy.get_global_position()
 			result += vector.normalized() * speed * dispersion_factor * 1/vector.length()
 	return result
+	
+func apply_mutation_buff(amount):
+	print("changing mutation timer")
+	mutationPeriod -= amount
 
