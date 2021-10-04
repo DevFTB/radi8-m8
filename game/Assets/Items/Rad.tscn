@@ -8,25 +8,25 @@
 radius = 27.0677
 height = 13.4265
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 31, 35 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 31, 0, 31, 35 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
 region = Rect2( 62, 0, 31, 35 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
 region = Rect2( 93, 0, 31, 35 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "default",
 "speed": 2.0
@@ -36,7 +36,7 @@ animations = [ {
 script = ExtResource( 2 )
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
-cost = 10
+cost = 6
 sprite_path = NodePath("Sprite2")
 
 [node name="Sprite" parent="Item" index="0"]
@@ -51,8 +51,7 @@ shape = SubResource( 1 )
 [node name="Sprite2" type="AnimatedSprite" parent="Item"]
 position = Vector2( -0.795502, 1.86755 )
 scale = Vector2( 1.34785, 1.34785 )
-frames = SubResource( 2 )
-frame = 1
+frames = SubResource( 6 )
 playing = true
 
 [connection signal="body_entered" from="Item" to="Item" method="_on_Item_area_entered"]

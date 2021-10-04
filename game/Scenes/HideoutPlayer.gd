@@ -63,9 +63,9 @@ func consume_resource(resource, amount):
 	var amnt 
 	match(resource):
 		"Rad Pods":
-			amnt = get_node("/root/Global").consume_radpods(amount)
+			amnt = Global.consume_radpods(amount)
 		"Meds":
-			amnt = get_node("/root/Global").consume_meds(amount)
+			amnt = Global.consume_meds(amount)
 	
 	emit_signal("consume_resource")
 	return amnt

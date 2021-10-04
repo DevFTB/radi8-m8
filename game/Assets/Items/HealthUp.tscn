@@ -11,7 +11,7 @@ height = 13.4265
 script = ExtResource( 2 )
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
-cost = 2
+cost = 1
 
 [node name="CollisionShape2D" parent="Item" index="4"]
 position = Vector2( 0.165283, -3.21314 )

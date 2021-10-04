@@ -15,6 +15,7 @@ export(int) var aggro_range = 1600
 export (PackedScene) var deathSplosion
 export (PackedScene) var coin
 export (NodePath) var playerPath
+var movementSpeedModifier = 1
 
 export (Array, AudioStream) var hurtSounds
 export (AudioStream) var deathSound
@@ -145,13 +146,13 @@ func genPath():
 
 func navigate():
 	if (path.size() > 0):
-		velocity = global_position.direction_to(path[1]) * speed
+		velocity = global_position.direction_to(path[1]) * speed * movementSpeedModifier
 		if global_position == path[0]:
 			path.remove(0)
-			
-func set_move_speed(multiplier):
-	speed *= multiplier;
 
+func set_move_speed(multiplier):
+	movementSpeedModifier *= multiplier
+	
 func move():
 	var distance_to_player = get_global_position().distance_to(player.get_global_position())
 	var dispersion_velocity = get_dispersion_velocity()

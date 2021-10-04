@@ -44,6 +44,7 @@ enum {
 	DASH,
 	ATTACK,
 	HEAVY_ATTACK
+	DEAD,
 }
 var state = IDLE
 var canAttack = true
@@ -122,9 +123,11 @@ func transition(newState):
 		DASH:
 			animator.travel("dash")
 			pass
+		
 			
 func _physics_process(delta):
-	process_input()
+	if(!state == DEAD):
+		process_input()
 	match state:
 		IDLE:
 			idle_process(delta)
@@ -151,6 +154,8 @@ func _physics_process(delta):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
+		DEAD:
+			pass
 
 func idle_process(delta):
 	if ($PlayerSound.playing):
@@ -211,8 +216,8 @@ func perform_heavy_attack():
 		owner.add_child(b)
 		b.set_position($Sprite/FirePosition.global_position)
 
-		b.rotation = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized().angle()
-		yield(get_tree().create_timer(0.03), "timeout")
+		b.rotation = (get_global_mouse_position() - position).normalized().angle()
+		yield(get_tree().create_timer(0.05), "timeout")
 	
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
@@ -285,34 +290,34 @@ func check_collisions():
 			
 				
 func take_damage(value):
-	if(isInvulnerable):
-		return
-	if (!(buffs["dodge_chance"] > randf())):
-		play_sound(hurtSound)
-		set_health(health - value)
-		invulnerability_start()
-		
-		var timer = get_tree().create_timer(invulnerabilityPeriod + buffs["invulnerability_period"])
-		timer.connect("timeout", self, "on_invulnerability_end")
-	else:
-		dodge()
+	if (!isInvulnerable):
+		if (!(buffs["dodge_chance"] > randf())):
+			play_sound(hurtSound)
+			set_health(health - value)
+			invulnerability_start()
+			
+			var timer = get_tree().create_timer(invulnerabilityPeriod + buffs["invulnerability_period"])
+			timer.connect("timeout", self, "on_invulnerability_end")
+		else:
+			dodge()
 
 func dodge():
 	pass
 
 func on_invulnerability_end():
+	$Tween.stop_all()
 	$"Hurtbox/CollisionShape2D".disabled = false
 	if (isInvulnerable): isInvulnerable = false
 	
 func invulnerability_start():
+	$Tween.stop_all()
 	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
 	if (!isInvulnerable): isInvulnerable = true
 	tween_invulnerability_start()
 
 
 func tween_invulnerability_start():
-	if (!isInvulnerable): 
-		return
+	if ($Tween.is_active()): return
 	$Tween.start()
 	
 	$Tween.interpolate_property($Sprite, "modulate", 
@@ -327,7 +332,7 @@ func tween_invulnerability_start():
 	
 	yield($Tween, "tween_completed")
 	
-	tween_invulnerability_start()
+	if (isInvulnerable): tween_invulnerability_start()
 	
 
 func pickup_item(item, cost):

@@ -10,12 +10,15 @@ export (float) var burstAmount = 3;
 export (AudioStream) var equipSound
 export (AudioStream) var fireSound
 
+export var engagementRadius = 700
+
 var player: Node2D = null
 
 var timer: float = 0.0;
 var burstCount: int = 0;
 var attacking: bool = false;
 var enemy
+var rng = RandomNumberGenerator.new()
 
 enum {
 	LEFT,
@@ -51,9 +54,8 @@ func fire():
 		
 		if(player):
 			var b = bullet.instance()
-
-			b.fire_direction = (player.global_position - $"Fire Point".global_position).normalized()
-
+			b.position = $"Fire Point".global_position
+			b.fire_direction = (player.global_position - global_position).rotated(rng.randf_range(-0.35, 0.35)).normalized()
 			enemy.get_parent().add_child(b)
 
 			b.look_at(player.global_position)

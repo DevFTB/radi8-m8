@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/babydeath.wav-3f4b23bb8c30f59263355ef2e45b04f6.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/babydeath.wav"
+dest_files=[ "res://.import/babydeath.wav-3f4b23bb8c30f59263355ef2e45b04f6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

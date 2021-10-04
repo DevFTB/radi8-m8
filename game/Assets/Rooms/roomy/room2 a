@@ -1,0 +1,25 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Tilesets/room.tres" type="TileSet" id=1]
+[ext_resource path="res://Scripts/Layout/Room.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Doors/TopDoorCollider.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Doors/RightDoorCollider.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Doors/BottomDoorCollider.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Doors/LeftDoorCollider.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Room.gd" type="Script" id=7]
+[ext_resource path="res://Assets/enemy/LightEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/enemy/FatMan.tscn" type="PackedScene" id=9]
+
+[node name="Node2D2" type="Navigation2D"]
+script = ExtResource( 7 )
+enemies = [ ExtResource( 8 ), ExtResource( 9 ) ]
+quantity = [ 2, 1 ]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+collision_mask = 4
+format = 1
+tile_data = PoolIntArray( -65536, 14, 0, -65535, 11, 0, -65534, 11, 0, -65533, 11, 0, -65532, 6, 0, -65530, 11, 0, -65529, 11, 0, -65528, 13, 0, 0, 14, 0, 8, 13, 0, 65536, 14, 0, 65537, 5, 1, 65538, 5, 1, 65539, 5, 1, 65540, 5, 1, 65541, 5, 1, 65542, 5, 1, 65543, 5, 1, 65544, 13, 0, 131072, 14, 0, 131073, 5, 1, 131074, 5, 1, 131075, 5, 1, 131076, 5, 1, 131077, 5, 1, 131078, 5, 1, 131079, 5, 1, 131080, 13, 0, 196608, 14, 0, 196609, 5, 1, 196610, 5, 1, 196611, 5, 1, 196612, 5, 1, 196613, 5, 0, 196614, 5, 1, 196615, 5, 1, 196616, 13, 0, 262144, 14, 0, 262145, 5, 1, 262146, 5, 1, 262147, 5, 1, 262148, 5, 1, 262149, 5, 0, 262150, 5, 1, 262151, 5, 1, 262152, 11, 0, 262153, 11, 0, 262154, 11, 0, 262155, 11, 0, 262156, 13, 0, 327680, 14, 0, 327681, 5, 1, 327682, 5, 1, 327683, 5, 1, 327684, 5, 1, 327685, 5, 1, 327686, 5, 1, 327687, 5, 1, 327692, 13, 0, 393216, 8, 0, 393217, 5, 1, 393218, 5, 1, 393219, 5, 1, 393220, 5, 1, 393221, 5, 1, 393222, 5, 1, 393223, 5, 1, 393224, 5, 1, 393225, 5, 1, 393226, 5, 1, 393227, 5, 1, 393228, 13, 0, 458753, 5, 1, 458754, 5, 1, 458755, 5, 1, 458756, 5, 1, 458757, 5, 1, 458758, 5, 1, 458759, 5, 1, 458760, 5, 1, 458761, 5, 1, 458762, 5, 1, 458763, 5, 1, 458764, 9, 0, 524288, 14, 0, 524289, 5, 1, 524290, 5, 1, 524291, 5, 1, 524292, 5, 0, 524293, 5, 0, 524294, 5, 1, 524295, 5, 1, 524296, 5, 1, 524297, 5, 1, 524298, 5, 1, 524299, 5, 1, 589824, 14, 0, 589825, 5, 1, 589826, 5, 1, 589827, 5, 1, 589828, 5, 0, 589829, 5, 0, 589830, 5, 1, 589831, 5, 1, 589832, 5, 1, 589833, 5, 1, 589834, 5, 1, 589835, 5, 1, 589836, 13, 0, 655360, 14, 0, 655361, 5, 1, 655362, 5, 1, 655363, 5, 1, 655364, 5, 1, 655365, 5, 1, 655366, 5, 1, 655367, 5, 1, 655368, 5, 1, 655369, 5, 1, 655370, 5, 1, 655371, 5, 1, 655372, 13, 0, 720896, 15, 2, 720897, 12, 0, 720898, 12, 0, 720899, 12, 0, 720900, 12, 0, 720901, 7, 0, 720903, 12, 0, 720904, 12, 0, 720905, 12, 0, 720906, 12, 0, 720907, 12, 0, 720908, 15, 1 )
+script = ExtResource( 2 )
+DoorColliders = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]

@@ -5,7 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-export (PackedScene) var raid
+export (String, FILE, "*.tscn") var raid_path
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,7 +18,7 @@ func _ready():
 #	pass
 
 func load_raid():
-	get_tree().change_scene_to(raid)
+	get_tree().change_scene(raid_path)
 
 
 func _on_Area2D_body_entered(body):
