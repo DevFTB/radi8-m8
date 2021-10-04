@@ -24,16 +24,19 @@ var room = {}
 var connections = {}
 var current_room = [0, 0]
 var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
+var added_connections = {}
+var removed_connections = {}
 
 const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 export (PackedScene) var shop
 export var shop_chance = 0.1
-export (int) var initial_edges = 150
+export (int) var initial_edges = 120
 export (int) var mutate_edge_num = 10
 var possible_connections = []
 var room_info = {}
+var max_room = 0
 
 const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
 
@@ -76,7 +79,10 @@ func get_current_room():
 func set_room(x_index, y_index):
 	current_room = [x_index, y_index]
 	print("room changed to " + str(x_index) + ", " + str(y_index))
+	rebuild_room_connections()
 	var this_room = get_room(x_index, y_index)
+	if max(x_index, y_index) > max_room:
+		max_room = max(x_index, y_index)
 	return this_room
 	
 func change_room(tile_name):
@@ -156,6 +162,9 @@ func get_doors(x_index, y_index):
 	return doors
 	
 func rebuild_room_connections():
+	removed_connections = {}
+	added_connections = {}
+	
 	var removed = 0;
 	var possible_connections_instance = possible_connections.duplicate(true)
 	possible_connections_instance.shuffle()
@@ -164,6 +173,8 @@ func rebuild_room_connections():
 		var newEdge = possible_connections_instance.pop_back()
 		if not spanning_tree_edges.has(newEdge) and connection_exists(newEdge[0], newEdge[1]):
 			remove_connection(newEdge[0], newEdge[1])
+			removed_connections[newEdge] = true
+			removed_connections[[newEdge[1], newEdge[0]]] = true
 			removed += 1
 	
 	var possible_connection_instance_add = possible_connections.duplicate(true)
@@ -172,6 +183,8 @@ func rebuild_room_connections():
 		var newEdge = possible_connection_instance_add.pop_back()
 		if not connection_exists(newEdge[0], newEdge[1]):
 			add_connection(newEdge[0], newEdge[1])
+			added_connections[newEdge] = true
+			added_connections[[newEdge[1], newEdge[0]]] = true
 			removed -= 1
 	
 	
@@ -265,6 +278,17 @@ func get_adjacent_rooms(i):
 		if room.has(neighbour):
 			neighbours.append(neighbour)
 	return neighbours
+	
+func connection_removed(i, j):
+	return removed_connections.has([i, j])
 
+func connection_added(i, j):
+	return added_connections.has([i, j])
+
+func get_max_room():
+	return max_room
 ## todo
 #func get_current_room_instance():
+
+func get_room_type(i, j):
+	return room[[i, j]].type

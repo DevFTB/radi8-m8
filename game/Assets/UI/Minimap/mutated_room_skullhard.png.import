@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Minimap_tile.png-ed5b3f700fb085f69d5c34ddb9ff6394.stex"
+path="res://.import/mutated_room_skullhard.png-5ebc7001f57b534b7ef9caab1e3df689.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Minimap/Minimap_tile.png"
-dest_files=[ "res://.import/Minimap_tile.png-ed5b3f700fb085f69d5c34ddb9ff6394.stex" ]
+source_file="res://Assets/UI/Minimap/mutated_room_skullhard.png"
+dest_files=[ "res://.import/mutated_room_skullhard.png-5ebc7001f57b534b7ef9caab1e3df689.stex" ]
 
 [params]
 

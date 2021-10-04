@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Minimap_tile.png-ed5b3f700fb085f69d5c34ddb9ff6394.stex"
+path="res://.import/Minimap_vertical_doorleft_grey.png-f4128158e3e8262413b7371e2730484c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Minimap/Minimap_tile.png"
-dest_files=[ "res://.import/Minimap_tile.png-ed5b3f700fb085f69d5c34ddb9ff6394.stex" ]
+source_file="res://Assets/UI/Minimap/Minimap_vertical_doorleft_grey.png"
+dest_files=[ "res://.import/Minimap_vertical_doorleft_grey.png-f4128158e3e8262413b7371e2730484c.stex" ]
 
 [params]
 

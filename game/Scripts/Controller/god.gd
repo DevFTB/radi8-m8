@@ -2,17 +2,21 @@ extends Node
 
 signal move_player(x, y)
 export (NodePath) var room_controller_path
+export (NodePath) var container_path
 export (NodePath) var level_path
 export (NodePath) var player_path
+export (NodePath) var minimap_path
 export (String, FILE, "*.tscn") var hideout
 
-var player
+onready var player = get_node(player_path)
 onready var room_controller = get_node(room_controller_path)
 onready var level = get_node(level_path)
 
 
 const spawn_offset_dir = {0: Vector2.DOWN, 1: Vector2.LEFT, 2: Vector2.UP, 3: Vector2.RIGHT}
 export (int) var spawn_offset = 80
+onready var container = get_node(container_path)
+onready var minimap = get_node(minimap_path)
 
 
 # Declare member variables here. Examples:
@@ -26,7 +30,6 @@ var enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(player_path)
 	room_controller = get_node(room_controller_path)
 	room_controller.build_room_network(n_rooms)
 
@@ -47,7 +50,6 @@ func change_room(tile_name):
 	level.add_child(room)
 	
 	var room_data = room_controller.room[room_controller.current_room]
-	room_controller.rebuild_room_connections()
 	
 	var door = room_controller.get_last_exited_door()
 	var door_offset = 0
@@ -73,6 +75,7 @@ func _on_Player_door_collision(tile_name):
 		change_room(tile_name)
 	
 #	get_node(player).position = Vector2(300, 100)	
+	minimap.update()
 
 func enemies_exist():
 	for enemy in enemies:
@@ -92,6 +95,12 @@ func spawn(enemy_scene, loc):
 func get_current_tier():
 	return room_controller[room_controller.current_room].type
 	
+
+func _process(_delta): 
+	if Input.is_action_pressed("view_minimap"):
+		container.visible = true
+	elif container.visible:
+		container.visible = false
 
 
 func _on_Return_pressed():
