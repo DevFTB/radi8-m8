@@ -77,7 +77,7 @@ func _physics_process(delta):
 	if(player and navigation):
 		genPath()
 		navigate()
-		turn()
+	turn()
 	move()
 		
 func attack():
@@ -200,6 +200,5 @@ func get_dispersion_velocity():
 		if is_instance_valid(enemy) && enemy != self:
 			var vector = get_global_position() - enemy.get_global_position()
 			result += vector.normalized() * dispersion_factor * 1/vector.length()
-			
 	return result
 

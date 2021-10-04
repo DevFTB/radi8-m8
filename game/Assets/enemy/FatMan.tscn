@@ -22,6 +22,7 @@ extents = Vector2( 63.5049, 35.5909 )
 [node name="FatMan" type="KinematicBody2D" groups=[
 "Enemy",
 ]]
+position = Vector2( 0, 0.667419 )
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
@@ -34,14 +35,16 @@ hurtSounds = [ ExtResource( 10 ) ]
 deathSound = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.49831, 57.6848 )
+position = Vector2( 1.49831, 1.6848 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -56 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+position = Vector2( 0, -56 )
 scale = Vector2( 7.90321, -1.1379 )
 collision_layer = 8
 collision_mask = 4
@@ -51,6 +54,7 @@ scale = Vector2( 1.02466, 3.93601 )
 shape = SubResource( 2 )
 
 [node name="Mutations" type="Node2D" parent="."]
+position = Vector2( 0, -56 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -67.3374, 20.2992 )
@@ -77,6 +81,7 @@ position = Vector2( 0.0863304, 32.6602 )
 scale = Vector2( 3, 3 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 0, -56 )
 
 [node name="ChildSpawner" type="Node2D" parent="."]
 script = ExtResource( 12 )

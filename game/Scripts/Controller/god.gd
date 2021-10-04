@@ -86,4 +86,7 @@ func spawn(enemy_scene, loc):
 	if "player" in enemy_scene:
 		enemy_scene.player = player
 	enemy_scene.global_position = loc
+
+func get_current_tier():
+	return room_controller[room_controller.current_room].type
 	

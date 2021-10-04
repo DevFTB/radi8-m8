@@ -48,7 +48,6 @@ func fire():
 		burstCount += 1
 		
 		if(player):
-			
 			var b = bullet.instance()
 			b.position = $"Fire Point".global_position
 			b.fire_direction = (player.global_position - global_position).normalized()
