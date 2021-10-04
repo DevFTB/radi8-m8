@@ -24,3 +24,8 @@ func load_raid():
 func _on_Area2D_body_entered(body):
 	if body.name == "HideoutPlayer":
 		load_raid()
+
+
+func _on_consume_resource():
+	pass # Replace with function body.
+
