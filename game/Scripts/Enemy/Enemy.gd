@@ -8,7 +8,7 @@ export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10
 export(int) var max_health = 5
 export(int) var engagementRadius = 170
-export(float) var dispersion_factor = 2000
+export(float) var dispersion_factor = 3000
 
 export (PackedScene) var deathSplosion
 export (NodePath) var playerPath
@@ -84,7 +84,7 @@ func _physics_process(delta):
 	if(player and navigation):
 		genPath()
 		navigate()
-		turn()
+	turn()
 	move()
 		
 func attack():
@@ -186,5 +186,4 @@ func get_dispersion_velocity():
 		if is_instance_valid(enemy) && enemy != self:
 			var vector = get_global_position() - enemy.get_global_position()
 			result += vector.normalized() * dispersion_factor * 1/vector.length()
-			
 	return result

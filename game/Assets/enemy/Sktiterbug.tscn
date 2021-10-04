@@ -31,10 +31,12 @@ hurtSounds = [ ExtResource( 9 ) ]
 deathSound = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -3, -33 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="Mutations" type="Node2D" parent="."]
+position = Vector2( -3, -33 )
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -10.4694, 15.2416 )
@@ -53,10 +55,11 @@ scale = Vector2( 2, 2 )
 position = Vector2( 6.68173, -69.4901 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3.94496, 33.1962 )
+position = Vector2( 0.944962, 0.196198 )
 shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
+position = Vector2( -3, -33 )
 collision_layer = 8
 collision_mask = 4
 
@@ -64,5 +67,6 @@ collision_mask = 4
 shape = SubResource( 2 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( -3, -33 )
 
 [editable path="Hurtbox"]
