@@ -16,6 +16,9 @@ var initial_position
 #func _process(delta):
 #	pass
 
+func add_damage(damage):
+	$Hitbox.damage += damage
+
 func set_position(pos):
 	initial_position = pos
 	global_position = pos

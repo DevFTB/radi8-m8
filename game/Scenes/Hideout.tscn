@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/hideout/HideoutTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/hideout/rcu.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/hideout/radpod.png" type="Texture" id=10]
 [ext_resource path="res://Assets/FontBig.tres" type="DynamicFont" id=11]
 [ext_resource path="res://Scenes/HideoutUI.gd" type="Script" id=12]
+[ext_resource path="res://Assets/hideout/weapon upgrade.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 203.59, 73.7206 )
@@ -82,14 +83,15 @@ script = ExtResource( 4 )
 bob_time = 1
 
 [node name="Label" type="Label" parent="Radiation Containment Unit/Node2D"]
-margin_left = -247.76
-margin_top = -204.412
-margin_right = 256.24
-margin_bottom = -105.412
+margin_left = -254.11
+margin_top = -280.607
+margin_right = 249.89
+margin_bottom = -130.607
 custom_fonts/font = ExtResource( 5 )
-text = "Rad Pods
+text = "Mutation Speed
 0 out of 8 "
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -129,7 +131,7 @@ margin_top = -204.412
 margin_right = 256.24
 margin_bottom = -105.412
 custom_fonts/font = ExtResource( 5 )
-text = "Rad Pods 
+text = "Max HP 
 0 out of 8 "
 align = 1
 __meta__ = {
@@ -137,6 +139,45 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="Health Station/Node2D"]
+
+[node name="Weapon Forge" type="StaticBody2D" parent="."]
+position = Vector2( 266.636, 499.966 )
+script = ExtResource( 6 )
+id = 2
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
+
+[node name="Sprite" type="Sprite" parent="Weapon Forge"]
+position = Vector2( -0.629883, -14.42 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Forge"]
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Weapon Forge"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Forge/Area2D"]
+shape = SubResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="Weapon Forge"]
+script = ExtResource( 4 )
+bob_time = 1
+
+[node name="Label" type="Label" parent="Weapon Forge/Node2D"]
+margin_left = -247.76
+margin_top = -204.412
+margin_right = 256.24
+margin_bottom = -105.412
+custom_fonts/font = ExtResource( 5 )
+text = "Damage 
+0 out of 8 "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Weapon Forge/Node2D"]
 
 [node name="Hideout Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
@@ -216,3 +257,6 @@ valign = 2
 [connection signal="consume_resource" from="Health Station" to="CanvasLayer" method="_on_consume_resource"]
 [connection signal="body_entered" from="Health Station/Area2D" to="Health Station" method="_on_body_entered"]
 [connection signal="body_exited" from="Health Station/Area2D" to="Health Station" method="_on_body_exited"]
+[connection signal="consume_resource" from="Weapon Forge" to="CanvasLayer" method="_on_consume_resource"]
+[connection signal="body_entered" from="Weapon Forge/Area2D" to="Weapon Forge" method="_on_body_entered"]
+[connection signal="body_exited" from="Weapon Forge/Area2D" to="Weapon Forge" method="_on_body_exited"]

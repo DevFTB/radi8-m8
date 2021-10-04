@@ -28,7 +28,7 @@ region = Rect2( 64, 0, 64, 64 )
 atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=11]
 animations = [ {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
@@ -36,22 +36,22 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 14 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 4 ) ],
+"frames": [ SubResource( 12 ) ],
 "loop": true,
 "name": "equip",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=14]
 radius = 65.0602
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=15]
 radius = 65.0602
 
 [node name="Skitterbug" type="KinematicBody2D" groups=[
@@ -76,8 +76,9 @@ texture = ExtResource( 15 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -33 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 3 )
+frames = SubResource( 11 )
 animation = "move"
+frame = 1
 playing = true
 
 [node name="Mutations" type="Node2D" parent="."]
@@ -90,7 +91,7 @@ healthBonus = 5.0
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -1.18916, 2.58442 )
 scale = Vector2( 2.24208, 2.24208 )
-frames = SubResource( 5 )
+frames = SubResource( 13 )
 playing = true
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
@@ -118,7 +119,7 @@ position = Vector2( 6.68173, -69.4901 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.944962, 0.196198 )
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( -3, -33 )
@@ -126,7 +127,7 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 7 )
+shape = SubResource( 15 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -3, -33 )

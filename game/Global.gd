@@ -9,6 +9,7 @@ var hideout = "res://Scenes/Hideout.tscn";
 var objective_data = {
 	0: [0, 10, 10], # health
 	1: [0, 8, 8], # mutation
+	2: [0, 8, 2] # damage
 }
 
 func add_radpods(amount):
@@ -22,7 +23,10 @@ func consume_radpods(id):
 	pass
 		
 
-
+func get_damage_buff():
+	var id = 2
+	return (objective_data[id][0] / objective_data[id][1]) * objective_data[id][2]
+	
 func get_mutation_buff():
 	var id = 0
 	return (objective_data[id][0] / objective_data[id][1]) * objective_data[id][2]

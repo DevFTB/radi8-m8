@@ -58,9 +58,6 @@ hideout = "res://Scenes/Hideout.tscn"
 position = Vector2( 500, 500 )
 z_index = 127
 
-[node name="Sprite" parent="Player" index="4"]
-frame = 0
-
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 

@@ -184,6 +184,8 @@ func perform_attack():
 	b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized()
 	face_horizontal(b.fire_direction)
 
+	b.add_damage(Global.get_damage_buff())
+
 	owner.add_child(b)
 	b.set_position($Sprite/FirePosition.global_position)
 
@@ -297,6 +299,7 @@ func check_collisions():
 func take_damage(value):
 	if (!isInvulnerable):
 		if (!(buffs["dodge_chance"] > randf())):
+			$Camera2D.add_trauma(0.5)
 			play_sound(hurtSound)
 			set_health(health - value)
 			invulnerability_start()
