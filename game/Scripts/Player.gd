@@ -24,6 +24,8 @@ export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
 export var money = 0
 
+var rads = 1
+
 var rng = RandomNumberGenerator.new()
 
 
