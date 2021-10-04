@@ -15,7 +15,6 @@ var fire_direction = Vector2()
 #	pass
 
 func _physics_process(delta):
-	look_at(get_global_mouse_position())
 	position += fire_direction * speed
 
 

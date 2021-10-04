@@ -10,14 +10,18 @@ var player: Node2D = null
 var timer: float = 0.0;
 var burstCount: int = 0;
 var attacking: bool = false;
+var enemy
 
 enum {
 	LEFT,
 	RIGHT
 }
+
+func equip():
+	$AnimatedSprite.play("equip")
+	enemy.engagementRadius = 460
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite.play("equip")
 	pass # Replace with function body.
 
 func _process(delta):
@@ -44,8 +48,13 @@ func fire():
 			b.position = $"Fire Point".global_position
 			b.fire_direction = (player.global_position - global_position).normalized()
 
-			owner.owner.add_child(b)
+			enemy.get_parent().add_child(b)
+
+			b.look_at(player.global_position)
 		
 	else:
 		attacking = false; 
 		burstCount = 0
+
+func set_owner(owner):
+	enemy = owner

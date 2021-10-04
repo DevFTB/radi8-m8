@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Items/Item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Items/Buff.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Items/Stimpak.png" type="Texture" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 27.0677
+height = 13.4265
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Item" parent="." instance=ExtResource( 1 )]
+cost = 5
+
+[node name="Sprite" parent="Item" index="0"]
+position = Vector2( 8.00021, 2.13273 )
+scale = Vector2( 0.127675, 0.127675 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="Item" index="4"]
+position = Vector2( 0.165283, -3.21314 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Item" to="Item" method="_on_Item_area_entered"]
+
+[editable path="Item"]

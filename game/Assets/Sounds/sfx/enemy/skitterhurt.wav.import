@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/skitterhurt.wav-8edf9d753c3b36686ff13a018c5453fe.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/skitterhurt.wav"
+dest_files=[ "res://.import/skitterhurt.wav-8edf9d753c3b36686ff13a018c5453fe.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

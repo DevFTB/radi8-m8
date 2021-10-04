@@ -12,7 +12,14 @@ const DoorPath = {
 	"res://Assets/Doors/Bottom.tscn": Direction.BOTTOM,
 	"res://Assets/Doors/Left.tscn": Direction.LEFT
 }
-var visited = {}
+
+enum {
+	SHOP, 
+	TIER1,
+	TIER2,
+	TIER3
+}
+
 var room = {}
 var connections = {}
 var current_room = [0, 0]
@@ -21,9 +28,15 @@ var door_to_dir = {0: [0, 1], 1: [1, 0], 2: [0, -1], 3: [-1, 0]}
 const door_to_new_door = {0: 2, 1: 3, 2:0, 3:1}
 var exited_door = 0
 export (Array, PackedScene) var room_possibilities
+export (PackedScene) var shop
+export var shop_chance = 0.1
 export (int) var initial_edges = 150
 export (int) var mutate_edge_num = 10
 var possible_connections = []
+var room_info = {}
+
+const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
+
 
 func get_allowed_rooms():
 #	var room_possibilities = []
@@ -49,9 +62,11 @@ func get_room(x_index, y_index):
 		print("room does not exist", x_index, y_index)
 		return
 	# get correct room scene
-	var room_packedscene = room[[x_index, y_index]]
+	var room_packedscene = room[[x_index, y_index]].scene
 	var new_room_scene = room_packedscene.instance()
-	replace_doors(new_room_scene, get_doors(x_index, y_index))
+#	replace_doors(new_room_scene, get_doors(x_index, y_index))
+	var tile_map = new_room_scene.get_node("TileMap")
+	tile_map.replace_doors(get_doors(x_index, y_index))
 	
 	return new_room_scene
 	
@@ -61,56 +76,76 @@ func get_current_room():
 func set_room(x_index, y_index):
 	current_room = [x_index, y_index]
 	print("room changed to " + str(x_index) + ", " + str(y_index))
-	return get_room(x_index, y_index)
+	var this_room = get_room(x_index, y_index)
+	return this_room
 	
-# refactor to increase perfomance if necessary
-func change_room(door_x_index, door_y_index):
+func change_room(tile_name):
 	# refactor to not instansiate another scene if possible
+
+	var curr = room[current_room]
+	curr["state"] =	get_parent().room.get_state()
 	var room_scene = get_current_room()
-	var door_locations = get_scene_door_locations(room_scene)
-	var tilemap = room_scene.get_node("TileMap")
-	for door in range(0, len(door_locations)):
-		if tilemap.world_to_map(door_locations[door])[0] == door_x_index and tilemap.world_to_map(door_locations[door])[1] == door_y_index:
-			var dir = door_to_dir[door]
-			exited_door = door_to_new_door[door]
-			return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
+	var door = door_tile_names.find(tile_name)
+	if(door != -1):
+		var dir = door_to_dir[door]
+		exited_door = door_to_new_door[door]
+		return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
 	
-func replace_doors(room_scene, doors):
-	var door_locations = get_scene_door_locations(room_scene)
-	# root node of room_scene is tilemap
-	var tilemap = room_scene.get_node("TileMap")
-	for door in range(0, len(doors)):
-		if doors[door]:
-#			tilemap.set_cellv(tilemap.world_to_map(door_locations[door]), 2)
-			add_door_to_tilemap(tilemap, door_locations[door], door)
+#func replace_doors(room_scene, doors):
+##	# root node of room_scene is tilemap
+#	var tilemap = room_scene.get_node("TileMap")
+#	var door_locations = tilemap.get_scene_door_locations()
+#	for door in range(0, len(doors)):
+#		if not doors[door]:
+#			remove_door_from_tilemap(tilemap, door_locations[door], door)
+			
+# todo: replace door with random wall of correct type
+#func remove_door_from_tilemap(tilemap, door_location, door):
+#	match door:
+#		0: 
+#			tilemap.set_cell(door_location[0], door_location[1], 0)
+#			tilemap.set_cell(door_location[0] + 1, door_location[1], 0)
+#		1: 
+#			tilemap.set_cell(door_location[0], door_location[1], 0)
+#			tilemap.set_cell(door_location[0], door_location[1] + 1, 0)
+#		2: 
+#			tilemap.set_cell(door_location[0], door_location[1], 0)
+#			tilemap.set_cell(door_location[0] + 1, door_location[1], 0)
+#		3: 
+#			tilemap.set_cell(door_location[0], door_location[1], 0)
+#			tilemap.set_cell(door_location[0], door_location[1] + 1, 0)
 
-# doors this code is poo soz
-# duplicate doors to make version 1 with offset 0 and 1 with offset -64
-func add_door_to_tilemap(tilemap, loc, door):
-	var idx = tilemap.world_to_map(loc)
-	match door:
-		0:
-			tilemap.set_cellv(idx, 2)
-		1:
-			tilemap.set_cellv(idx, 3, true, false, true)
-		2:
-			tilemap.set_cellv(idx, 3, true, true, false)
-		3:
-			tilemap.set_cellv(idx, 2, false, true, true)
-		_:
-			print(door, " is not a valid door value")
-	
+
 	
 
-func get_scene_door_locations(room_scene):
-	var door_locations = [0, 0, 0, 0]
-	for door in room_scene.get_children():
-		if DoorPath.has(door.get_filename()):
-			door_locations[DoorPath[door.get_filename()]] = door.position
-	return door_locations
-	
+#func get_scene_door_locations(room_scene):
+#	var door_locations = [0, 0, 0, 0]
+##	for door in room_scene.get_children():
+##		if DoorPath.has(door.get_filename()):
+##			door_locations[DoorPath[door.get_filename()]] = door.position
+##	return door_locations
+#	var tilemap = room_scene.get_node("TileMap")
+#	var tile_ids = get_door_tileid(tilemap)
+#	for door in tile_ids.keys():
+#		var door_location = tilemap.get_used_cells_by_id(tile_ids[door])
+#		if len(door_location) != 1:
+#			print("multiple doors of ", door)
+#		if len(door_location) > 0:
+#			door_locations[door] = door_location[0]
+#	return door_locations
+		
+
+#func get_door_tileid(tile_map):
+#	var tile_set = tile_map.tile_set
+#	return {
+#		0: tile_set.find_tile_by_name(door_tile_names[0]),
+#		1: tile_set.find_tile_by_name(door_tile_names[1]),
+#		2: tile_set.find_tile_by_name(door_tile_names[2]),
+#		3: tile_set.find_tile_by_name(door_tile_names[3])
+#	}
+#
 func get_doors(x_index, y_index):
 	var doors = [0, 0, 0, 0]
 	for door in door_to_dir.keys():
@@ -145,8 +180,10 @@ func build_room_network(n):
 	var allowed_rooms = get_allowed_rooms()
 	for i in range(0, n):
 		for j in range(0, n):
-			visited[[i, j]] = 0
-			room[[i, j]] = allowed_rooms[randi() % len(allowed_rooms)]
+			if (randf() < shop_chance):
+				room[[i, j]] = {"scene": shop, "type": SHOP, "visited": false, "state": null}
+			else:
+				room[[i, j]] =  {"scene": allowed_rooms[randi() % len(allowed_rooms)], "type": TIER1, "visited": false, "state": null}
 	
 	for room_idx in room.keys():
 		for neighbour in get_adjacent_rooms(room_idx):
@@ -167,10 +204,12 @@ func build_connections():
 		if not connection_exists(newEdge[0], newEdge[1]):
 			add_connection(newEdge[0], newEdge[1])
 	
-func get_door_world_location(door):
-	var room_scene = get_current_room()
-	if(room_scene):
-		return get_scene_door_locations(room_scene)[door]
+#func get_door_world_location(door):
+#	var room_scene = get_current_room()
+#	var tile_map = get_node("TileMap")
+#	print(room_scene, tile_map)
+#	if(room_scene):
+#		return tile_map.map_to_world(tile_map.get_scene_door_locations(room_scene)[door])
 		
 func get_last_exited_door():
 	return exited_door
@@ -226,3 +265,6 @@ func get_adjacent_rooms(i):
 		if room.has(neighbour):
 			neighbours.append(neighbour)
 	return neighbours
+
+## todo
+#func get_current_room_instance():
