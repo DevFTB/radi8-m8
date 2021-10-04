@@ -13,10 +13,16 @@ export var pickup_delay = 1.5
 var pickup_timer
 var timeout = false
 onready var initialScale = $shadow.scale
+export (NodePath)var sprite_path
+var sprite
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sprite = $Sprite
+	if (sprite_path):
+		sprite = get_node(sprite_path)
+
 	end_pos = initial_pos + Vector2(0, bob_distance)
 	$Label.text = str(cost)
 	start_tween()
@@ -46,30 +52,30 @@ func start_tween():
 
 	$Tween.start()
 	$Tween2.start()
-	$Tween.interpolate_property($Sprite, "position", initial_pos, end_pos, bob_time, Tween.TRANS_QUAD)
+	$Tween.interpolate_property(sprite, "position", initial_pos, end_pos, bob_time, Tween.TRANS_QUAD)
 	$Tween2.interpolate_property($shadow, "scale", 0.9 * initialScale, initialScale, bob_time, Tween.TRANS_QUAD)
 	yield($Tween, "tween_completed")
 
 
 	
-	$Tween.interpolate_property($Sprite, "position", end_pos, initial_pos, bob_time, Tween.TRANS_QUAD)
+	$Tween.interpolate_property(sprite, "position", end_pos, initial_pos, bob_time, Tween.TRANS_QUAD)
 	$Tween2.interpolate_property($shadow, "scale", initialScale, 0.9 * initialScale, bob_time, Tween.TRANS_QUAD)
 	yield($Tween, "tween_completed")
 	start_tween()
 
 func fade_in():
 	$Tween3.start()
-	$Tween3.interpolate_property($Sprite, "modulate", 
+	$Tween3.interpolate_property(sprite, "modulate", 
 	Color(1, 1, 1, 0.3), Color(1, 1, 1, 0.8), pickup_delay/3, 
 	Tween.TRANS_LINEAR, Tween.EASE_IN)
 	
 	yield($Tween2, "tween_completed")
-	$Tween3.interpolate_property($Sprite, "modulate", 
+	$Tween3.interpolate_property(sprite, "modulate", 
 	Color(1, 1, 1, 0.8), Color(1, 1, 1, 0.3), pickup_delay/3, 
 	Tween.TRANS_LINEAR, Tween.EASE_IN)
 
 	yield($Tween2, "tween_completed")
-	$Tween3.interpolate_property($Sprite, "modulate", 
+	$Tween3.interpolate_property(sprite, "modulate", 
 	Color(1, 1, 1, 0.3), Color(1, 1, 1, 1), pickup_delay/3, 
 	Tween.TRANS_LINEAR, Tween.EASE_IN)
 	
@@ -77,7 +83,7 @@ func fade_in():
 
 func _on_Item_area_entered(area):
 	if (pickup_timer || timeout):
-		if (area == get_tree().get_root().get_children()[get_tree().get_root().get_child_count() - 1].get_node("Player")):
+		if (area == get_tree().get_root().get_children()[-1].player):
 			if (owner.has_method("on_pickup") && owner.has_method("destroy")):
 				if (area.pickup_item(owner, cost)):
 					owner.destroy()

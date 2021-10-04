@@ -8,7 +8,7 @@ export (float) var amountOfSwipes = 10;
 export (AudioStream) var equipSound
 export (AudioStream) var attackSound
 
-export var engagementRadius = 150
+export var engagementRadius = 100
 
 var timer: float = 0.0;
 var swipeCount: int = 0;

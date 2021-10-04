@@ -5,11 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-
-
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,10 +13,8 @@ func _ready():
 #	pass
 
 func on_pickup(player):
-	player.buffs["max_health"] += 1
-	player.set_max_health(player.max_health + 1)
-	player.set_health(player.health + 1)
+	Global.add_radpods(1)
+
 
 func destroy():
 	queue_free()
-

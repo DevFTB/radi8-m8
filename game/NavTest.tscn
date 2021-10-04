@@ -45,7 +45,7 @@
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[node name="Node2D2" type="YSort"]
+[node name="Node2D4" type="YSort"]
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 container_path = NodePath("MinimapCanvasLayer/PanelContainer")
@@ -57,6 +57,9 @@ hideout = "res://Scenes/Hideout.tscn"
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 500, 500 )
 z_index = 127
+
+[node name="Sprite" parent="Player" index="4"]
+frame = 1
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )

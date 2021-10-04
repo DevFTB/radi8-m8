@@ -10,7 +10,7 @@
 [ext_resource path="res://Assets/enemy/LightEnemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/enemy/FatMan.tscn" type="PackedScene" id=9]
 
-[node name="Node2D2" type="Navigation2D"]
+[node name="Node2D3" type="Navigation2D"]
 script = ExtResource( 7 )
 enemies = [ ExtResource( 8 ), ExtResource( 9 ) ]
 quantity = [ 2, 1 ]

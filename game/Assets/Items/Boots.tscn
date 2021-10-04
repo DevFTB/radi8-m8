@@ -27,8 +27,8 @@ position = Vector2( 0.165283, -3.21314 )
 shape = SubResource( 1 )
 
 [node name="TextureRect" parent="Item" index="6"]
-margin_top = -3.91619
-margin_bottom = 111.084
+margin_top = -0.91619
+margin_bottom = 114.084
 
 [node name="Label" parent="Item" index="7"]
 margin_top = 43.1735

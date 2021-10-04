@@ -9,6 +9,7 @@
 radius = 11.5841
 
 [node name="Area2D" type="Node2D"]
+z_index = 127
 script = ExtResource( 2 )
 speed = 6
 

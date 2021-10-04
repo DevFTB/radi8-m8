@@ -44,7 +44,7 @@ enum {
 	DASH,
 	ATTACK,
 	HEAVY_ATTACK
-	DEAD,
+	STOP,
 }
 var state = IDLE
 var canAttack = true
@@ -126,7 +126,7 @@ func transition(newState):
 		
 			
 func _physics_process(delta):
-	if(!state == DEAD):
+	if(!state == STOP):
 		process_input()
 	match state:
 		IDLE:
@@ -154,7 +154,7 @@ func _physics_process(delta):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
-		DEAD:
+		STOP:
 			pass
 
 func idle_process(delta):
@@ -180,13 +180,13 @@ func perform_attack():
 		
 	canAttack = false
 	var b = bullet.instance()
-	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
+	b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized()
 	face_horizontal(b.fire_direction)
 
 	owner.add_child(b)
 	b.set_position($Sprite/FirePosition.global_position)
 
-	b.rotation = (get_global_mouse_position() - position).normalized().angle()
+	b.rotation = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized().angle()
 	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
@@ -210,7 +210,7 @@ func perform_heavy_attack():
 
 	for x in range(5):
 		var b = bullet.instance()
-		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.35, 0.35)).normalized()
+		b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).rotated(rng.randf_range(-0.3, 0.3)).normalized()
 		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
@@ -256,6 +256,10 @@ func set_health(value):
 
 	if (health == 0):
 		emit_signal("no_health")
+		stop()
+
+func stop():
+	transition(STOP)
 
 func perform_dash():
 	transition(DASH)
@@ -365,7 +369,6 @@ func set_max_health(value):
 func _on_Hurtbox_damage(source):
 	if("damage" in source):
 		take_damage(source.damage)
-
 
 func play_sound(audio):
 	$PlayerSound.set_stream(audio)
