@@ -18,47 +18,47 @@
 [ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/enemymutationgunsound.wav" type="AudioStream" id=16]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=17]
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "move",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 5 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
 "name": "equip",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 35.7179
 height = 52.6489
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="CapsuleShape2D" id=9]
 radius = 35.7179
 height = 52.6489
 
@@ -68,7 +68,7 @@ height = 52.6489
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
-speed = 150.0
+speed = 160.0
 mutationPeriod = 12.0
 coin_drop_chance = 0.5
 deathSplosion = ExtResource( 8 )
@@ -84,9 +84,8 @@ texture = ExtResource( 17 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 1.98949 )
-frames = SubResource( 13 )
+frames = SubResource( 5 )
 animation = "move"
-frame = 3
 playing = true
 
 [node name="Mutations" type="Node2D" parent="."]
@@ -101,7 +100,7 @@ healthBonus = 5.0
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -0.630676, 2.10223 )
 scale = Vector2( 1.88219, 2.0916 )
-frames = SubResource( 6 )
+frames = SubResource( 7 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -90.4275, -34.2728 )
@@ -127,7 +126,7 @@ position = Vector2( 6.00677, -71.0803 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 4.23557, 1.58518 )
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 7 )]
 position = Vector2( 3, -40.5079 )
@@ -136,7 +135,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( -0.631657, 38.0783 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 3, -40.5079 )

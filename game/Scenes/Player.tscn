@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Assets/Sounds/sfx/justkaching.wav" type="AudioStream" id=13]
 [ext_resource path="res://Assets/Sounds/sfx/kaching buy.wav" type="AudioStream" id=14]
 [ext_resource path="res://Assets/Sounds/sfx/playerheal.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scenes/Shake.gd" type="Script" id=16]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.59809
@@ -147,7 +148,6 @@ collision_layer = 64
 collision_mask = 129
 script = ExtResource( 1 )
 movementSpeed = 280
-shootMovementSpeed = 220
 bullet = ExtResource( 3 )
 max_health = 4
 runSound = ExtResource( 5 )
@@ -168,7 +168,7 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
-script = ExtResource( 11 )
+script = ExtResource( 16 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
 collision_layer = 16
