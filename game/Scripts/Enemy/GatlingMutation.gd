@@ -5,6 +5,9 @@ export (PackedScene) var bullet
 export (float) var firingSpeed = 5
 export (float) var burstAmount = 10;
 
+export (AudioStream) var equipSound
+export (AudioStream) var fireSound
+
 var player: Node2D = null
 
 var timer: float = 0.0;
@@ -19,6 +22,7 @@ enum {
 
 func equip():
 	$AnimatedSprite.play("equip")
+	play_sound(equipSound)
 	enemy.engagementRadius = 460
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,6 +42,7 @@ func set_player(node):
 
 func fire():
 	if(burstCount < burstAmount):
+		play_sound(fireSound)
 		$AnimatedSprite.frame = 0;
 		$AnimatedSprite.play("attack")
 		burstCount += 1
@@ -58,3 +63,7 @@ func fire():
 
 func set_owner(owner):
 	enemy = owner
+	
+func play_sound(sound):
+	$AudioStreamPlayer2D.set_stream(sound)
+	$AudioStreamPlayer2D.play()

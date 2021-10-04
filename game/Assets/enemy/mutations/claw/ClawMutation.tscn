@@ -4,8 +4,9 @@
 [ext_resource path="res://scripts/Enemy/ClawMutation.gd" type="Script" id=2]
 [ext_resource path="res://Assets/enemy/mutations/claw/claw swipe anim.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Hitbox.gd" type="Script" id=4]
-[ext_resource path="res://Assets/Sounds/sfx/equip claw.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/equip claw.wav" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Sounds/sfx/enemy/slash.mp3" type="AudioStream" id=6]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

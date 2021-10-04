@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/equip claw.wav-8d2ab47eb92f9b9c6f2dddb7a0b6b3c1.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/mutations/equip claw.wav"
+dest_files=[ "res://.import/equip claw.wav-8d2ab47eb92f9b9c6f2dddb7a0b6b3c1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
