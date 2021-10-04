@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/Rooms/newroom.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Rooms/newroom2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Rooms/room b.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Rooms/room a.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Sounds/music/RogueRadiate.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
@@ -20,7 +20,7 @@ player_path = NodePath("Player")
 [node name="Layout" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 167.061, 400 )
+position = Vector2( 500, 500 )
 z_index = 127
 shootMovementSpeed = 170
 
