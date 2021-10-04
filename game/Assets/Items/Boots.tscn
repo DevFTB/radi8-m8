@@ -11,11 +11,11 @@ height = 13.4265
 [node name="Node2D6" type="Node2D"]
 script = ExtResource( 2 )
 buff_name = "boots"
-value = 130.0
+value = 60.0
 buff_type = "movement_speed"
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
-cost = 6
+cost = 8
 
 [node name="Sprite" parent="Item" index="0"]
 position = Vector2( 9.54601, 5.54226 )

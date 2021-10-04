@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/enemy/pooplet.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 11.5841
+radius = 13.4533
 
 [node name="Area2D" type="Node2D"]
 z_index = 127

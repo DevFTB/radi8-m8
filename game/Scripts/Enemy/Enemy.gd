@@ -188,8 +188,8 @@ func _on_Hurtbox_damage(area):
 		take_damage(area.damage)
 
 func die():
-	play_sound(deathSound)
 	var ins = deathSplosion.instance()
+	ins.explode(deathSound)
 	get_tree().root.add_child(ins)
 	if (randf() < coin_drop_chance):
 		var drop = coin.instance()

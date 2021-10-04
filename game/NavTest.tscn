@@ -70,7 +70,7 @@ parameters/playback = SubResource( 1 )
 script = ExtResource( 6 )
 room_possibilities = [ ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ), ExtResource( 1 ), ExtResource( 28 ), ExtResource( 2 ), ExtResource( 27 ), ExtResource( 37 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 42 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ) ]
 shop = ExtResource( 7 )
-shop_chance = 0.2
+shop_chance = 0.25
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 player_path = NodePath("../Player")
