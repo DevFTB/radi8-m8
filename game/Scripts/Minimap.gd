@@ -43,7 +43,6 @@ func _draw():
 				colour = connection_colour
 				draw = true
 			elif(removed):
-				print("red")
 				colour = "#FF0000"
 				draw = true
 			if draw:
@@ -61,7 +60,7 @@ func _draw():
 				colour = "#FF0000"
 				draw = true
 			if draw:
-				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), connection_colour)
+				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), colour)
 				
 			current_y -= room_padding + room_height
 		

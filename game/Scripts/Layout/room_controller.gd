@@ -237,7 +237,7 @@ func get_adjacent_rooms(i):
 	return neighbours
 	
 func connection_removed(i, j):
-	return added_connections.has([i, j])
+	return removed_connections.has([i, j])
 
 func connection_added(i, j):
-	return removed_connections.has([i, j])
+	return added_connections.has([i, j])
