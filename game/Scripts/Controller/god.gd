@@ -46,8 +46,6 @@ func change_room(tile_name):
 	level.add_child(room)
 	
 	var room_data = room_controller.room[room_controller.current_room]
-	room.init_room(room_data["visited"], room_data["type"], room_data["state"])
-	room_data["visited"] = true
 	room_controller.rebuild_room_connections()
 	
 	var door = room_controller.get_last_exited_door()
@@ -58,6 +56,8 @@ func change_room(tile_name):
 		2: door_offset = Vector2(128, 0)
 		3: door_offset = Vector2(128, 128)
 	player.global_position = room.get_node("TileMap").get_door_world_location(door) + (spawn_offset * spawn_offset_dir[door]) + door_offset
+	room.init_room(room_data["visited"], room_data["type"], room_data["state"])
+	room_data["visited"] = true
 	
 	
 		
