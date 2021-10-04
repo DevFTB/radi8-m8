@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Assets/Sounds/sfx/PEWWWWW.wav" type="AudioStream" id=10]
 [ext_resource path="res://Assets/Sounds/sfx/playerarmorsound.wav" type="AudioStream" id=11]
 [ext_resource path="res://Assets/Sounds/sfx/upgradesound.wav" type="AudioStream" id=12]
-[ext_resource path="res://Assets/Sounds/sfx/justkaching.wav" type="AudioStream" id=13]
 [ext_resource path="res://Assets/Sounds/sfx/kaching buy.wav" type="AudioStream" id=14]
 [ext_resource path="res://Assets/Sounds/sfx/playerheal.wav" type="AudioStream" id=15]
 [ext_resource path="res://Scenes/Shake.gd" type="Script" id=16]
@@ -157,7 +156,7 @@ attackSound = ExtResource( 8 )
 heavyAttackSound = ExtResource( 10 )
 healSound = ExtResource( 15 )
 dodgeSound = ExtResource( 11 )
-moneySound = ExtResource( 13 )
+moneySound = ExtResource( 14 )
 moneyPickupSound = ExtResource( 14 )
 pickupSound = ExtResource( 12 )
 
@@ -189,7 +188,7 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
-frame = 2
+frame = 1
 
 [node name="FirePosition" type="Position2D" parent="Sprite"]
 position = Vector2( 47.6207, -11.6665 )
@@ -210,6 +209,10 @@ parameters/playback = SubResource( 20 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="PlayerSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_Hurtbox_damage"]

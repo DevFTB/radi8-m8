@@ -115,7 +115,7 @@ func transition(newState):
 		IDLE:
 			animator.travel("idle")
 		MOVE:
-			play_sound(runSound)
+			play_walking_sound(runSound)
 			animator.travel("run")
 		ATTACK:
 			if(velocity.length() == 0):
@@ -271,7 +271,7 @@ func stop():
 
 func perform_dash():
 	transition(DASH)
-	play_sound(dashSound)
+	play_walking_sound(dashSound)
 	canDash = false
 	dashDir = get_input_direction();
 	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
@@ -315,7 +315,7 @@ func take_damage(value):
 			dodge()
 
 func dodge():
-	# play_sound(dodgeSound)
+	play_sound(dodgeSound)
 	pass
 
 func on_invulnerability_end():
@@ -387,3 +387,7 @@ func _on_Hurtbox_damage(source):
 func play_sound(audio):
 	$PlayerSound.set_stream(audio)
 	$PlayerSound.play()
+
+func play_walking_sound(audio):
+	$WalkingSound.set_stream(audio)
+	$WalkingSound.play()

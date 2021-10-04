@@ -7,7 +7,7 @@ export (NodePath) var level_path
 export (NodePath) var player_path
 export (NodePath) var minimap_path
 export (String, FILE, "*.tscn") var hideout
-export var minimapShowTime = 3
+export (float)var minimapShowTime = 1.5
 
 onready var player = get_node(player_path)
 onready var room_controller = get_node(room_controller_path)

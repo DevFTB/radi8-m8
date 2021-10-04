@@ -139,6 +139,7 @@ shape = SubResource( 9 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 3, -40.5079 )
+volume_db = -2.0
 
 [editable path="Mutations/Armour Mutation"]
 [editable path="Hurtbox"]

@@ -181,7 +181,7 @@ __meta__ = {
 
 [node name="Hideout Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -6.0
+volume_db = -9.0
 autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

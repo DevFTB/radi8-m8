@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Assets/Rooms/roomy/room c.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Rooms/roomy/room e.tscn" type="PackedScene" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://Assets/Rooms/roomy/room2 d.tscn" type="PackedScene" id=40]
 [ext_resource path="res://Assets/Rooms/roomy/room2 e.tscn" type="PackedScene" id=41]
 [ext_resource path="res://Assets/Rooms/roomy/room2 b.tscn" type="PackedScene" id=42]
+[ext_resource path="res://Assets/exit.png" type="Texture" id=43]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -58,6 +59,9 @@ hideout = "res://Scenes/Hideout.tscn"
 position = Vector2( 500, 500 )
 z_index = 127
 
+[node name="Sprite" parent="Player" index="4"]
+frame = 0
+
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 
@@ -67,13 +71,12 @@ parameters/playback = SubResource( 1 )
 script = ExtResource( 6 )
 room_possibilities = [ ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ), ExtResource( 1 ), ExtResource( 28 ), ExtResource( 2 ), ExtResource( 27 ), ExtResource( 37 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 42 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ) ]
 shop = ExtResource( 7 )
-shop_chance = 0.25
+shop_chance = 0.2
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 player_path = NodePath("../Player")
 
 [node name="You Died" type="Control" parent="CanvasLayer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 29 )
@@ -184,14 +187,13 @@ __meta__ = {
 [node name="AudioStreamPlaye" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 3 )
-volume_db = -6.0
+volume_db = -8.0
 autoplay = true
 
 [node name="MinimapCanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
 
 [node name="PanelContainer" type="PanelContainer" parent="MinimapCanvasLayer"]
-visible = false
 self_modulate = Color( 0, 0, 0, 0.501961 )
 margin_left = 420.0
 margin_top = 50.0
@@ -204,7 +206,6 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="MinimapCanvasLayer/PanelContainer"]
-visible = false
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1073.0
@@ -217,7 +218,6 @@ custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
 
 [node name="Minimap" type="Control" parent="MinimapCanvasLayer/PanelContainer/MarginContainer"]
-visible = false
 margin_left = 50.0
 margin_top = 50.0
 margin_right = 1016.0
@@ -228,6 +228,7 @@ room_square = ExtResource( 8 )
 room_doors = [ ExtResource( 15 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 18 ) ]
 room_doors_new = [ ExtResource( 11 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ]
 cross = ExtResource( 19 )
+hideout = ExtResource( 43 )
 shop = ExtResource( 20 )
 mutation_sprites = [ ExtResource( 21 ), ExtResource( 22 ) ]
 player_icon = ExtResource( 23 )
