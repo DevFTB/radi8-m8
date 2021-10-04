@@ -23,6 +23,7 @@ speed = 400.0
 attackPeriod = 4.0
 mutationPeriod = 15.0
 max_health = 1
+coin_drop_chance = 0.0
 deathSplosion = ExtResource( 8 )
 hurtSounds = [ ExtResource( 10 ) ]
 deathSound = ExtResource( 9 )

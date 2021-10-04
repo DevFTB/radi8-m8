@@ -77,7 +77,7 @@ func fade_in():
 
 func _on_Item_area_entered(area):
 	if (pickup_timer || timeout):
-		if (area == owner.get_parent().get_parent().player):
+		if (area == get_tree().root.get_children()[0].player):
 			if (owner.has_method("on_pickup") && owner.has_method("destroy")):
 				if (area.pickup_item(owner, cost)):
 					owner.destroy()

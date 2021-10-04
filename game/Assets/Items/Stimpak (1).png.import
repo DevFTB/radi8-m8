@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Stimpak.png-1b467d4f6f1abab4ea7e0c7843842d17.stex"
+path="res://.import/Stimpak (1).png-59796ff72c93a4e054c5a4c89c3bf327.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Items/Stimpak.png"
-dest_files=[ "res://.import/Stimpak.png-1b467d4f6f1abab4ea7e0c7843842d17.stex" ]
+source_file="res://Assets/Items/Stimpak (1).png"
+dest_files=[ "res://.import/Stimpak (1).png-59796ff72c93a4e054c5a4c89c3bf327.stex" ]
 
 [params]
 
@@ -31,4 +31,4 @@ process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=0.2
+svg/scale=1.0

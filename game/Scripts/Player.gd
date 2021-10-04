@@ -10,18 +10,19 @@ signal max_health_changed(max_health)
 signal no_health
 signal door_collision(tile_index)
 signal money_changed(money)
+signal buff_applied(buff_name)
 
 export var attackInterval = 0.5
 
 export var movementSpeed : int = 300
 var currMovementSpeed : int
 export var shootMovementSpeed : int = 200
-export var dashSpeed : int = 1200
+export var dashSpeed : int = 1000
 export var heavyAttackCooldown : float = 6
 export var damage : int = 10
 export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
-export var money = 42069
+export var money = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -29,7 +30,7 @@ var rng = RandomNumberGenerator.new()
 export (PackedScene) var bullet
 var velocity : Vector2 = Vector2()
 var facingLeft : bool = false;
-export var dashDuration = 0.2;
+export var dashDuration = 0.4;
 
 export (Array, String) var door_tilenames = ["backdoor", "frontdoor", "leftdoor", "rightdoor"] 
 var buffs = {"max_health": 0, "dodge_chance": 0, "invulnerability_period": 0, "movement_speed": 0, "attack_interval": 0}
@@ -176,9 +177,10 @@ func perform_attack():
 	var b = bullet.instance()
 	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
 	face_horizontal(b.fire_direction)
-	owner.add_child(b)
 
-	b.global_position = $Sprite/FirePosition.global_position
+	owner.add_child(b)
+	b.set_position($Sprite/FirePosition.global_position)
+
 	b.rotation = (get_global_mouse_position() - position).normalized().angle()
 	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
@@ -207,8 +209,8 @@ func perform_heavy_attack():
 		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
+		b.set_position($Sprite/FirePosition.global_position)
 
-		b.global_position = $Sprite/FirePosition.global_position
 		b.rotation = (get_global_mouse_position() - position).normalized().angle()
 		yield(get_tree().create_timer(0.03), "timeout")
 	
@@ -332,7 +334,10 @@ func pickup_item(item, cost):
 		if (!item.has_method("can_pickup") || item.can_pickup(self)):
 			item.on_pickup(self)
 			set_money(money - cost)
-			emit_signal("buff_applied", item)
+			var buff_name = ""
+			if ("buff_name" in item):
+				buff_name = item.buff_name
+			emit_signal("buff_applied", buff_name)
 			return true
 	return false
 	

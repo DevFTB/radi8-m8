@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/HealthUI.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/extra_life (1).png" type="Texture" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://Scenes/player.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Money.png" type="Texture" id=6]
 [ext_resource path="res://Assets/FontBig.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Assets/Items/Shield.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Items/Stimpak (1).png" type="Texture" id=9]
+[ext_resource path="res://Assets/Items/Second_Wind.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Feet_boots_winged.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/BuffUI.gd" type="Script" id=12]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 layer = 128
@@ -75,3 +80,82 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Control3" type="HBoxContainer" parent="."]
+anchor_bottom = 0.08
+margin_left = 0.313812
+margin_top = 950.876
+margin_right = 1004.31
+margin_bottom = 992.476
+size_flags_horizontal = 9
+size_flags_vertical = 13
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+buffs = [ "second_wind", "shield", "boots", "stim" ]
+buff_elem_paths = [ NodePath("Item1"), NodePath("Item2"), NodePath("Item4"), NodePath("Item5") ]
+
+[node name="Item1" type="TextureRect" parent="Control3"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+size_flags_vertical = 3
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="Item2" type="TextureRect" parent="Control3"]
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+size_flags_horizontal = 13
+size_flags_vertical = 13
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Item4" type="MarginContainer" parent="Control3"]
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 128.0
+grow_horizontal = 2
+rect_min_size = Vector2( 128, 128 )
+custom_constants/margin_top = 10
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 10
+
+[node name="Item4" type="TextureRect" parent="Control3/Item4"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 128.0
+margin_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+stretch_mode = 5
+
+[node name="Item5" type="MarginContainer" parent="Control3"]
+margin_left = 396.0
+margin_right = 524.0
+margin_bottom = 128.0
+grow_horizontal = 2
+rect_min_size = Vector2( 128, 128 )
+custom_constants/margin_top = 10
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 10
+
+[node name="Item4" type="TextureRect" parent="Control3/Item5"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 128.0
+margin_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 9 )
+stretch_mode = 5

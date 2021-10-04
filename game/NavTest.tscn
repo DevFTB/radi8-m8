@@ -27,8 +27,6 @@ player_path = NodePath("Player")
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 500, 500 )
 z_index = 127
-attackInterval = 0.05
-movementSpeed = 800
 shootMovementSpeed = 170
 
 [node name="AnimationTree" parent="Player" index="6"]

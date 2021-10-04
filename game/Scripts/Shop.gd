@@ -47,7 +47,6 @@ func get_items(list, count):
 	list.shuffle()
 	return list.slice(0, min(count, list.size()))
 
-
 func get_item_rarity_list(items):
 	var rarity_list = []
 	for i in range(0, items.size()):

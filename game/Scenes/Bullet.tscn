@@ -8,6 +8,7 @@
 radius = 1.61262
 
 [node name="Area2D2" type="Node2D"]
+z_index = 128
 script = ExtResource( 2 )
 speed = 25
 
@@ -27,7 +28,7 @@ shape = SubResource( 1 )
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( -5.25, -6 )
 
-[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 
 [editable path="Hitbox"]
