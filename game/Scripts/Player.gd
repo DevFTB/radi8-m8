@@ -14,10 +14,12 @@ signal money_changed(money)
 export var attackInterval = 0.5
 
 export var movementSpeed : int = 300
-export var dashSpeed : int = 1500
-export var heavyAttackCooldown : float = 1.2
+var currMovementSpeed : int
+export var shootMovementSpeed : int = 200
+export var dashSpeed : int = 1200
+export var heavyAttackCooldown : float = 6
 export var damage : int = 10
-export var dashCooldown : float = 2
+export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
 export var money = 42069
 
@@ -46,7 +48,7 @@ var state = IDLE
 var canAttack = true
 var canDash = true
 var canHeavyAttack = true
-
+var isInvulnerable = false
 
 export(int) var max_health = 10
 var health = null setget set_health
@@ -129,11 +131,13 @@ func _physics_process(delta):
 			if(velocity.length_squared() > 0):
 				transition(MOVE)
 		MOVE:
+			currMovementSpeed = movementSpeed
 			move_process(delta)
 			
 			if(velocity.length() == 0 and state != IDLE):
 				transition(IDLE)
 		ATTACK:
+			currMovementSpeed = shootMovementSpeed 
 			move_process(delta)
 			attack_process(delta)
 			
@@ -142,7 +146,7 @@ func _physics_process(delta):
 				
 		HEAVY_ATTACK:
 #			attack_process(delta)
-			if(state != IDLE and canHeavyAttack):
+			if(state != IDLE and (canHeavyAttack || canAttack)):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
@@ -193,22 +197,25 @@ func perform_heavy_attack():
 	transition(HEAVY_ATTACK)
 	
 	canHeavyAttack = false
+	canAttack = false
 	
 	play_sound(heavyAttackSound)
 
 	for x in range(5):
 		var b = bullet.instance()
-		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.1, 0.1)).normalized()
+		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.3, 0.3)).normalized()
 		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
 
 		b.global_position = $Sprite/FirePosition.global_position
 		b.rotation = (get_global_mouse_position() - position).normalized().angle()
-		yield(get_tree().create_timer(0.05), "timeout")
+		yield(get_tree().create_timer(0.03), "timeout")
 	
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
 	cooldownTimer.connect("timeout", self, "on_heavy_attack_cooldown_complete")
+	var cooldownTimer2 = get_tree().create_timer(attackInterval + buffs["attack_interval"])
+	cooldownTimer2.connect("timeout", self, "on_attack_cooldown_complete")
 	
 
 
@@ -223,6 +230,8 @@ func on_dash_cooldown_complete():
 	canDash = true
 	
 func on_dash_complete():
+	$"Hurtbox/CollisionShape2D".disabled = false
+	on_invulnerability_end()
 	transition(MOVE)	
 	
 func move_process(delta):
@@ -247,13 +256,14 @@ func perform_dash():
 	play_sound(dashSound)
 	canDash = false
 	dashDir = get_input_direction();
+	invulnerability_start()
 	var cooldownTimer = get_tree().create_timer(dashCooldown)
 	cooldownTimer.connect("timeout", self, "on_dash_cooldown_complete")
+	var dashTimer = get_tree().create_timer(dashDuration)
+	dashTimer.connect("timeout", self, "on_dash_complete")
 	
 func dash_process(delta):
 	move_and_slide(dashDir * dashSpeed)
-	var dashTimer = get_tree().create_timer(dashDuration)
-	dashTimer.connect("timeout", self, "on_dash_complete")
 	
 func check_collisions():
 	pass
@@ -277,7 +287,8 @@ func take_damage(value):
 	if (!(buffs["dodge_chance"] > randf())):
 		play_sound(hurtSound)
 		set_health(health - value)
-		$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
+		invulnerability_start()
+		
 		var timer = get_tree().create_timer(invulnerabilityPeriod + buffs["invulnerability_period"])
 		timer.connect("timeout", self, "on_invulnerability_end")
 	else:
@@ -288,12 +299,40 @@ func dodge():
 
 func on_invulnerability_end():
 	$"Hurtbox/CollisionShape2D".disabled = false
+	if (isInvulnerable): isInvulnerable = false
+	
+func invulnerability_start():
+	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
+	if (!isInvulnerable): isInvulnerable = true
+	tween_invulnerability_start()
+
+
+func tween_invulnerability_start():
+	if (!isInvulnerable): 
+		return
+	$Tween.start()
+	
+	$Tween.interpolate_property($Sprite, "modulate", 
+	Color(1, 1, 1, 1), Color(1, 1, 1, 0.3), 0.2, 
+	Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	yield($Tween, "tween_completed")
+	
+	$Tween.interpolate_property($Sprite, "modulate", 
+	Color(1, 1, 1, 0.3), Color(1, 1, 1, 1), 0.2, 
+	Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	yield($Tween, "tween_completed")
+	
+	tween_invulnerability_start()
+	
 
 func pickup_item(item, cost):
 	if (cost <= money):
 		if (!item.has_method("can_pickup") || item.can_pickup(self)):
 			item.on_pickup(self)
 			set_money(money - cost)
+			emit_signal("buff_applied", item)
 			return true
 	return false
 	
@@ -306,7 +345,6 @@ func set_max_health(value):
 	emit_signal("max_health_changed", max_health)
 
 func _on_Hurtbox_damage(source):
-	print("somebody touch player hut box ")
 	if("damage" in source):
 		take_damage(source.damage)
 

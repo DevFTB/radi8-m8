@@ -10,7 +10,7 @@
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[node name="Node2D2" type="Node2D"]
+[node name="Node2D2" type="YSort"]
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 level_path = NodePath("Layout")
@@ -20,10 +20,11 @@ player_path = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 167.061, 400 )
-movementSpeed = 400
+z_index = 127
+shootMovementSpeed = 170
 
 [node name="Sprite" parent="Player" index="4"]
-frame = 0
+frame = 2
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
@@ -32,7 +33,6 @@ parameters/playback = SubResource( 1 )
 script = ExtResource( 6 )
 room_possibilities = [ ExtResource( 1 ), ExtResource( 2 ) ]
 shop = ExtResource( 7 )
-shop_chance = 0.4
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 player_path = NodePath("../Player")
