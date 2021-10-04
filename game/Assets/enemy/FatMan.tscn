@@ -59,20 +59,12 @@ scale = Vector2( 1.02466, 3.93601 )
 shape = SubResource( 2 )
 
 [node name="Mutations" type="Node2D" parent="."]
-visible = false
 position = Vector2( 0, -56 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -67.3374, 20.2992 )
 scale = Vector2( 2, 2 )
 relativeProbability = 8
-
-[node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
-position = Vector2( -1.12373, 40.4543 )
-
-[node name="AnimatedSprite" parent="Mutations/Detonation Mutation" index="0"]
-position = Vector2( -4.54953, -4.7052 )
-scale = Vector2( 2, 2 )
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( 16.7501, -50.6431 )
@@ -84,6 +76,13 @@ relativeProbability = 20
 scale = Vector2( 2.973, 3.40845 )
 relativeProbability = 20
 healthBonus = 10.0
+
+[node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
+position = Vector2( -1.12373, 40.4543 )
+
+[node name="AnimatedSprite" parent="Mutations/Detonation Mutation" index="0"]
+position = Vector2( 3.65318, -7.81947 )
+scale = Vector2( 1.75204, 1.75204 )
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 4 )]
 position = Vector2( 0.0863304, 32.6602 )
