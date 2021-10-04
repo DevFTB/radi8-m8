@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/MainMenu.tscn"
 config/icon="res://icon.png"
 <<<<<<<Updatedupstreamrun/main_scene="res://MutationTest.tscn"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [display]
 
 window/size/width=1920

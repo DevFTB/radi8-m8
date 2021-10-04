@@ -29,6 +29,9 @@ position = Vector2( 500, 500 )
 z_index = 127
 shootMovementSpeed = 170
 
+[node name="Sprite" parent="Player" index="4"]
+frame = 1
+
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 
