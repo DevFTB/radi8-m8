@@ -54,9 +54,19 @@ func replace_doors(doors):
 	for door in range(0, len(doors)):
 		if not doors[door] and door_locations[door]:
 			remove_door_from_tilemap(door_locations[door], door)
+		else:
+			close_door(door_locations[door])
 	add_colliders(door_locations, doors)
 	
-			
+
+func close_door(door_location):
+	var tile_id = get_cellv(door_location)
+	set_cell(door_location[0], door_location[1], tile_id, false, false, false, Vector2(1, 0))
+
+func open_door(door_location):
+	var tile_id = get_cellv(door_location)
+	set_cell(door_location[0], door_location[1], tile_id, false, false, false, Vector2(0, 0))
+	
 func remove_door_from_tilemap(door_location, door):
 	var wall_replacement_name = wall_replacement_names[door]
 	var tile_id = tile_set.find_tile_by_name(wall_replacement_name)
@@ -75,4 +85,6 @@ func get_door_world_location(door):
 	return map_to_world(get_scene_door_locations()[door])
 	
 func open_doors():
-	pass
+	for i in get_scene_door_locations():
+		if typeof(i) == TYPE_VECTOR2:
+			open_door(i)

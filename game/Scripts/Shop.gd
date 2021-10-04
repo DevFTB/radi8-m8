@@ -21,6 +21,7 @@ func init_room(visited, __, prev_state):
 	else:
 		var items = get_items(rarity_list, item_locations.size())
 		spawn_items(items)
+	$TileMap.open_doors()
 
 func spawn_items(indices):
 	var i = 0
