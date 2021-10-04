@@ -28,7 +28,7 @@ region = Rect2( 64, 0, 64, 64 )
 atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
@@ -36,22 +36,22 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 14 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ SubResource( 12 ) ],
+"frames": [ SubResource( 5 ) ],
 "loop": true,
 "name": "equip",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=14]
+[sub_resource type="CapsuleShape2D" id=7]
 radius = 65.0602
 
-[sub_resource type="CapsuleShape2D" id=15]
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 65.0602
 
 [node name="Skitterbug" type="KinematicBody2D" groups=[
@@ -60,7 +60,8 @@ radius = 65.0602
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
-speed = 250.0
+speed = 200.0
+max_health = 6
 coin_drop_chance = 0.5
 deathSplosion = ExtResource( 8 )
 coin = ExtResource( 12 )
@@ -76,7 +77,7 @@ texture = ExtResource( 15 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -33 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 11 )
+frames = SubResource( 4 )
 animation = "move"
 frame = 1
 playing = true
@@ -85,19 +86,19 @@ playing = true
 position = Vector2( -3, -33 )
 
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 11 )]
-relativeProbability = 10
-healthBonus = 5.0
+relativeProbability = 15
+healthBonus = 3.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -1.18916, 2.58442 )
 scale = Vector2( 2.24208, 2.24208 )
-frames = SubResource( 13 )
+frames = SubResource( 6 )
 playing = true
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -10.4694, 15.2416 )
 scale = Vector2( 3, 3 )
-relativeProbability = 16
+relativeProbability = 10
 boostMultiplier = 2.0
 duration = 2.0
 boostSound = ExtResource( 13 )
@@ -107,19 +108,21 @@ position = Vector2( 7.37799, -59.5948 )
 scale = Vector2( 2, 2 )
 z_index = -1
 relativeProbability = 25
+firingSpeed = 2.1
+burstAmount = 5.0
 equipSound = ExtResource( 14 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -78.5952, -33.598 )
 scale = Vector2( 2, 2 )
-relativeProbability = 17
+relativeProbability = 10
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
 position = Vector2( 6.68173, -69.4901 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.944962, 0.196198 )
-shape = SubResource( 14 )
+shape = SubResource( 7 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( -3, -33 )
@@ -127,7 +130,7 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 15 )
+shape = SubResource( 8 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -3, -33 )
