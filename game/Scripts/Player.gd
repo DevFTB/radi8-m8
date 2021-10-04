@@ -17,10 +17,10 @@ export var movementSpeed : int = 300
 var currMovementSpeed : int
 export var shootMovementSpeed : int = 200
 export var dashSpeed : int = 1200
-export var heavyAttackCooldown : float = 6
+export var heavyAttackCooldown : float = 3
 export var damage : int = 10
 export var dashCooldown : float = 1.8
-export var invulnerabilityPeriod = 1
+export var invulnerabilityPeriod = 0.7
 export var money = 42069
 
 var rng = RandomNumberGenerator.new()
