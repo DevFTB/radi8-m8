@@ -32,7 +32,7 @@ var exited_door = 0
 export (Array, PackedScene) var room_possibilities
 export (PackedScene) var shop
 export var shop_chance = 0.1
-export (int) var initial_edges = 150
+export (int) var initial_edges = 120
 export (int) var mutate_edge_num = 10
 var possible_connections = []
 var room_info = {}
