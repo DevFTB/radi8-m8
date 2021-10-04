@@ -36,7 +36,7 @@ export (int) var initial_edges = 150
 export (int) var mutate_edge_num = 10
 var possible_connections = []
 var room_info = {}
-var max_room = 1
+var max_room = 0
 
 const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
 

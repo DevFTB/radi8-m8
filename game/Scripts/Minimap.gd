@@ -71,8 +71,8 @@ func _draw():
 			if (room_controller.room.has([i, j]) and room_controller.room[[i, j]].visited) or (room_controller.room.has([i, j + 1]) and room_controller.room[[i, j + 1]].visited):
 				var removed = room_controller.connection_removed([i, j], [i, j+1])
 				if(room_controller.connection_added([i, j], [i, j + 1]) and not removed):
-					draw_texture_rect(room_doors_new[direction.RIGHT], draw_rect, false)
-					draw_texture_rect(room_doors_new[direction.LEFT], draw_right_rect, false)
+					draw_texture_rect(room_doors_new[direction.UP], draw_rect, false)
+					draw_texture_rect(room_doors_new[direction.DOWN], draw_up_rect, false)
 				elif(room_controller.connection_exists([i, j], [i, j+1])):
 					draw_texture_rect(room_doors[direction.UP], draw_rect, false)
 					draw_texture_rect(room_doors[direction.DOWN], draw_up_rect, false)
