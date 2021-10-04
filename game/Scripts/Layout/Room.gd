@@ -73,3 +73,6 @@ func remove_door_from_tilemap(door_location, door):
 			
 func get_door_world_location(door):
 	return map_to_world(get_scene_door_locations()[door])
+	
+func open_doors():
+	pass

@@ -59,7 +59,7 @@ position = Vector2( 500, 500 )
 z_index = 127
 
 [node name="Sprite" parent="Player" index="4"]
-frame = 1
+frame = 2
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
@@ -184,6 +184,7 @@ __meta__ = {
 }
 
 [node name="AudioStreamPlaye" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 3 )
 volume_db = -6.0
 autoplay = true
