@@ -13,7 +13,6 @@ speed = 40
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.0371606, 0.0557449 )
-rotation = -1.5708
 texture = ExtResource( 1 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 3 )]

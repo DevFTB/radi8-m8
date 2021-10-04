@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/fonts/8bitwonder_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/UI/Main menu/background.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://Assets/UI/Main menu/title.png" type="Texture" id=4]
+[ext_resource path="res://NavTest.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Sounds/music/RogueRadiateMenu.wav" type="AudioStream" id=6]
+
+[node name="Main Menu" type="Node"]
+script = ExtResource( 3 )
+firstLevel = ExtResource( 5 )
+
+[node name="mUSIC" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Padding" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Padding"]
+margin_right = 1840.0
+margin_bottom = 1000.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Padding/HBoxContainer"]
+margin_right = 528.0
+margin_bottom = 1000.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Logo" type="TextureRect" parent="Padding/HBoxContainer/VBoxContainer"]
+margin_right = 528.0
+margin_bottom = 766.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Padding/HBoxContainer/VBoxContainer"]
+margin_top = 776.0
+margin_right = 528.0
+margin_bottom = 1000.0
+
+[node name="MenuOptions" type="VBoxContainer" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_right = 528.0
+margin_bottom = 224.0
+size_flags_vertical = 2
+custom_constants/separation = 40
+
+[node name="Play" type="Label" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions"]
+margin_right = 528.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.313726, 0.380392, 0.286275, 1 )
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Play"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="Label" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions"]
+margin_top = 88.0
+margin_right = 528.0
+margin_bottom = 136.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.313726, 0.380392, 0.286275, 1 )
+text = "Instructions"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Instructions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Label" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions"]
+margin_top = 176.0
+margin_right = 528.0
+margin_bottom = 224.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.313726, 0.380392, 0.286275, 1 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Exit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Padding/HBoxContainer"]
+margin_left = 532.0
+margin_right = 532.0
+margin_bottom = 1000.0
+
+[connection signal="pressed" from="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Play/TextureButton" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Instructions/TextureButton" to="." method="_on_Instructions_pressed"]
+[connection signal="pressed" from="Padding/HBoxContainer/VBoxContainer/MarginContainer/MenuOptions/Exit/TextureButton" to="." method="_on_Exit_pressed"]

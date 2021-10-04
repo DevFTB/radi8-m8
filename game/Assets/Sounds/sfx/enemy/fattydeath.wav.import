@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fattydeath.wav-78857a898e7bc02913a8f609f20f2c8b.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/fattydeath.wav"
+dest_files=[ "res://.import/fattydeath.wav-78857a898e7bc02913a8f609f20f2c8b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

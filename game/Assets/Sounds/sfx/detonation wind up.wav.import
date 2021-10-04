@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/detonation wind up.wav-840648ca80566617475a771a194802a5.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/detonation wind up.wav"
+dest_files=[ "res://.import/detonation wind up.wav-840648ca80566617475a771a194802a5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
