@@ -45,7 +45,7 @@ func spawn_enemies(mutation_level):
 			
 
 func spawn(enemy_scene, mutation_level):
-	root = get_tree().get_root().get_children()[-1]
+	root = get_tree().get_root().get_node("Node2D4")
 	var player = root.player
 	var loc = find_spawn_tile(player.global_position)
 #	var loc = find_spawn_tile()

@@ -1,5 +1,7 @@
 extends Node
 
+signal load_hideout
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -96,6 +98,11 @@ func change_room(tile_name):
 	if(door != -1):
 		var dir = door_to_dir[door]
 		exited_door = door_to_new_door[door]
+		if([current_room[0] + dir[0], current_room[1] + dir[1]] == [-1, 0]):
+			Global.load_hideout(get_parent().player)
+			emit_signal("load_hideout")
+			return
+
 		return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	
@@ -198,6 +205,8 @@ func build_room_network(n):
 				room[[i, j]] = {"scene": shop, "type": SHOP, "visited": false, "state": null}
 			else:
 				room[[i, j]] =  {"scene": allowed_rooms[randi() % len(allowed_rooms)], "type": TIER1, "visited": false, "state": null}
+		
+		room[[-1, 0]] = {"scene": null, "type": null, "visited": null, "state": null}
 	
 	for room_idx in room.keys():
 		for neighbour in get_adjacent_rooms(room_idx):
@@ -304,4 +313,3 @@ func mutate_rooms():
 			room[mutate_room].type += 1
 			mutated +=1
 		
-	
