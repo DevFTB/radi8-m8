@@ -50,6 +50,9 @@ func _draw():
 		current_x += room_padding + room_width
 	
 	current_x = 0
+	draw_texture_rect(room_doors[direction.LEFT], Rect2(0, -room_height, room_width, room_height), false)
+	draw_texture_rect(room_doors[direction.RIGHT], Rect2(-room_width, -room_height, room_width, room_height), false)
+	draw_texture_rect(cross, Rect2(-room_width/2, -room_height, room_width, room_height), false)
 	for i in range(0, n_rooms):
 		current_y = -room_height
 		for j in range(0, n_rooms):

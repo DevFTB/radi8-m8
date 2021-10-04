@@ -21,7 +21,7 @@ export var dashSpeed : int = 1000
 export var heavyAttackCooldown : float = 6
 export var damage : int = 10
 export var dashCooldown : float = 1.8
-export var invulnerabilityPeriod = 1
+export var invulnerabilityPeriod = 0.8
 export var money = 0
 export var rads = 1
 
@@ -247,7 +247,7 @@ func move_process(delta):
 	if(state != ATTACK):
 		face_horizontal(velocity)
 		
-	move_and_slide(velocity * (movementSpeed + buffs["movement_speed"]))
+	move_and_slide(velocity * (currMovementSpeed + buffs["movement_speed"]))
 	check_collisions()
 	
 func set_health(value):
@@ -310,6 +310,7 @@ func take_damage(value):
 			dodge()
 
 func dodge():
+	# play_sound(dodgeSound)
 	pass
 
 func on_invulnerability_end():

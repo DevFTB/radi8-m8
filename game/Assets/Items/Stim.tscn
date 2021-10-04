@@ -10,9 +10,10 @@ height = 13.4265
 
 [node name="Node2D2" type="Node2D"]
 script = ExtResource( 2 )
+value = -0.15
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
-cost = 5
+cost = 7
 
 [node name="Sprite" parent="Item" index="0"]
 position = Vector2( 1.61905, -2.39474 )
