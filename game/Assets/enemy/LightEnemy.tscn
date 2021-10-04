@@ -51,6 +51,7 @@ position = Vector2( 3, 0 )
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 12 )]
 position = Vector2( 0, -6 )
 rotation = 0.139626
+relativeProbability = 12
 healthBonus = 5.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
@@ -61,15 +62,18 @@ frames = SubResource( 1 )
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -79.514, -28.2592 )
 scale = Vector2( 2, 2 )
+relativeProbability = 25
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
 position = Vector2( 13.6579, -53.2852 )
 scale = Vector2( 2, 2 )
 z_index = -1
+relativeProbability = 15
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -1.08453, 14.4461 )
 scale = Vector2( 3, 3 )
+relativeProbability = 8
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 5 )]
 position = Vector2( 6.00677, -71.0803 )

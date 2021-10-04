@@ -24,9 +24,6 @@ position = Vector2( 167.061, 400 )
 z_index = 127
 shootMovementSpeed = 170
 
-[node name="Sprite" parent="Player" index="4"]
-frame = 2
-
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 
@@ -38,7 +35,7 @@ shop = ExtResource( 7 )
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 player_path = NodePath("../Player")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlaye" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 autoplay = true
 

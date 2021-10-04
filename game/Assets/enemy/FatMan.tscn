@@ -59,6 +59,7 @@ position = Vector2( 0, -56 )
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -67.3374, 20.2992 )
 scale = Vector2( 2, 2 )
+relativeProbability = 8
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
 position = Vector2( -1.12373, 40.4543 )
@@ -71,14 +72,17 @@ scale = Vector2( 2, 2 )
 position = Vector2( 16.7501, -50.6431 )
 scale = Vector2( 2, 2 )
 z_index = -1
+relativeProbability = 20
 
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 11 )]
 scale = Vector2( 2.973, 3.40845 )
+relativeProbability = 20
 healthBonus = 10.0
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 4 )]
 position = Vector2( 0.0863304, 32.6602 )
 scale = Vector2( 3, 3 )
+relativeProbability = 12
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 0, -56 )
