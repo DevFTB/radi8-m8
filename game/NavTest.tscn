@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Rooms/roomy/room c.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Rooms/roomy/room e.tscn" type="PackedScene" id=2]
@@ -23,6 +23,14 @@
 [ext_resource path="res://Assets/UI/Minimap/mutated_room_skulllight.png" type="Texture" id=21]
 [ext_resource path="res://Assets/UI/Minimap/mutated_room_skullhard.png" type="Texture" id=22]
 [ext_resource path="res://Assets/UI/Minimap/player_icon.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Rooms/roomy/base room x.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Assets/Rooms/roomy/room b.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Assets/Rooms/roomy/room a.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/Rooms/roomy/room f.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Assets/Rooms/roomy/room d.tscn" type="PackedScene" id=28]
+[ext_resource path="res://YouDied.gd" type="Script" id=29]
+[ext_resource path="res://Assets/UI/You died/bg.png" type="Texture" id=30]
+[ext_resource path="res://Assets/UI/You died/You Died.png" type="Texture" id=31]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -43,12 +51,15 @@ attackInterval = 0.1
 movementSpeed = 600
 shootMovementSpeed = 170
 
+[node name="Sprite" parent="Player" index="4"]
+frame = 0
+
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
-room_possibilities = [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 13 ) ]
+room_possibilities = [ ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ), ExtResource( 1 ), ExtResource( 28 ), ExtResource( 2 ), ExtResource( 27 ) ]
 shop = ExtResource( 7 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
@@ -57,7 +68,7 @@ player_path = NodePath("../Player")
 [node name="You Died" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 16 )
+script = ExtResource( 29 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,7 +78,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 17 )
+texture = ExtResource( 30 )
 expand = true
 stretch_mode = 1
 __meta__ = {
@@ -113,7 +124,7 @@ margin_right = 1740.0
 margin_bottom = 398.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-texture = ExtResource( 15 )
+texture = ExtResource( 31 )
 stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer"]
@@ -125,12 +136,11 @@ custom_constants/separation = 50
 alignment = 1
 
 [node name="Return to Hideout" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 548.0
-margin_top = 125.0
-margin_right = 1292.0
+margin_left = 863.0
+margin_top = 193.0
+margin_right = 977.0
 margin_bottom = 224.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 14 )
 text = "Return to Hideout
 "
 align = 1
@@ -145,12 +155,11 @@ __meta__ = {
 }
 
 [node name="Exit Game" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_left = 716.0
+margin_left = 887.0
 margin_top = 274.0
-margin_right = 1124.0
-margin_bottom = 373.0
+margin_right = 952.0
+margin_bottom = 305.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 14 )
 text = "Exit Game
 "
 align = 1
