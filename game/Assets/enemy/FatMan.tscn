@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/enemy/fatman.png" type="Texture" id=1]
 [ext_resource path="res://Assets/enemy/mutations/gatling/Gatling Mutation.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Assets/enemy/Child.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Items/Coin.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/Sounds/sfx/enemy/enemyboostloop.wav" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/enemymutationgunsound.wav" type="AudioStream" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 63.5049, 35.5909 )
@@ -71,6 +72,7 @@ position = Vector2( 16.7501, -50.6431 )
 scale = Vector2( 2, 2 )
 z_index = -1
 relativeProbability = 20
+equipSound = ExtResource( 16 )
 
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 11 )]
 scale = Vector2( 2.973, 3.40845 )
