@@ -18,7 +18,7 @@ func _ready():
 func _draw():
 	var width = rect_size[0]
 	var height = rect_size[1]
-	var n_rooms = int(sqrt(len(room_controller.room.keys())))
+	var n_rooms = room_controller.get_max_room()
 	var room_width = (width - ((n_rooms - 1) * room_padding))/n_rooms
 	var room_height = (height - ((n_rooms - 1) * room_padding))/n_rooms
 	draw_set_transform(Vector2(0, height), 0, Vector2.ONE)

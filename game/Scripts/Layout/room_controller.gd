@@ -36,6 +36,7 @@ export (int) var initial_edges = 150
 export (int) var mutate_edge_num = 10
 var possible_connections = []
 var room_info = {}
+var max_room = 1
 
 const door_tile_names = ["frontdoor", "rightdoor", "backdoor", "leftdoor"]
 
@@ -79,6 +80,8 @@ func set_room(x_index, y_index):
 	current_room = [x_index, y_index]
 	print("room changed to " + str(x_index) + ", " + str(y_index))
 	var this_room = get_room(x_index, y_index)
+	if max(x_index, y_index) > max_room:
+		max_room = max(x_index, y_index)
 	return this_room
 	
 func change_room(tile_name):
@@ -281,5 +284,7 @@ func connection_removed(i, j):
 func connection_added(i, j):
 	return added_connections.has([i, j])
 
+func get_max_room():
+	return max_room
 ## todo
 #func get_current_room_instance():
