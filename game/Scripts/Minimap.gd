@@ -6,7 +6,17 @@ export (Texture) var room_square
 export (Array, Texture) var room_doors
 export (Array, Texture) var room_doors_new
 export (Texture) var cross
+export (Texture) var shop
+export (Array, Texture) var mutation_sprites
+export (Texture) var player_icon
+
 enum direction {UP, RIGHT, DOWN, LEFT}
+enum room_type {
+	SHOP, 
+	TIER1,
+	TIER2,
+	TIER3
+}
 
 onready var room_controller = get_node(room_controller_path)
 
@@ -32,18 +42,22 @@ func _draw():
 			var draw_rect = Rect2(current_x, current_y, room_width, room_height)
 			if room_controller.room.has([i, j]) and room_controller.room[[i, j]].visited:
 				draw_texture_rect(room_square, draw_rect, false)
-#				draw_room_icon(x, y, width, height)
+				if(room_controller.current_room == [i, j]):
+					draw_texture_rect(player_icon, draw_rect, false)
+				else:
+					draw_room_icon(draw_rect, room_controller.get_room_type(i, j))
 			current_y -= room_padding + room_height
 		current_x += room_padding + room_width
 	
 	current_x = 0
-	print(room_controller.get_neighbours(room_controller.current_room))
 	for i in range(0, n_rooms):
 		current_y = -room_height
 		for j in range(0, n_rooms):
 			var draw_rect = Rect2(current_x, current_y, room_width, room_height)
 			var draw_right_rect = Rect2(current_x + room_width, current_y, room_width, room_height)
+			var draw_middle_right_rect = Rect2(current_x + room_width/2, current_y, room_width, room_height)
 			var draw_up_rect = Rect2(current_x, current_y - room_height, room_width, room_height)
+			var draw_middle_up_rect = Rect2(current_x, current_y - room_height/2, room_width, room_height)
 			
 #			if(room_controller.connection_exists([i, j], [i+1, j])):
 #				draw_texture_rect(room_doors_new[direction.RIGHT], draw_rect, false)
@@ -63,9 +77,7 @@ func _draw():
 					draw_texture_rect(room_doors[direction.RIGHT], draw_rect, false)
 					draw_texture_rect(room_doors[direction.LEFT], draw_right_rect, false)
 				elif(removed):
-					pass
-	#				colour = "#FF0000"
-	#				draw = true
+					draw_texture_rect(cross, draw_middle_right_rect, false)
 #
 #			draw = false
 			if (room_controller.room.has([i, j]) and room_controller.room[[i, j]].visited) or (room_controller.room.has([i, j + 1]) and room_controller.room[[i, j + 1]].visited):
@@ -77,7 +89,7 @@ func _draw():
 					draw_texture_rect(room_doors[direction.UP], draw_rect, false)
 					draw_texture_rect(room_doors[direction.DOWN], draw_up_rect, false)
 				elif(removed):
-					pass
+					draw_texture_rect(cross, draw_middle_up_rect, false)
 	#				colour = "#FF0000"
 	#				draw = true
 #	#			if draw:
@@ -88,5 +100,14 @@ func _draw():
 		current_x += room_padding + room_width
 		
 
+func draw_room_icon(rect, type):
+	match type:
+		room_type.TIER1:
+			pass
+		room_type.SHOP:
+			draw_texture_rect(shop, rect, false)
+		_: 
+			draw_texture_rect(mutation_sprites[type - 2], rect, false)
+			
 	
 	

@@ -289,3 +289,6 @@ func get_max_room():
 	return max_room
 ## todo
 #func get_current_room_instance():
+
+func get_room_type(i, j):
+	return room[[i, j]].type
