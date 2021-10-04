@@ -10,6 +10,7 @@ signal max_health_changed(max_health)
 signal no_health
 signal door_collision(tile_index)
 signal money_changed(money)
+signal rads_changed(rads)
 signal buff_applied(buff_name)
 
 export var attackInterval = 0.5
@@ -23,7 +24,7 @@ export var damage : int = 10
 export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 0.8
 export var money = 0
-export var rads = 1
+export var rads = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -363,6 +364,10 @@ func pickup_item(item, cost):
 func set_money(value):
 	money = value
 	emit_signal("money_changed", money)
+	
+func set_rads(value):
+	rads = value
+	emit_signal("rads_changed", rads)
 	
 # for hideout objective
 func add_max_health(value):

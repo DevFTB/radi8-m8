@@ -73,6 +73,7 @@ shop_chance = 0.25
 player_path = NodePath("../Player")
 
 [node name="You Died" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 29 )
@@ -190,6 +191,7 @@ autoplay = true
 layer = 128
 
 [node name="PanelContainer" type="PanelContainer" parent="MinimapCanvasLayer"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0.501961 )
 margin_left = 420.0
 margin_top = 50.0
@@ -202,6 +204,7 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="MinimapCanvasLayer/PanelContainer"]
+visible = false
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1073.0
@@ -214,6 +217,7 @@ custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
 
 [node name="Minimap" type="Control" parent="MinimapCanvasLayer/PanelContainer/MarginContainer"]
+visible = false
 margin_left = 50.0
 margin_top = 50.0
 margin_right = 1016.0

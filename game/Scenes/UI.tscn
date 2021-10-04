@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/HealthUI.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/extra_life (1).png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Items/Second_Wind.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Feet_boots_winged.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/BuffUI.gd" type="Script" id=12]
+[ext_resource path="res://Assets/1radpod.png" type="Texture" id=13]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 layer = 128
@@ -76,6 +77,30 @@ margin_top = 16.0
 margin_right = 2067.0
 margin_bottom = 367.0
 texture = ExtResource( 6 )
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control2"]
+margin_left = 1503.74
+margin_top = 83.2241
+margin_right = 1854.74
+margin_bottom = 152.224
+custom_fonts/font = ExtResource( 7 )
+text = "69"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Control2"]
+margin_left = 1862.91
+margin_top = 93.4545
+margin_right = 1921.91
+margin_bottom = 152.455
+texture = ExtResource( 13 )
 stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false

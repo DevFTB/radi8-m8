@@ -1,6 +1,6 @@
 extends Node
 
-var radpods = 10
+var radpods = 0
 
 var hideout = "res://Scenes/Hideout.tscn";
 
