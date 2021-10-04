@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/Rooms/room b.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Rooms/room a.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Rooms/roomy/room b.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sounds/music/RogueRadiate.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
@@ -22,17 +21,15 @@ player_path = NodePath("Player")
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 500, 500 )
 z_index = 127
+attackInterval = 0.05
 shootMovementSpeed = 170
-
-[node name="Sprite" parent="Player" index="4"]
-frame = 2
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
-room_possibilities = [ ExtResource( 1 ), ExtResource( 2 ) ]
+room_possibilities = [ ExtResource( 1 ) ]
 shop = ExtResource( 7 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
