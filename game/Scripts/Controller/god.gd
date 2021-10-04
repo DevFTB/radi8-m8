@@ -81,11 +81,12 @@ func enemies_exist():
 
 
 func spawn(enemy_scene, loc):
-	enemies.append(enemy_scene)
-	call_deferred("add_child" ,enemy_scene)
-	if "player" in enemy_scene:
-		enemy_scene.player = player
-	enemy_scene.global_position = loc
+#	enemies.append(enemy_scene)
+#	call_deferred("add_child" ,enemy_scene)
+#	if "player" in enemy_scene:
+#		enemy_scene.player = player
+#	enemy_scene.global_position = loc
+	pass
 
 func get_current_tier():
 	return room_controller[room_controller.current_room].type
