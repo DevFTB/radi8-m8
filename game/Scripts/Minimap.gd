@@ -1,9 +1,12 @@
 extends Control
 
 export (NodePath) var room_controller_path
-export (int) var room_padding = 10
+export (int) var room_padding = 0
 export (Color) var room_colour = "#000000"
 export (Color) var connection_colour = "#FFFF00"
+export (Texture) var room_square
+export (Array, Texture) var room_doors
+enum direction {UP, RIGHT, DOWN, LEFT}
 
 onready var room_controller = get_node(room_controller_path)
 
@@ -23,44 +26,55 @@ func _draw():
 
 	var current_y
 	var current_x = 0
+	for i in range(0, n_rooms):
+		current_y = -room_height
+		for j in range(0, n_rooms):
+			var draw_rect = Rect2(current_x, current_y, room_width, room_height)
+			draw_texture_rect(room_square, draw_rect, false)
+			current_y -= room_padding + room_height
+		current_x += room_padding + room_width
+	
+	current_x = 0
 	
 	for i in range(0, n_rooms):
-		current_y = 0
+		current_y = -room_height
 		for j in range(0, n_rooms):
-			draw_rect(Rect2(current_x, current_y, room_width, -room_height), room_colour)
-			
-#			if(room_controller.connection_exists([i, j], [i+1, j])):
-#				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), connection_colour)
-#			if(room_controller.connection_exists([i, j], [i, j+1])):
-#				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), connection_colour)
+			var draw_rect = Rect2(current_x, current_y, room_width, room_height)
+			var draw_right_rect = Rect2(current_x + room_width, current_y, room_width, room_height)
+			var draw_up_rect = Rect2(current_x, current_y - room_height, room_width, room_height)
+	
 			var removed = room_controller.connection_removed([i, j], [i+1, j])
-			var colour
-			var draw = false
+#			var colour
+#			var draw = false
 			if(room_controller.connection_added([i, j], [i+1, j]) and not removed):
-				colour = "#00FF00"
-				draw = true
+#				colour = "#00FF00"
+#				draw = true
+				pass
 			elif(room_controller.connection_exists([i, j], [i+1, j])):
-				colour = connection_colour
-				draw = true
+				draw_texture_rect(room_doors[direction.RIGHT], draw_rect, false)
+				draw_texture_rect(room_doors[direction.LEFT], draw_right_rect, false)
 			elif(removed):
-				colour = "#FF0000"
-				draw = true
-			if draw:
-				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), colour)
-
+				pass
+#				colour = "#FF0000"
+#				draw = true
+#			if draw:
+#				draw_rect(Rect2(current_x + room_width, current_y, room_padding, -room_height), colour)
+#
 			removed = room_controller.connection_removed([i, j], [i, j+1])
-			draw = false
+#			draw = false
 			if(room_controller.connection_added([i, j], [i, j+1]) and not removed):
-				colour = "#00FF00"
-				draw = true
+#				colour = "#00FF00"
+#				draw = true
+				pass
 			elif(room_controller.connection_exists([i, j], [i, j+1])):
-				colour = connection_colour
-				draw = true
+				draw_texture_rect(room_doors[direction.UP], draw_rect, false)
+				draw_texture_rect(room_doors[direction.DOWN], draw_up_rect, false)
 			elif(removed):
-				colour = "#FF0000"
-				draw = true
-			if draw:
-				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), colour)
+				pass
+#				colour = "#FF0000"
+#				draw = true
+#			if draw:
+#				draw_rect(Rect2(current_x, current_y - room_height, room_width, -room_padding), colour)
 				
 			current_y -= room_padding + room_height
 		
