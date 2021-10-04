@@ -94,26 +94,44 @@ func attack():
 				engagementRadius = defaultEngagementRadius
 func mutate():
 	if (unequippedMutations.size() > 0):
-		var index = randi() % unequippedMutations.size()
-		var newMutation = unequippedMutations[index]
-		$Mutations.call_deferred("add_child", newMutation)
+		
+		var sum = 0
+		for mutation in mutations:
+			sum += mutation.relativeProbability
+			
+		var rand = randi() % sum
+		
+		var bottom = 0 
+		var index = 0
+		for mutation in mutations:
+			if ((rand > bottom and rand <= bottom + mutation.relativeProbability) or index == mutations.size() - 1):
+				break
+			else:
+				index += 1
+				bottom += mutation.relativeProbability
+		
+		var uneqIndex = unequippedMutations.find(mutations[index])
+		
+		if (uneqIndex >= 0):
+			var newMutation = mutations[index]
+			$Mutations.call_deferred("add_child", newMutation)
 
-		if(newMutation.has_method("set_player")):
-			print("set player")
-			newMutation.set_player(player)
+			if(newMutation.has_method("set_player")):
+				print("set player")
+				newMutation.set_player(player)
+				
+			if(newMutation.has_method("set_enemy")):
+				print("set owner")
+				newMutation.set_enemy(self)
+				
+			newMutation.equip() 
 			
-		if(newMutation.has_method("set_enemy")):
-			print("set owner")
-			newMutation.set_enemy(self)
+			if(newMutation.has_method("attack")):
+				activeMutations.append(newMutation)
+			else:
+				passiveMutations.append(newMutation)
 			
-		newMutation.equip() 
-		
-		if(newMutation.has_method("attack")):
-			activeMutations.append(newMutation)
-		else:
-			passiveMutations.append(newMutation)
-		
-		unequippedMutations.remove(index)
+			unequippedMutations.remove(uneqIndex)
 
 func genPath():
 	if(navigation != null and player != null):

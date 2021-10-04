@@ -1,5 +1,6 @@
 extends Node2D
 
+export (int) var relativeProbability
 
 export (float) var boostMultiplier = 1.5
 export (float) var duration = 10;

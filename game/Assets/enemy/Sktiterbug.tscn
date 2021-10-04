@@ -13,7 +13,7 @@
 [ext_resource path="res://Assets/enemy/mutations/armour/Armour Mutation.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/enemy/mutations/armour/skitter armour.png" type="Texture" id=12]
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
@@ -21,10 +21,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 63.4904, 26.9042 )
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 65.0602
 
 [node name="Skitterbug" type="KinematicBody2D" groups=[
@@ -33,6 +33,7 @@ radius = 65.0602
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
+speed = 250.0
 deathSplosion = ExtResource( 8 )
 hurtSounds = [ ExtResource( 9 ) ]
 deathSound = ExtResource( 10 )
@@ -46,33 +47,37 @@ texture = ExtResource( 4 )
 position = Vector2( -3, -33 )
 
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 11 )]
+relativeProbability = 10
 healthBonus = 5.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -1.18916, 2.58442 )
 scale = Vector2( 2.24208, 2.24208 )
-frames = SubResource( 3 )
+frames = SubResource( 1 )
 playing = true
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -10.4694, 15.2416 )
 scale = Vector2( 3, 3 )
+relativeProbability = 16
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
 position = Vector2( 7.37799, -59.5948 )
 scale = Vector2( 2, 2 )
 z_index = -1
+relativeProbability = 20
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -67.09, -24.6183 )
 scale = Vector2( 2, 2 )
+relativeProbability = 17
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
 position = Vector2( 6.68173, -69.4901 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.944962, 0.196198 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 5 )]
 position = Vector2( -3, -33 )
@@ -80,7 +85,7 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -3, -33 )
