@@ -45,7 +45,7 @@
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
-[node name="Node2D2" type="YSort"]
+[node name="Node2D4" type="YSort"]
 script = ExtResource( 5 )
 room_controller_path = NodePath("RoomController")
 container_path = NodePath("MinimapCanvasLayer/PanelContainer")
@@ -59,7 +59,7 @@ position = Vector2( 500, 500 )
 z_index = 127
 
 [node name="Sprite" parent="Player" index="4"]
-frame = 0
+frame = 1
 
 [node name="AnimationTree" parent="Player" index="6"]
 parameters/playback = SubResource( 1 )
@@ -185,7 +185,7 @@ __meta__ = {
 
 [node name="AudioStreamPlaye" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -3.029
+volume_db = -6.0
 autoplay = true
 
 [node name="MinimapCanvasLayer" type="CanvasLayer" parent="."]

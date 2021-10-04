@@ -44,7 +44,7 @@ enum {
 	DASH,
 	ATTACK,
 	HEAVY_ATTACK
-	DEAD,
+	STOP,
 }
 var state = IDLE
 var canAttack = true
@@ -126,7 +126,7 @@ func transition(newState):
 		
 			
 func _physics_process(delta):
-	if(!state == DEAD):
+	if(!state == STOP):
 		process_input()
 	match state:
 		IDLE:
@@ -154,7 +154,7 @@ func _physics_process(delta):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
-		DEAD:
+		STOP:
 			pass
 
 func idle_process(delta):
@@ -256,6 +256,10 @@ func set_health(value):
 
 	if (health == 0):
 		emit_signal("no_health")
+		stop()
+
+func stop():
+	transition(STOP)
 
 func perform_dash():
 	transition(DASH)
@@ -358,7 +362,6 @@ func set_max_health(value):
 func _on_Hurtbox_damage(source):
 	if("damage" in source):
 		take_damage(source.damage)
-
 
 func play_sound(audio):
 	$PlayerSound.set_stream(audio)

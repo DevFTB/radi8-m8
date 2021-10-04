@@ -28,5 +28,4 @@ func consume_meds(amount):
 		meds = 0
 		return temp
 	
-	
 

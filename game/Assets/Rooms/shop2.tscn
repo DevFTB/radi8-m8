@@ -19,7 +19,7 @@
 [node name="Node2D2" type="Navigation2D"]
 script = ExtResource( 7 )
 shop_items = [ ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 15 ) ]
-item_spawn_chances = [ 8, 25, 2, 4, 4, 4, 2, 2 ]
+item_spawn_chances = [ 8, 20, 2, 4, 4, 4, 2, 2 ]
 item_location_paths = [ NodePath("Position2D"), NodePath("Position2D2"), NodePath("Position2D3") ]
 
 [node name="TileMap" type="TileMap" parent="."]
