@@ -4,8 +4,8 @@ export (int) var relativeProbability
 
 export (PackedScene) var bullet
 
-export (float) var firingSpeed = 5
-export (float) var burstAmount = 10;
+export (float) var firingSpeed = 2
+export (float) var burstAmount = 3;
 
 export (AudioStream) var equipSound
 export (AudioStream) var fireSound

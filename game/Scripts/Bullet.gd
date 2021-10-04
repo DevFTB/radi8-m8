@@ -5,7 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-export var speed = 10
+export var speed = 3
 var velocity = Vector2()
 var fire_direction = Vector2()
 	
