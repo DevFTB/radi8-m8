@@ -14,6 +14,7 @@ extends Node2D
 
 func on_pickup(player):
 	Global.add_radpods(1)
+	player.play_sound(player.moneySound)
 
 
 func destroy():

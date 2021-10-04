@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
@@ -10,7 +10,11 @@
 [ext_resource path="res://Assets/Sounds/sfx/pew.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Sounds/sfx/playerhurt.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Sounds/sfx/PEWWWWW.wav" type="AudioStream" id=10]
-[ext_resource path="res://Scenes/Shake.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Sounds/sfx/playerarmorsound.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/sfx/upgradesound.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sounds/sfx/justkaching.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/sfx/kaching buy.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/sfx/playerheal.wav" type="AudioStream" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.59809
@@ -151,6 +155,11 @@ dashSound = ExtResource( 6 )
 hurtSound = ExtResource( 9 )
 attackSound = ExtResource( 8 )
 heavyAttackSound = ExtResource( 10 )
+healSound = ExtResource( 15 )
+dodgeSound = ExtResource( 11 )
+moneySound = ExtResource( 13 )
+moneyPickupSound = ExtResource( 14 )
+pickupSound = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.109076, 8.97259 )
@@ -180,7 +189,6 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
-frame = 2
 
 [node name="FirePosition" type="Position2D" parent="Sprite"]
 position = Vector2( 47.6207, -11.6665 )

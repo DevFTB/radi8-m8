@@ -64,6 +64,10 @@ export (AudioStream) var hurtSound
 export (AudioStream) var attackSound
 export (AudioStream) var heavyAttackSound
 export (AudioStream) var healSound
+export (AudioStream) var dodgeSound
+export (AudioStream) var moneySound
+export (AudioStream) var moneyPickupSound
+export (AudioStream) var pickupSound
 
 func _enter_tree():
 	health = max_health
@@ -251,7 +255,7 @@ func move_process(delta):
 	check_collisions()
 	
 func set_health(value):
-	if(health - value < 0):
+	if(value > health):
 		play_sound(healSound)
 		
 	health = clamp(value, 0, max_health)
