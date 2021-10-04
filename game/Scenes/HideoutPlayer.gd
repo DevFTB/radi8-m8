@@ -46,8 +46,6 @@ export (AudioStream) var runSound
 export (AudioStream) var dashSound
 export (AudioStream) var healSound
 
-signal consume_resource
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 
@@ -58,17 +56,6 @@ func _ready():
 func _process(delta):
 	
 	pass
-	
-func consume_resource(resource, amount):
-	var amnt 
-	match(resource):
-		"Rad Pods":
-			amnt = Global.consume_radpods(amount)
-		"Meds":
-			amnt = Global.consume_meds(amount)
-	
-	emit_signal("consume_resource")
-	return amnt
 	
 	
 func get_input_direction():

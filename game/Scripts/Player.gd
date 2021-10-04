@@ -351,6 +351,13 @@ func set_money(value):
 	money = value
 	emit_signal("money_changed", money)
 	
+# for hideout objective
+func add_max_health(value):
+	print("adding max health")
+	max_health += value
+	health = max_health
+	emit_signal("max_health_changed", max_health)
+	
 func set_max_health(value):
 	max_health = value
 	emit_signal("max_health_changed", max_health)

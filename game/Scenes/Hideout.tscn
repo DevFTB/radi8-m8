@@ -10,7 +10,7 @@
 [ext_resource path="res://Assets/Sounds/music/RogueRadiateShop.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/hideout/health station.png" type="Texture" id=9]
 [ext_resource path="res://Assets/hideout/radpod.png" type="Texture" id=10]
-[ext_resource path="res://Assets/hideout/meds.png" type="Texture" id=11]
+[ext_resource path="res://Assets/FontBig.tres" type="DynamicFont" id=11]
 [ext_resource path="res://Scenes/HideoutUI.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -61,8 +61,7 @@ shape = SubResource( 1 )
 [node name="Radiation Containment Unit" type="StaticBody2D" parent="."]
 position = Vector2( -210.971, 1008.13 )
 script = ExtResource( 6 )
-resourceName = "Rad Pods"
-completionAmount = 9
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
 
 [node name="Sprite" type="Sprite" parent="Radiation Containment Unit"]
 position = Vector2( 0, -31.429 )
@@ -103,8 +102,8 @@ position = Vector2( 870.499, 827.688 )
 [node name="Health Station" type="StaticBody2D" parent="."]
 position = Vector2( 2191.11, 1054.35 )
 script = ExtResource( 6 )
-resourceName = "Meds"
-completionAmount = 8
+id = 1
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
 
 [node name="Sprite" type="Sprite" parent="Health Station"]
 position = Vector2( 4.40967, 0.699097 )
@@ -130,7 +129,7 @@ margin_top = -204.412
 margin_right = 256.24
 margin_bottom = -105.412
 custom_fonts/font = ExtResource( 5 )
-text = "MEds
+text = "Rad Pods 
 0 out of 8 "
 align = 1
 __meta__ = {
@@ -146,8 +145,7 @@ autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 12 )
-radpodsLabelPath = NodePath("MarginContainer/HBoxContainer/Radpods/Label")
-medsLabelPath = NodePath("MarginContainer/HBoxContainer/Meds2/Label")
+radpodsLabelPath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Radpods/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -164,22 +162,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 margin_left = 40.0
 margin_top = 40.0
 margin_right = 1880.0
-margin_bottom = 168.0
-size_flags_vertical = 0
+margin_bottom = 1040.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+margin_right = 1840.0
+margin_bottom = 1000.0
+size_flags_vertical = 3
 custom_constants/separation = 100
 
-[node name="Radpods" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="Radpods" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 166.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 166, 128 )
 rect_pivot_offset = Vector2( -545.112, -71.8304 )
+size_flags_vertical = 0
 custom_constants/separation = 20
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/Radpods"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Radpods"]
 margin_right = 98.0
 margin_bottom = 128.0
 size_flags_horizontal = 3
@@ -187,7 +190,7 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/Radpods"]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Radpods"]
 margin_left = 118.0
 margin_top = 40.0
 margin_right = 166.0
@@ -195,40 +198,21 @@ margin_bottom = 88.0
 custom_fonts/font = ExtResource( 5 )
 text = "0"
 
-[node name="Meds2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-margin_left = 266.0
-margin_right = 432.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 166, 128 )
-rect_pivot_offset = Vector2( -545.112, -71.8304 )
-size_flags_vertical = 0
-custom_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/Meds2"]
-margin_right = 98.0
-margin_bottom = 128.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/Meds2"]
-margin_left = 118.0
-margin_top = 40.0
-margin_right = 166.0
-margin_bottom = 88.0
-custom_fonts/font = ExtResource( 5 )
-text = "0"
-
-[node name="Meds" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-margin_left = 532.0
-margin_right = 532.0
-margin_bottom = 128.0
+[node name="Press E" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 901.0
+margin_right = 1840.0
+margin_bottom = 1000.0
+custom_fonts/font = ExtResource( 11 )
+text = "Press E
+"
+align = 1
+valign = 2
 
 [connection signal="body_entered" from="TileMap/Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="area_entered" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_Area_entered"]
+[connection signal="consume_resource" from="Radiation Containment Unit" to="CanvasLayer" method="_on_consume_resource"]
 [connection signal="body_entered" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_body_entered"]
-[connection signal="consume_resource" from="HideoutPlayer" to="CanvasLayer" method="_on_HideoutPlayer_consume_resource"]
-[connection signal="area_entered" from="Health Station/Area2D" to="Health Station" method="_on_Area_entered"]
+[connection signal="body_exited" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_body_exited"]
+[connection signal="consume_resource" from="Health Station" to="CanvasLayer" method="_on_consume_resource"]
 [connection signal="body_entered" from="Health Station/Area2D" to="Health Station" method="_on_body_entered"]
+[connection signal="body_exited" from="Health Station/Area2D" to="Health Station" method="_on_body_exited"]

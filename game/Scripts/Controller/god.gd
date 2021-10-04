@@ -41,6 +41,9 @@ func _ready():
 	var room_data = room_controller.room[room_controller.current_room]
 	room.init_room(room_data["visited"], room_data["type"], room_data["state"])
 	room_data["visited"] = true
+	
+	player.add_max_health(Global.get_health_buff())
+	
 	pass # Replace with function body.
 
 func change_room(tile_name):
@@ -86,6 +89,7 @@ func enemies_exist():
 
 
 func spawn(enemy_scene, loc):
+	enemy_scene.apply_mutation_buff(Global.get_mutation_buff())
 	enemies.append(enemy_scene)
 	call_deferred("add_child" ,enemy_scene)
 	if "player" in enemy_scene:
