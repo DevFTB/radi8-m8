@@ -28,8 +28,9 @@ var attackTimer: float = 0.0
 var mutationTimer: float = 0.0
 
 var mutations = []
-var activeMutations: Array
-var inactiveMutations: Array
+var activeMutations: Array = []
+var passiveMutations: Array = []
+var unequippedMutations: Array
 enum {
 	LEFT,
 	RIGHT
@@ -45,24 +46,14 @@ func _ready():
 	print(get_children())
 	mutations = $Mutations.get_children()
 	
-	activeMutations.append(mutations[0])
+	unequippedMutations.append_array(mutations)
 	
-	if(activeMutations[0].has_method("set_player")):
-			print("set player")
-			activeMutations[0].set_player(player)
-			
-	if(activeMutations[0].has_method("set_owner")):
-		print("set owner")
-		activeMutations[0].set_owner(self)
-	
-	activeMutations[0].equip()
-	
-	inactiveMutations.append_array(mutations.slice(1, mutations.size()))
-
-	for mut in inactiveMutations:
+	for mut in unequippedMutations:
 		print(mut)
 		$Mutations.remove_child(mut)
-	
+		
+	mutate()
+
 	$Hurtbox.connect("damage", self, "_on_Hurtbox_damage")
 	$Hurtbox.connect("area_entered", self, "_on_Hurtbox_damage")
 	
@@ -88,18 +79,18 @@ func _physics_process(delta):
 	move()
 		
 func attack():
-	var index = randi() % activeMutations.size()
-	var mutation = activeMutations[index]
-	
+	if(activeMutations.size() > 0):
+		var index = randi() % activeMutations.size()
+		var mutation = activeMutations[index]
+		
 
-	if(mutation.has_method("attack")):
-		mutation.attack()
+		if(mutation.has_method("attack")):
+			mutation.attack()
 		
 func mutate():
-
-	if (activeMutations.size() < mutations.size()):
-		var index = randi() % inactiveMutations.size()
-		var newMutation = inactiveMutations[index]
+	if (unequippedMutations.size() > 0):
+		var index = randi() % unequippedMutations.size()
+		var newMutation = unequippedMutations[index]
 		$Mutations.add_child(newMutation)
 
 		if(newMutation.has_method("set_player")):
@@ -112,8 +103,12 @@ func mutate():
 			
 		newMutation.equip() 
 		
-		activeMutations.append(newMutation)
-		inactiveMutations.remove(index)
+		if(newMutation.has_method("attack")):
+			activeMutations.append(newMutation)
+		else:
+			passiveMutations.append(newMutation)
+		
+		unequippedMutations.remove(index)
 
 func genPath():
 	if(navigation != null and player != null):
@@ -141,8 +136,15 @@ func move():
 		velocity = move_and_slide(velocity)
 	
 func take_damage(value):
-	play_sound(hurtSounds[randi() % hurtSounds.size()])
-	set_health(health - value)
+	var offset = 0
+	
+	for mutation in passiveMutations:
+		if(mutation.has_method("offset_damage")):
+			offset += mutation.offset_damage(value - offset)
+	
+	if(value - offset > 0):
+		play_sound(hurtSounds[randi() % hurtSounds.size()])
+		set_health(health - (value - offset))
 
 func set_health(value):
 	health = clamp(value, 0, max_health)
@@ -169,13 +171,20 @@ func turn():
 	var angle = global_position.angle_to_point(player.global_position)
 	if abs(angle) > PI/2:
 		if (horizontal_dir == LEFT):
-			scale.x = -1
+			$Sprite.set_flip_h(true)
+			$Mutations.set_scale(Vector2(-1,1))
 			horizontal_dir = RIGHT
+			
+			print("changining left to right")
+			print(scale)
 	else:
 		if (horizontal_dir == RIGHT):
-			scale.x = -1
+			$Sprite.set_flip_h(false)
+			$Mutations.set_scale(Vector2(1,1))
 			horizontal_dir = LEFT
 			
+			print("changining right to left")
+			print(scale)
 func play_sound(audio):
 	$Sound.set_stream(audio)
 	$Sound.play()
