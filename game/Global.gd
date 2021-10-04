@@ -13,7 +13,7 @@ func add_radpods(amount):
 	radpods += amount
 
 func consume_radpods(id):
-	if (radpods > 0):
+	if (radpods > 0 and (objective_data[id][0] < objective_data[id][1])):
 		objective_data[id][0] += 1
 		radpods -= 1
 	
