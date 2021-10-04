@@ -44,6 +44,7 @@ enum {
 	DASH,
 	ATTACK,
 	HEAVY_ATTACK
+	DEAD,
 }
 var state = IDLE
 var canAttack = true
@@ -122,9 +123,11 @@ func transition(newState):
 		DASH:
 			animator.travel("dash")
 			pass
+		
 			
 func _physics_process(delta):
-	process_input()
+	if(!state == DEAD):
+		process_input()
 	match state:
 		IDLE:
 			idle_process(delta)
@@ -151,6 +154,8 @@ func _physics_process(delta):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
+		DEAD:
+			pass
 
 func idle_process(delta):
 	if ($PlayerSound.playing):

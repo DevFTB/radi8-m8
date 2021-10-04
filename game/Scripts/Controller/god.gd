@@ -4,6 +4,7 @@ signal move_player(x, y)
 export (NodePath) var room_controller_path
 export (NodePath) var level_path
 export (NodePath) var player_path
+export (String, FILE, "*.tscn") var hideout
 
 var player
 onready var room_controller = get_node(room_controller_path)
@@ -91,3 +92,13 @@ func spawn(enemy_scene, loc):
 func get_current_tier():
 	return room_controller[room_controller.current_room].type
 	
+
+
+func _on_Return_pressed():
+	get_tree().change_scene(hideout)
+	pass # Replace with function body.
+
+
+func _on_Exit_pressed():
+	get_tree().get_root().queue_free()
+	pass # Replace with function body.
