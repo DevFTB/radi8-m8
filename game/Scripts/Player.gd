@@ -23,9 +23,7 @@ export var damage : int = 10
 export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
 export var money = 0
-export var rads = 0 
-
-var rads = 1
+export var rads = 1
 
 var rng = RandomNumberGenerator.new()
 

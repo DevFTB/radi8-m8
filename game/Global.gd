@@ -2,6 +2,8 @@ extends Node
 
 var radpods = 10
 
+var hideout = "res://Scenes/Hideout.tscn";
+
 # max amnt, factor
 
 var objective_data = {
@@ -28,4 +30,8 @@ func get_mutation_buff():
 func get_health_buff():
 	var id = 1
 	return (objective_data[id][0] / objective_data[id][1]) * objective_data[id][2]
-	
+
+func load_hideout(player):
+#	get_parent().get_node("Node2D4").queue_free()
+	add_radpods(player.rads)
+	get_tree().change_scene(hideout)

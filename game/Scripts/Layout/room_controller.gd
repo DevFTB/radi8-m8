@@ -99,11 +99,10 @@ func change_room(tile_name):
 		var dir = door_to_dir[door]
 		exited_door = door_to_new_door[door]
 		if([current_room[0] + dir[0], current_room[1] + dir[1]] == [-1, 0]):
-			print("load hideout")
+			Global.load_hideout(get_parent().player)
 			emit_signal("load_hideout")
 			return
-			
-			
+
 		return set_room(current_room[0] + dir[0], current_room[1] + dir[1])
 	print("no valid doors found")
 	

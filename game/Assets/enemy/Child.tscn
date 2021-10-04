@@ -50,7 +50,7 @@ shape = SubResource( 2 )
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
 detonationTime = 1.0
-damage = 4.0
+damage = 2.0
 detonationRange = 100.0
 
 [node name="AnimatedSprite" parent="Mutations/Detonation Mutation" index="0"]

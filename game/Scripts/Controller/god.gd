@@ -62,6 +62,7 @@ func change_room(tile_name):
 	for node in level.get_children():
 		node.queue_free()
 	room = room_controller.change_room(tile_name)
+	if (room == null): return
 	level.add_child(room)
 	
 	var room_data = room_controller.room[room_controller.current_room]
@@ -148,4 +149,4 @@ func _on_Return_pressed():
 func _on_Exit_pressed():
 	get_tree().get_root().queue_free()
 	pass # Replace with function body.
-	
+

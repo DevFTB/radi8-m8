@@ -52,7 +52,7 @@ shape = SubResource( 1 )
 position = Vector2( -0.795502, 1.86755 )
 scale = Vector2( 1.34785, 1.34785 )
 frames = SubResource( 6 )
-frame = 2
+frame = 1
 playing = true
 
 [connection signal="body_entered" from="Item" to="Item" method="_on_Item_area_entered"]
