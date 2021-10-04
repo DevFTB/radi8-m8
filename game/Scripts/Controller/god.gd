@@ -6,9 +6,8 @@ export (NodePath) var container_path
 export (NodePath) var level_path
 export (NodePath) var player_path
 export (NodePath) var minimap_path
-var room_controller
 
-var player
+onready var player = get_node(player_path)
 onready var room_controller = get_node(room_controller_path)
 onready var level = get_node(level_path)
 
@@ -30,7 +29,6 @@ var enemies = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_node(player_path)
 	room_controller = get_node(room_controller_path)
 	room_controller.build_room_network(n_rooms)
 
