@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=46 format=2]
+[gd_resource type="TileSet" load_steps=49 format=2]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -22,11 +22,20 @@ points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
 
-[sub_resource type="ConvexPolygonShape2D" id=49]
-points = PoolVector2Array( 19.8223, 127.36, 0.286591, 127.36, 0.286591, 0.66864, 19.8223, 0.66864 )
+[sub_resource type="ConvexPolygonShape2D" id=53]
+points = PoolVector2Array( -128, 0, -128, 0, -128, 128, -128, 128 )
 
-[sub_resource type="ConvexPolygonShape2D" id=50]
-points = PoolVector2Array( 256, 127.767, 236.027, 127.767, 236.027, 0.377945, 256, 0.377945 )
+[sub_resource type="ConvexPolygonShape2D" id=54]
+points = PoolVector2Array( 0, 0, 20, 0, 20, 128, 0, 128 )
+
+[sub_resource type="ConvexPolygonShape2D" id=55]
+points = PoolVector2Array( 0, 0, 128, 0, 128, 0, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=56]
+points = PoolVector2Array( 0, 0, 128, 0, 128, 0, 0, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=57]
+points = PoolVector2Array( 128, 128, 108, 128, 108, 0, 128, 0 )
 
 [sub_resource type="NavigationPolygon" id=8]
 vertices = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -459,7 +468,7 @@ points = PoolVector2Array( 0, 128, 128, 128, 128, 256, 0, 256 )
 11/region = Rect2( 384, 128, 256, 256 )
 11/tile_mode = 2
 11/autotile/icon_coordinate = Vector2( 0, 0 )
-11/autotile/tile_size = Vector2( 20, 128 )
+11/autotile/tile_size = Vector2( 128, 128 )
 11/autotile/spacing = 0
 11/autotile/occluder_map = [  ]
 11/autotile/navpoly_map = [  ]
@@ -469,20 +478,38 @@ points = PoolVector2Array( 0, 128, 128, 128, 128, 256, 0, 256 )
 11/navigation_offset = Vector2( 0, 0 )
 11/shape_offset = Vector2( 0, 0 )
 11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-11/shape = SubResource( 49 )
+11/shape = SubResource( 53 )
 11/shape_one_way = false
 11/shape_one_way_margin = 1.0
 11/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
+"autotile_coord": Vector2( 3, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 49 ),
+"shape": SubResource( 53 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 50 ),
+"shape": SubResource( 54 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 55 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 0, 2 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 56 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+}, {
+"autotile_coord": Vector2( 1, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 57 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 11/z_index = 0
