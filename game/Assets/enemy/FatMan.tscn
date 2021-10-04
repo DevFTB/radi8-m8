@@ -35,7 +35,8 @@ hurtSounds = [ ExtResource( 10 ) ]
 deathSound = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.49831, 1.6848 )
+position = Vector2( 0, -11.33 )
+scale = Vector2( 0.5, 1 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
