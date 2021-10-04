@@ -42,9 +42,9 @@ func spawn_enemies(mutation_level):
 
 func spawn(enemy_scene, mutation_level):
 	var root = get_tree().get_root().get_children()[0]
-#	var player = root.player
-#	var loc = find_spawn_tile(player.global_position)
-	var loc = find_spawn_tile()
+	var player = root.player
+	var loc = find_spawn_tile(player.global_position)
+#	var loc = find_spawn_tile()
 	if loc:
 		var enemy = enemy_scene.instance()
 		for i in range(0, mutation_level):
@@ -52,12 +52,11 @@ func spawn(enemy_scene, mutation_level):
 		root.spawn(enemy, loc)
 		
 
-# player distance spawning not currently working as spawns occur before player moved
-func find_spawn_tile():
+func find_spawn_tile(player_pos):
 	while len(spawnable_tiles) > 0:
 		var spawn_tile = $TileMap.map_to_world(spawnable_tiles.pop_back())
-#		if spawn_tile.distance_to(player_pos) >= min_spawn_distance:
-		return spawn_tile
+		if spawn_tile.distance_to(player_pos) >= min_spawn_distance:
+			return spawn_tile
 		 
 	
 	
