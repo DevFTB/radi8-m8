@@ -175,13 +175,13 @@ func perform_attack():
 		
 	canAttack = false
 	var b = bullet.instance()
-	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
+	b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized()
 	face_horizontal(b.fire_direction)
 
 	owner.add_child(b)
 	b.set_position($Sprite/FirePosition.global_position)
 
-	b.rotation = (get_global_mouse_position() - position).normalized().angle()
+	b.rotation = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized().angle()
 	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
@@ -205,13 +205,13 @@ func perform_heavy_attack():
 
 	for x in range(5):
 		var b = bullet.instance()
-		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.3, 0.3)).normalized()
+		b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).rotated(rng.randf_range(-0.3, 0.3)).normalized()
 		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
 		b.set_position($Sprite/FirePosition.global_position)
 
-		b.rotation = (get_global_mouse_position() - position).normalized().angle()
+		b.rotation = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized().angle()
 		yield(get_tree().create_timer(0.03), "timeout")
 	
 	var cooldownTimer = get_tree().create_timer(heavyAttackCooldown)
@@ -233,7 +233,6 @@ func on_dash_cooldown_complete():
 	
 func on_dash_complete():
 	$"Hurtbox/CollisionShape2D".disabled = false
-	on_invulnerability_end()
 	transition(MOVE)	
 	
 func move_process(delta):
@@ -258,7 +257,7 @@ func perform_dash():
 	play_sound(dashSound)
 	canDash = false
 	dashDir = get_input_direction();
-	invulnerability_start()
+	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
 	var cooldownTimer = get_tree().create_timer(dashCooldown)
 	cooldownTimer.connect("timeout", self, "on_dash_cooldown_complete")
 	var dashTimer = get_tree().create_timer(dashDuration)
@@ -286,6 +285,8 @@ func check_collisions():
 			
 				
 func take_damage(value):
+	if(isInvulnerable):
+		return
 	if (!(buffs["dodge_chance"] > randf())):
 		play_sound(hurtSound)
 		set_health(health - value)

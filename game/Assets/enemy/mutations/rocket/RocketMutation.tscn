@@ -9,12 +9,12 @@
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
-"name": "attack",
+"name": "equip",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": false,
-"name": "equip",
+"name": "attack",
 "speed": 10.0
 } ]
 
@@ -22,6 +22,8 @@ animations = [ {
 position = Vector2( -13.773, 3.44324 )
 script = ExtResource( 2 )
 relativeProbability = 1
+boostMultiplier = 3.0
+duration = 2.0
 equipSound = ExtResource( 3 )
 boostSound = ExtResource( 4 )
 boostSoundTail = ExtResource( 4 )
