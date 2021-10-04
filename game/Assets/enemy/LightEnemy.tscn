@@ -34,7 +34,7 @@ region = Rect2( 128, 0, 64, 64 )
 atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
@@ -84,7 +84,7 @@ texture = ExtResource( 17 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 1.98949 )
-frames = SubResource( 4 )
+frames = SubResource( 13 )
 animation = "move"
 frame = 3
 playing = true

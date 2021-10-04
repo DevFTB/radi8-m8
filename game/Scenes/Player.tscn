@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/Sounds/sfx/pew.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Sounds/sfx/playerhurt.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Sounds/sfx/PEWWWWW.wav" type="AudioStream" id=10]
+[ext_resource path="res://Scenes/Shake.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.59809
@@ -158,6 +159,7 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
+script = ExtResource( 11 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
 collision_layer = 16
