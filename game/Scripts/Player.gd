@@ -23,6 +23,7 @@ export var damage : int = 10
 export var dashCooldown : float = 1.8
 export var invulnerabilityPeriod = 1
 export var money = 0
+export var rads = 0 
 
 var rng = RandomNumberGenerator.new()
 
@@ -43,8 +44,8 @@ enum {
 	MOVE,
 	DASH,
 	ATTACK,
-	HEAVY_ATTACK
-	STOP,
+	HEAVY_ATTACK,
+	STOP
 }
 var state = IDLE
 var canAttack = true
