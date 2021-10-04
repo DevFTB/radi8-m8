@@ -1,7 +1,7 @@
 extends Node
 
 export (PackedScene) var firstLevel
-export (PackedScene) var instructions
+export (String, FILE, "*.tscn") var instructions
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -23,7 +23,13 @@ func _on_Play_pressed():
 
 
 func _on_Instructions_pressed():
-	get_tree().change_scene_to(instructions)
+	$Main.set_visible(false)
+	$Instructions.set_visible(true)
+	pass # Replace with function body.
+
+func _on_Instructions_back_pressed():
+	$Main.set_visible(true)
+	$Instructions.set_visible(false)
 	pass # Replace with function body.
 
 func _on_Exit_pressed():
