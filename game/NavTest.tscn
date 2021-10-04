@@ -77,6 +77,7 @@ script = ExtResource( 10 )
 room_controller_path = NodePath("../../../../RoomController")
 room_square = ExtResource( 8 )
 room_doors = [ ExtResource( 11 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ]
+room_doors_new = [ ExtResource( 11 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ]
 
 [connection signal="door_collision" from="Player" to="." method="_on_Player_door_collision"]
 

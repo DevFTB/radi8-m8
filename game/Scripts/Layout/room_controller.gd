@@ -79,6 +79,7 @@ func get_current_room():
 func set_room(x_index, y_index):
 	current_room = [x_index, y_index]
 	print("room changed to " + str(x_index) + ", " + str(y_index))
+	rebuild_room_connections()
 	var this_room = get_room(x_index, y_index)
 	if max(x_index, y_index) > max_room:
 		max_room = max(x_index, y_index)

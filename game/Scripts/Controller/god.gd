@@ -49,7 +49,6 @@ func change_room(tile_name):
 	level.add_child(room)
 	
 	var room_data = room_controller.room[room_controller.current_room]
-	room_controller.rebuild_room_connections()
 	
 	var door = room_controller.get_last_exited_door()
 	var door_offset = 0
