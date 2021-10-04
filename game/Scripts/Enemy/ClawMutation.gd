@@ -1,5 +1,6 @@
 extends Node2D
 
+export (int) var relativeProbability
 
 export (float) var attackSpeed = 2
 export (float) var amountOfSwipes = 10;

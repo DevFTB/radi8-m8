@@ -8,8 +8,9 @@
 radius = 27.0677
 height = 13.4265
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D3" type="Node2D"]
 script = ExtResource( 2 )
+buff_name = "boots"
 value = 130.0
 buff_type = "movement_speed"
 

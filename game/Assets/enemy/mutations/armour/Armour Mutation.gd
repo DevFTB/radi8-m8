@@ -1,6 +1,8 @@
 extends Node2D
 
 
+export (int) var relativeProbability
+
 export (float) var healthBonus = 200
 export (float) var regenPerSecond = 1
 

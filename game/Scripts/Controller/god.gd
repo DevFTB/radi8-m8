@@ -6,6 +6,7 @@ export (NodePath) var container_path
 export (NodePath) var level_path
 export (NodePath) var player_path
 export (NodePath) var minimap_path
+export (String, FILE, "*.tscn") var hideout
 
 onready var player = get_node(player_path)
 onready var room_controller = get_node(room_controller_path)
@@ -89,6 +90,7 @@ func spawn(enemy_scene, loc):
 	if "player" in enemy_scene:
 		enemy_scene.player = player
 	enemy_scene.global_position = loc
+	
 
 func get_current_tier():
 	return room_controller[room_controller.current_room].type
@@ -99,3 +101,13 @@ func _process(_delta):
 		container.visible = true
 	elif container.visible:
 		container.visible = false
+
+
+func _on_Return_pressed():
+	get_tree().change_scene(hideout)
+	pass # Replace with function body.
+
+
+func _on_Exit_pressed():
+	get_tree().get_root().queue_free()
+	pass # Replace with function body.

@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+export var buff_name = "stim"
 export var value = -0.2
 export var spawn_chance = 1
 export var buff_type = "attack_interval"

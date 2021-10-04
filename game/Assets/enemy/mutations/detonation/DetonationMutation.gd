@@ -1,5 +1,5 @@
 extends Node2D
-
+export (int) var relativeProbability
 export (PackedScene) var explosion
 
 export (float) var detonationTime = 5

@@ -8,9 +8,9 @@
 [ext_resource path="res://Scripts/Shop.gd" type="Script" id=6]
 [ext_resource path="res://Assets/Items/HealthUp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Items/MaxHealthUp.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/Items/Shield.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Items/Stim.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Assets/Items/SecondWind.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Assets/Items/Stim.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Items/Shield.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Items/MysteryBarrel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/Items/Boots.tscn" type="PackedScene" id=13]
 

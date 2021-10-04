@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/enemy/mutations/gatling/Gatling Mutation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/enemy/mutations/claw/ClawMutation.tscn" type="PackedScene" id=2]
@@ -11,18 +11,12 @@
 [ext_resource path="res://Assets/Sounds/sfx/enemy/skitterhurt.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Sounds/sfx/enemy/skitterdeath.wav" type="AudioStream" id=10]
 [ext_resource path="res://Assets/enemy/mutations/armour/Armour Mutation.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Assets/enemy/mutations/armour/skitter armour.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Items/Coin.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/enemyboostloop.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/enemymutationgunsound.wav" type="AudioStream" id=14]
 
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "equip",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 63.4904, 26.9042 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 65.0602
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 65.0602
@@ -33,7 +27,9 @@ radius = 65.0602
 z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
+speed = 250.0
 deathSplosion = ExtResource( 8 )
+coin = ExtResource( 12 )
 hurtSounds = [ ExtResource( 9 ) ]
 deathSound = ExtResource( 10 )
 
@@ -46,26 +42,34 @@ texture = ExtResource( 4 )
 position = Vector2( -3, -33 )
 
 [node name="Armour Mutation" parent="Mutations" instance=ExtResource( 11 )]
+relativeProbability = 10
 healthBonus = 5.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -1.18916, 2.58442 )
 scale = Vector2( 2.24208, 2.24208 )
-frames = SubResource( 3 )
+frames = null
 playing = true
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -10.4694, 15.2416 )
 scale = Vector2( 3, 3 )
+relativeProbability = 16
+boostMultiplier = 2.0
+duration = 2.0
+boostSound = ExtResource( 13 )
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
 position = Vector2( 7.37799, -59.5948 )
 scale = Vector2( 2, 2 )
 z_index = -1
+relativeProbability = 20
+equipSound = ExtResource( 14 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -67.09, -24.6183 )
 scale = Vector2( 2, 2 )
+relativeProbability = 17
 
 [node name="Detonation Mutation" parent="Mutations" instance=ExtResource( 7 )]
 position = Vector2( 6.68173, -69.4901 )

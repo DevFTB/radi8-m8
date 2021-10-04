@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/enemymutationgunsound.wav-10afdbe18d96fb599a7f173fb35d4938.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/sfx/enemy/mutations/enemymutationgunsound.wav"
+dest_files=[ "res://.import/enemymutationgunsound.wav-10afdbe18d96fb599a7f173fb35d4938.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

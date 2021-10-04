@@ -8,9 +8,12 @@ export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10
 export(int) var max_health = 5
 export(int) var defaultEngagementRadius = 170
-export(float) var dispersion_factor = 2000
+export(float) var dispersion_factor = 30
+export(float) var coin_drop_chance = 0.3
+export(int) var aggro_range = 1600
 
 export (PackedScene) var deathSplosion
+export (PackedScene) var coin
 export (NodePath) var playerPath
 
 export (Array, AudioStream) var hurtSounds
@@ -39,6 +42,7 @@ enum {
 }
 
 var enemies
+var aggro = false
 
 var horizontal_dir = LEFT
 # Called when the node enters the scene tree for the first time.
@@ -55,7 +59,6 @@ func _ready():
 		$Mutations.remove_child(mut)
 		
 	mutate()
-
 	$Hurtbox.connect("damage", self, "_on_Hurtbox_damage")
 	$Hurtbox.connect("area_entered", self, "_on_Hurtbox_damage")
 	
@@ -72,19 +75,21 @@ func _process(delta):
 		mutate();
 
 func _physics_process(delta):
-	navigation = get_parent().room
-	
-	if(player and navigation):
-		genPath()
-		navigate()
-	turn()
-	move()
+	if (aggro):
+		navigation = get_parent().room
+		
+		if(player and navigation):
+			genPath()
+			navigate()
+		turn()
+		move()
+	if (!aggro and get_global_position().distance_to(player.get_global_position()) < aggro_range):
+		aggro = true
 		
 func attack():
 	if(activeMutations.size() > 0):
 		var index = randi() % activeMutations.size()
 		var mutation = activeMutations[index]
-		
 
 		if(mutation.has_method("attack")):
 			mutation.attack()
@@ -92,33 +97,52 @@ func attack():
 				engagementRadius = mutation.engagementRadius 
 			else:
 				engagementRadius = defaultEngagementRadius
+
 func mutate():
 	if (unequippedMutations.size() > 0):
-		var index = randi() % unequippedMutations.size()
-		var newMutation = unequippedMutations[index]
-		$Mutations.call_deferred("add_child", newMutation)
+		
+		var sum = 0
+		for mutation in mutations:
+			sum += mutation.relativeProbability
+			
+		var rand = randi() % sum
+		
+		var bottom = 0 
+		var index = 0
+		for mutation in mutations:
+			if ((rand > bottom and rand <= bottom + mutation.relativeProbability) or index == mutations.size() - 1):
+				break
+			else:
+				index += 1
+				bottom += mutation.relativeProbability
+		
+		var uneqIndex = unequippedMutations.find(mutations[index])
+		
+		if (uneqIndex >= 0):
+			var newMutation = mutations[index]
+			$Mutations.call_deferred("add_child", newMutation)
 
-		if(newMutation.has_method("set_player")):
-			print("set player")
-			newMutation.set_player(player)
+			if(newMutation.has_method("set_player")):
+				print("set player")
+				newMutation.set_player(player)
+				
+			if(newMutation.has_method("set_enemy")):
+				print("set owner")
+				newMutation.set_enemy(self)
+				
+			newMutation.equip() 
 			
-		if(newMutation.has_method("set_enemy")):
-			print("set owner")
-			newMutation.set_enemy(self)
+			if(newMutation.has_method("attack")):
+				activeMutations.append(newMutation)
+			else:
+				passiveMutations.append(newMutation)
 			
-		newMutation.equip() 
-		
-		if(newMutation.has_method("attack")):
-			activeMutations.append(newMutation)
-		else:
-			passiveMutations.append(newMutation)
-		
-		unequippedMutations.remove(index)
+			unequippedMutations.remove(uneqIndex)
 
 func genPath():
 	if(navigation != null and player != null):
 		path = navigation.get_simple_path(get_global_position(), player.get_global_position())
-		
+
 func navigate():
 	if (path.size() > 0):
 		velocity = global_position.direction_to(path[1]) * speed
@@ -166,6 +190,10 @@ func die():
 	play_sound(deathSound)
 	var ins = deathSplosion.instance()
 	get_tree().root.add_child(ins)
+	if (randf() < coin_drop_chance):
+		var drop = coin.instance()
+		drop.position = position
+		get_parent().get_node("Layout").call_deferred("add_child", drop)
 	
 	ins.set_global_position(self.global_position)
 	ins.apply_scale(Vector2(abs(scale.x),abs(scale.y)))
@@ -179,17 +207,12 @@ func turn():
 			$Sprite.set_flip_h(true)
 			$Mutations.set_scale(Vector2(-1,1))
 			horizontal_dir = RIGHT
-			
-			print("changining left to right")
-			print(scale)
 	else:
 		if (horizontal_dir == RIGHT):
 			$Sprite.set_flip_h(false)
 			$Mutations.set_scale(Vector2(1,1))
 			horizontal_dir = LEFT
 			
-			print("changining right to left")
-			print(scale)
 func play_sound(audio):
 	$Sound.set_stream(audio)
 	$Sound.play()
@@ -199,6 +222,6 @@ func get_dispersion_velocity():
 	for enemy in enemies:
 		if is_instance_valid(enemy) && enemy != self:
 			var vector = get_global_position() - enemy.get_global_position()
-			result += vector.normalized() * dispersion_factor * 1/vector.length()
+			result += vector.normalized() * speed * dispersion_factor * 1/vector.length()
 	return result
 

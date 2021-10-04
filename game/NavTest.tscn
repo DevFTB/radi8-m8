@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://Assets/Rooms/newroom.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Rooms/newroom2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Rooms/roomy/room c.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Rooms/roomy/room e.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Sounds/music/RogueRadiate.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Controller/god.gd" type="Script" id=5]
@@ -37,7 +37,7 @@ minimap_path = NodePath("MinimapCanvasLayer/PanelContainer/MarginContainer/Minim
 [node name="Layout" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 167.061, 400 )
+position = Vector2( 500, 500 )
 z_index = 127
 attackInterval = 0.1
 movementSpeed = 600
@@ -48,14 +48,123 @@ parameters/playback = SubResource( 1 )
 
 [node name="RoomController" type="Node" parent="."]
 script = ExtResource( 6 )
-room_possibilities = [ ExtResource( 1 ), ExtResource( 2 ) ]
+room_possibilities = [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 13 ) ]
 shop = ExtResource( 7 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 player_path = NodePath("../Player")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="You Died" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/You Died"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 17 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/You Died"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 40
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/You Died/MarginContainer"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 1880.0
+margin_bottom = 1040.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer"]
+margin_right = 1840.0
+margin_bottom = 498.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 100
+custom_constants/margin_top = 100
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 100
+
+[node name="You Died" type="TextureRect" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/MarginContainer"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1740.0
+margin_bottom = 398.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+texture = ExtResource( 15 )
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer"]
+margin_top = 502.0
+margin_right = 1840.0
+margin_bottom = 1000.0
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Return to Hideout" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_left = 548.0
+margin_top = 125.0
+margin_right = 1292.0
+margin_bottom = 224.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Return to Hideout
+"
+align = 1
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer/Return to Hideout"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit Game" type="Label" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_left = 716.0
+margin_top = 274.0
+margin_right = 1124.0
+margin_bottom = 373.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 14 )
+text = "Exit Game
+"
+align = 1
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer/Exit Game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlaye" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -3.029
 autoplay = true
 
 [node name="MinimapCanvasLayer" type="CanvasLayer" parent="."]
@@ -101,6 +210,9 @@ mutation_sprites = [ ExtResource( 21 ), ExtResource( 22 ) ]
 player_icon = ExtResource( 23 )
 
 [connection signal="door_collision" from="Player" to="." method="_on_Player_door_collision"]
+[connection signal="no_health" from="Player" to="CanvasLayer/You Died" method="_on_Player_no_health"]
+[connection signal="pressed" from="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer/Return to Hideout/TextureButton" to="." method="_on_Return_pressed"]
+[connection signal="pressed" from="CanvasLayer/You Died/MarginContainer/VBoxContainer/VBoxContainer/Exit Game/TextureButton" to="." method="_on_Exit_pressed"]
 
 [editable path="Player"]
 [editable path="Player/Hurtbox"]
