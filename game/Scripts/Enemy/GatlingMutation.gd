@@ -23,7 +23,6 @@ enum {
 func equip():
 	$AnimatedSprite.play("equip")
 	play_sound(equipSound)
-	enemy.engagementRadius = 460
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -35,6 +34,7 @@ func _process(delta):
 		timer = 0.0;
 
 func attack():
+	enemy.engagementRadius = 460
 	attacking = true;
 	
 func set_player(node):
@@ -61,7 +61,7 @@ func fire():
 		attacking = false; 
 		burstCount = 0
 
-func set_owner(owner):
+func set_enemy(owner):
 	enemy = owner
 	
 func play_sound(sound):

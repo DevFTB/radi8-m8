@@ -18,7 +18,7 @@ func add_colliders(locations, doors):
 		if(doors[door]):
 			var collider = DoorColliders[door].instance()
 			add_child(collider)
-			collider.global_position = map_to_world(locations[door])
+			collider.position = map_to_world(locations[door])
 			
 
 func get_door_tileid():

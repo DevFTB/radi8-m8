@@ -36,9 +36,6 @@ func offset_damage(damage):
 	if(amntOffset > 0):
 		play_sound(deflectSound)
 	return amntOffset
-
-func set_owner(en):
-	enemy = en
 	
 func set_player(player):
 	player = player

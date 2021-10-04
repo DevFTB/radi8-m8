@@ -8,7 +8,7 @@ extends Control
 
 var hearts = 4 setget set_hearts
 var max_hearts = 4 setget set_max_hearts
-onready var player = get_node(get_parent().player_path)
+var player
 
 
 # Called when the node enters the scene tree for the first time.

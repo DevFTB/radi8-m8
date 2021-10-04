@@ -7,7 +7,7 @@ export(float) var speed = 40
 export(float) var attackPeriod = 3
 export(float) var mutationPeriod = 10
 export(int) var max_health = 5
-export(int) var engagementRadius = 170
+export(int) var defaultEngagementRadius = 170
 export(float) var dispersion_factor = 2000
 
 export (PackedScene) var deathSplosion
@@ -17,7 +17,7 @@ export (Array, AudioStream) var hurtSounds
 export (AudioStream) var deathSound
 
 onready var navigation = get_parent().room
-onready var player = get_node(playerPath)
+var player
 
 onready var health = max_health setget set_health
 
@@ -26,6 +26,8 @@ var velocity = Vector2.ZERO
 
 var attackTimer: float = 0.0
 var mutationTimer: float = 0.0
+
+onready var engagementRadius = defaultEngagementRadius
 
 var mutations = []
 var activeMutations: Array = []
@@ -86,20 +88,23 @@ func attack():
 
 		if(mutation.has_method("attack")):
 			mutation.attack()
-		
+			if ("engagementRadius" in mutation):
+				engagementRadius = mutation.engagementRadius 
+			else:
+				engagementRadius = defaultEngagementRadius
 func mutate():
 	if (unequippedMutations.size() > 0):
 		var index = randi() % unequippedMutations.size()
 		var newMutation = unequippedMutations[index]
-		$Mutations.add_child(newMutation)
+		$Mutations.call_deferred("add_child", newMutation)
 
 		if(newMutation.has_method("set_player")):
 			print("set player")
 			newMutation.set_player(player)
 			
-		if(newMutation.has_method("set_owner")):
+		if(newMutation.has_method("set_enemy")):
 			print("set owner")
-			newMutation.set_owner(self)
+			newMutation.set_enemy(self)
 			
 		newMutation.equip() 
 		
@@ -197,3 +202,4 @@ func get_dispersion_velocity():
 			result += vector.normalized() * dispersion_factor * 1/vector.length()
 			
 	return result
+

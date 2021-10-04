@@ -82,7 +82,7 @@ func enemies_exist():
 
 func spawn(enemy_scene, loc):
 	enemies.append(enemy_scene)
-	add_child(enemy_scene)
+	call_deferred("add_child" ,enemy_scene)
 	if "player" in enemy_scene:
 		enemy_scene.player = player
 	enemy_scene.global_position = loc
