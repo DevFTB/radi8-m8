@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Tilesets/room.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Layout/Room.gd" type="Script" id=2]
@@ -14,11 +14,12 @@
 [ext_resource path="res://Assets/Items/SecondWind.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Assets/Items/HealthUp.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Items/Boots.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Items/Rad.tscn" type="PackedScene" id=15]
 
 [node name="Node2D2" type="Navigation2D"]
 script = ExtResource( 7 )
-shop_items = [ ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ) ]
-item_spawn_chances = [ 4, 15, 1, 2, 2, 2, 1 ]
+shop_items = [ ExtResource( 11 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 15 ) ]
+item_spawn_chances = [ 7, 20, 2, 4, 5, 4, 2, 3 ]
 item_location_paths = [ NodePath("Position2D"), NodePath("Position2D2"), NodePath("Position2D3") ]
 
 [node name="TileMap" type="TileMap" parent="."]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/enemy/mutations/detonation/DetonationMutation.gd" type="Script" id=1]
 [ext_resource path="res://Assets/enemy/mutations/detonation/detonation.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sounds/sfx/detonation wind up.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Explosion.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/enemyexplode.wav" type="AudioStream" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -73,6 +74,7 @@ relativeProbability = 1
 explosion = ExtResource( 4 )
 damage = 3.0
 detonationRange = 600.0
+sound = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 10 )

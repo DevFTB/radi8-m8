@@ -20,10 +20,13 @@ func _ready():
 
 func on_pickup(player):
 	player.buffs[buff_type] = value
+	if ($Item.cost > 0):
+		player.play_sound(player.moneyPickupSound)
+	else:
+		player.play_sound(player.pickupSound)
 
 func destroy():
 	queue_free()
 
 func can_pickup(player):
 	return player.buffs[buff_type] == 0
-

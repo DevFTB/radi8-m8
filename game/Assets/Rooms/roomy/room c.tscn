@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Tilesets/room2.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/Layout/Room.gd" type="Script" id=2]
@@ -8,12 +8,11 @@
 [ext_resource path="res://Assets/Doors/LeftDoorCollider.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Room.gd" type="Script" id=7]
 [ext_resource path="res://Assets/enemy/LightEnemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/enemy/FatMan.tscn" type="PackedScene" id=9]
 
 [node name="Node2D2" type="Navigation2D"]
 script = ExtResource( 7 )
-enemies = [ ExtResource( 8 ), ExtResource( 9 ) ]
-quantity = [ 2, 1 ]
+enemies = [ ExtResource( 8 ) ]
+quantity = [ 3 ]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_as_relative = false

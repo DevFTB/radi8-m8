@@ -16,6 +16,7 @@ func _ready():
 
 func on_pickup(player):
 	player.set_money(player.money + 1)
+	player.play_sound(player.moneySound)
 
 
 func destroy():

@@ -59,6 +59,7 @@ func fire():
 			enemy.get_parent().add_child(b)
 
 			b.look_at(player.global_position)
+			b.set_position($"Fire Point".global_position)
 		
 	else:
 		attacking = false; 

@@ -8,14 +8,14 @@
 radius = 27.0677
 height = 13.4265
 
-[node name="Node2D5" type="Node2D"]
+[node name="Node2D6" type="Node2D"]
 script = ExtResource( 2 )
 buff_name = "boots"
-value = 130.0
+value = 60.0
 buff_type = "movement_speed"
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
-cost = 6
+cost = 8
 
 [node name="Sprite" parent="Item" index="0"]
 position = Vector2( 9.54601, 5.54226 )
@@ -27,8 +27,8 @@ position = Vector2( 0.165283, -3.21314 )
 shape = SubResource( 1 )
 
 [node name="TextureRect" parent="Item" index="6"]
-margin_top = -3.91619
-margin_bottom = 111.084
+margin_top = -0.91619
+margin_bottom = 114.084
 
 [node name="Label" parent="Item" index="7"]
 margin_top = 43.1735

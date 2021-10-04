@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/enemy/mutations/gatling/Gatling Mutation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/enemy/mutations/claw/ClawMutation.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/enemy/mutations/rocket/RocketMutation.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/enemy/zombie.png" type="Texture" id=4]
+[ext_resource path="res://Assets/enemy/zombie waddle.png" type="Texture" id=4]
 [ext_resource path="res://Assets/enemy/mutations/detonation/detonation mutation.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Enemy/Enemy.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=7]
@@ -16,24 +16,49 @@
 [ext_resource path="res://Assets/Items/Coin.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/Sounds/sfx/enemy/enemyboostloop.wav" type="AudioStream" id=15]
 [ext_resource path="res://Assets/Sounds/sfx/enemy/mutations/enemymutationgunsound.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/player/shadow.png" type="Texture" id=17]
 
 [sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ) ],
+"frames": [ SubResource( 6 ) ],
 "loop": true,
 "name": "equip",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=8]
 radius = 35.7179
 height = 52.6489
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=9]
 radius = 35.7179
 height = 52.6489
 
@@ -44,15 +69,25 @@ z_index = 127
 collision_layer = 32
 script = ExtResource( 6 )
 speed = 150.0
-mutationPeriod = 12.0
+mutationPeriod = 11.0
+max_health = 4
+coin_drop_chance = 0.5
 deathSplosion = ExtResource( 8 )
 coin = ExtResource( 14 )
 hurtSounds = [ ExtResource( 10 ), ExtResource( 11 ) ]
 deathSound = ExtResource( 9 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Shadow" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.568627 )
+position = Vector2( 11.701, 26.595 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 1.98949 )
-texture = ExtResource( 4 )
+frames = SubResource( 5 )
+animation = "move"
+playing = true
 
 [node name="Mutations" type="Node2D" parent="."]
 position = Vector2( 3, 0 )
@@ -61,12 +96,12 @@ position = Vector2( 3, 0 )
 position = Vector2( 0, -6 )
 rotation = 0.139626
 relativeProbability = 15
-healthBonus = 5.0
+healthBonus = 4.0
 
 [node name="AnimatedSprite" parent="Mutations/Armour Mutation" index="0"]
 position = Vector2( -0.630676, 2.10223 )
 scale = Vector2( 1.88219, 2.0916 )
-frames = SubResource( 2 )
+frames = SubResource( 7 )
 
 [node name="ClawMutation" parent="Mutations" instance=ExtResource( 2 )]
 position = Vector2( -90.4275, -34.2728 )
@@ -77,13 +112,13 @@ relativeProbability = 25
 position = Vector2( 13.6579, -53.2852 )
 scale = Vector2( 2, 2 )
 z_index = -1
-relativeProbability = 15
+relativeProbability = 10
 equipSound = ExtResource( 16 )
 
 [node name="RocketMutation" parent="Mutations" instance=ExtResource( 3 )]
 position = Vector2( -1.08453, 14.7267 )
 scale = Vector2( 3, 3 )
-relativeProbability = 8
+relativeProbability = 15
 duration = 1.2
 boostSound = ExtResource( 15 )
 
@@ -92,7 +127,7 @@ position = Vector2( 6.00677, -71.0803 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 4.23557, 1.58518 )
-shape = SubResource( 3 )
+shape = SubResource( 8 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 7 )]
 position = Vector2( 3, -40.5079 )
@@ -101,10 +136,11 @@ collision_mask = 4
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( -0.631657, 38.0783 )
-shape = SubResource( 4 )
+shape = SubResource( 9 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( 3, -40.5079 )
+volume_db = -2.0
 
 [editable path="Mutations/Armour Mutation"]
 [editable path="Hurtbox"]

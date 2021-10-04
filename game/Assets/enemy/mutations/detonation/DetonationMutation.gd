@@ -5,6 +5,7 @@ export (PackedScene) var explosion
 export (float) var detonationTime = 5
 export (float) var damage = 10
 export (float) var detonationRange = 800
+export (AudioStream) var sound
 
 
 export var engagementRadius = 30
@@ -53,6 +54,7 @@ func fire():
 	var areas = $Area2D.get_overlapping_areas()
 	
 	var instance = explosion.instance()
+	instance.explode(sound)
 	get_tree().root.add_child(instance)
 	instance.set_global_position(self.global_position)
 	

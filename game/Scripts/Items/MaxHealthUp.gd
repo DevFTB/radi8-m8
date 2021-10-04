@@ -19,6 +19,7 @@ func _ready():
 func on_pickup(player):
 	player.buffs["max_health"] += 1
 	player.set_max_health(player.max_health + 1)
+	player.set_health(player.health + 1)
 
 func destroy():
 	queue_free()

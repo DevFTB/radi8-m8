@@ -188,8 +188,8 @@ func _on_Hurtbox_damage(area):
 		take_damage(area.damage)
 
 func die():
-	play_sound(deathSound)
 	var ins = deathSplosion.instance()
+	ins.explode(deathSound)
 	get_tree().root.add_child(ins)
 	if (randf() < coin_drop_chance):
 		var drop = coin.instance()
@@ -225,4 +225,8 @@ func get_dispersion_velocity():
 			var vector = get_global_position() - enemy.get_global_position()
 			result += vector.normalized() * speed * dispersion_factor * 1/vector.length()
 	return result
+	
+func apply_mutation_buff(amount):
+	print("changing mutation timer")
+	mutationPeriod -= amount
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player/shadow.png" type="Texture" id=2]
@@ -10,6 +10,11 @@
 [ext_resource path="res://Assets/Sounds/sfx/pew.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Sounds/sfx/playerhurt.wav" type="AudioStream" id=9]
 [ext_resource path="res://Assets/Sounds/sfx/PEWWWWW.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/sfx/playerarmorsound.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Sounds/sfx/upgradesound.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/Sounds/sfx/kaching buy.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Sounds/sfx/playerheal.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scenes/Shake.gd" type="Script" id=16]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.59809
@@ -142,7 +147,6 @@ collision_layer = 64
 collision_mask = 129
 script = ExtResource( 1 )
 movementSpeed = 280
-shootMovementSpeed = 230
 bullet = ExtResource( 3 )
 max_health = 4
 runSound = ExtResource( 5 )
@@ -150,6 +154,11 @@ dashSound = ExtResource( 6 )
 hurtSound = ExtResource( 9 )
 attackSound = ExtResource( 8 )
 heavyAttackSound = ExtResource( 10 )
+healSound = ExtResource( 15 )
+dodgeSound = ExtResource( 11 )
+moneySound = ExtResource( 14 )
+moneyPickupSound = ExtResource( 14 )
+pickupSound = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.109076, 8.97259 )
@@ -158,6 +167,7 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
+script = ExtResource( 16 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 4 )]
 collision_layer = 16
@@ -178,6 +188,7 @@ scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 7 )
 hframes = 10
 vframes = 8
+frame = 1
 
 [node name="FirePosition" type="Position2D" parent="Sprite"]
 position = Vector2( 47.6207, -11.6665 )
@@ -198,6 +209,10 @@ parameters/playback = SubResource( 20 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="PlayerSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
+
+[node name="WalkingSound" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_damage"]
 [connection signal="damage" from="Hurtbox" to="." method="_on_Hurtbox_damage"]

@@ -10,6 +10,7 @@ signal max_health_changed(max_health)
 signal no_health
 signal door_collision(tile_index)
 signal money_changed(money)
+signal rads_changed(rads)
 signal buff_applied(buff_name)
 
 export var attackInterval = 0.5
@@ -21,8 +22,9 @@ export var dashSpeed : int = 1000
 export var heavyAttackCooldown : float = 6
 export var damage : int = 10
 export var dashCooldown : float = 1.8
-export var invulnerabilityPeriod = 1
+export var invulnerabilityPeriod = 0.8
 export var money = 0
+export var rads = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -43,8 +45,8 @@ enum {
 	MOVE,
 	DASH,
 	ATTACK,
-	HEAVY_ATTACK
-	DEAD,
+	HEAVY_ATTACK,
+	STOP
 }
 var state = IDLE
 var canAttack = true
@@ -63,6 +65,10 @@ export (AudioStream) var hurtSound
 export (AudioStream) var attackSound
 export (AudioStream) var heavyAttackSound
 export (AudioStream) var healSound
+export (AudioStream) var dodgeSound
+export (AudioStream) var moneySound
+export (AudioStream) var moneyPickupSound
+export (AudioStream) var pickupSound
 
 func _enter_tree():
 	health = max_health
@@ -109,7 +115,7 @@ func transition(newState):
 		IDLE:
 			animator.travel("idle")
 		MOVE:
-			play_sound(runSound)
+			play_walking_sound(runSound)
 			animator.travel("run")
 		ATTACK:
 			if(velocity.length() == 0):
@@ -126,7 +132,7 @@ func transition(newState):
 		
 			
 func _physics_process(delta):
-	if(!state == DEAD):
+	if(!state == STOP):
 		process_input()
 	match state:
 		IDLE:
@@ -154,7 +160,7 @@ func _physics_process(delta):
 				transition(IDLE)
 		DASH:
 			dash_process(delta)
-		DEAD:
+		STOP:
 			pass
 
 func idle_process(delta):
@@ -180,13 +186,15 @@ func perform_attack():
 		
 	canAttack = false
 	var b = bullet.instance()
-	b.fire_direction = (get_global_mouse_position() - global_position).normalized()
+	b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized()
 	face_horizontal(b.fire_direction)
+
+	b.add_damage(Global.get_damage_buff())
 
 	owner.add_child(b)
 	b.set_position($Sprite/FirePosition.global_position)
 
-	b.rotation = (get_global_mouse_position() - position).normalized().angle()
+	b.rotation = (get_global_mouse_position() - $Sprite/FirePosition.global_position).normalized().angle()
 	var cooldownTimer = get_tree().create_timer(attackInterval + buffs["attack_interval"])
 	cooldownTimer.connect("timeout", self, "on_attack_cooldown_complete")
 	
@@ -210,7 +218,7 @@ func perform_heavy_attack():
 
 	for x in range(5):
 		var b = bullet.instance()
-		b.fire_direction = (get_global_mouse_position() - global_position).rotated(rng.randf_range(-0.35, 0.35)).normalized()
+		b.fire_direction = (get_global_mouse_position() - $Sprite/FirePosition.global_position).rotated(rng.randf_range(-0.3, 0.3)).normalized()
 		face_horizontal((get_global_mouse_position() - global_position).normalized())
 		
 		owner.add_child(b)
@@ -244,11 +252,11 @@ func move_process(delta):
 	if(state != ATTACK):
 		face_horizontal(velocity)
 		
-	move_and_slide(velocity * (movementSpeed + buffs["movement_speed"]))
+	move_and_slide(velocity * (currMovementSpeed + buffs["movement_speed"]))
 	check_collisions()
 	
 func set_health(value):
-	if(health - value < 0):
+	if(value > health):
 		play_sound(healSound)
 		
 	health = clamp(value, 0, max_health)
@@ -256,10 +264,14 @@ func set_health(value):
 
 	if (health == 0):
 		emit_signal("no_health")
+		stop()
+
+func stop():
+	transition(STOP)
 
 func perform_dash():
 	transition(DASH)
-	play_sound(dashSound)
+	play_walking_sound(dashSound)
 	canDash = false
 	dashDir = get_input_direction();
 	$"Hurtbox/CollisionShape2D".set_deferred("disabled", true)
@@ -292,6 +304,7 @@ func check_collisions():
 func take_damage(value):
 	if (!isInvulnerable):
 		if (!(buffs["dodge_chance"] > randf())):
+			$Camera2D.add_trauma(0.5)
 			play_sound(hurtSound)
 			set_health(health - value)
 			invulnerability_start()
@@ -302,6 +315,7 @@ func take_damage(value):
 			dodge()
 
 func dodge():
+	play_sound(dodgeSound)
 	pass
 
 func on_invulnerability_end():
@@ -351,6 +365,17 @@ func set_money(value):
 	money = value
 	emit_signal("money_changed", money)
 	
+func set_rads(value):
+	rads = value
+	emit_signal("rads_changed", rads)
+	
+# for hideout objective
+func add_max_health(value):
+	print("adding max health")
+	max_health += value
+	health = max_health
+	emit_signal("max_health_changed", max_health)
+	
 func set_max_health(value):
 	max_health = value
 	emit_signal("max_health_changed", max_health)
@@ -359,7 +384,10 @@ func _on_Hurtbox_damage(source):
 	if("damage" in source):
 		take_damage(source.damage)
 
-
 func play_sound(audio):
 	$PlayerSound.set_stream(audio)
 	$PlayerSound.play()
+
+func play_walking_sound(audio):
+	$WalkingSound.set_stream(audio)
+	$WalkingSound.play()

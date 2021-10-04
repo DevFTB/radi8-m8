@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/hideout/HideoutTiles.tres" type="TileSet" id=1]
 [ext_resource path="res://Assets/hideout/rcu.png" type="Texture" id=2]
@@ -7,10 +7,12 @@
 [ext_resource path="res://Assets/fonts/8bitwonder_large.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Scenes/Objective.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/Hideout.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Sounds/music/RogueRadiateShop.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/hideout/health station.png" type="Texture" id=9]
 [ext_resource path="res://Assets/hideout/radpod.png" type="Texture" id=10]
-[ext_resource path="res://Assets/hideout/meds.png" type="Texture" id=11]
+[ext_resource path="res://Assets/FontBig.tres" type="DynamicFont" id=11]
 [ext_resource path="res://Scenes/HideoutUI.gd" type="Script" id=12]
+[ext_resource path="res://Assets/hideout/weapon upgrade.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 203.59, 73.7206 )
@@ -29,7 +31,7 @@ raid_path = "res://NavTest.tscn"
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 128, 128 )
 format = 1
-tile_data = PoolIntArray( 65535, 14, 0, 0, 0, 4, 1, 11, 0, 2, 0, 3, 3, 11, 0, 4, 11, 0, 5, 0, 4, 6, 11, 0, 7, 6, 0, 9, 11, 0, 10, 11, 0, 11, 0, 0, 12, 11, 0, 13, 11, 0, 14, 0, 4, 15, 13, 0, 131071, 14, 0, 65551, 13, 0, 196607, 14, 0, 131072, 5, 1, 131073, 5, 1, 131074, 5, 1, 131075, 5, 1, 131076, 5, 1, 131077, 5, 1, 131078, 5, 1, 131079, 5, 1, 131080, 5, 1, 131081, 5, 1, 131082, 5, 1, 131083, 5, 1, 131084, 5, 1, 131085, 5, 1, 131086, 5, 1, 131087, 13, 0, 262139, 14, 0, 262140, 0, 1, 262141, 0, 1, 262142, 0, 0, 262143, 0, 1, 196608, 5, 1, 196609, 5, 1, 196610, 5, 0, 196611, 5, 1, 196612, 5, 1, 196613, 5, 1, 196614, 5, 1, 196615, 5, 1, 196616, 5, 1, 196617, 5, 0, 196618, 5, 1, 196619, 5, 1, 196620, 5, 1, 196621, 5, 1, 196622, 5, 1, 196623, 0, 0, 196624, 0, 1, 196625, 0, 1, 196626, 0, 1, 196627, 13, 0, 327675, 14, 0, 262144, 5, 1, 262145, 5, 1, 262146, 5, 1, 262147, 5, 1, 262148, 5, 1, 262149, 5, 1, 262150, 5, 2, 262151, 5, 1, 262152, 5, 1, 262153, 5, 1, 262154, 5, 1, 262155, 5, 1, 262156, 5, 1, 262157, 5, 1, 262158, 5, 1, 262163, 13, 0, 393211, 14, 0, 393212, 5, 1, 393213, 5, 1, 393214, 5, 1, 393215, 5, 1, 327680, 5, 1, 327681, 5, 1, 327682, 5, 1, 327683, 5, 1, 327684, 5, 1, 327685, 5, 1, 327686, 5, 1, 327687, 5, 1, 327688, 5, 1, 327689, 5, 1, 327690, 5, 1, 327691, 5, 0, 327692, 5, 1, 327693, 5, 1, 327694, 5, 1, 327695, 5, 1, 327696, 5, 1, 327697, 5, 1, 327698, 5, 1, 327699, 13, 0, 458747, 14, 0, 458748, 5, 1, 458749, 5, 1, 458750, 5, 1, 458751, 5, 1, 393216, 5, 1, 393217, 5, 1, 393218, 5, 1, 393219, 5, 1, 393220, 5, 0, 393221, 5, 1, 393222, 5, 1, 393223, 5, 1, 393224, 5, 1, 393225, 5, 1, 393226, 5, 1, 393227, 5, 1, 393228, 5, 1, 393229, 5, 1, 393230, 5, 1, 393231, 5, 1, 393232, 5, 1, 393233, 5, 1, 393234, 5, 1, 393235, 13, 0, 524283, 14, 0, 524284, 5, 1, 524285, 5, 1, 524286, 5, 1, 524287, 5, 1, 458752, 5, 1, 458753, 5, 1, 458754, 5, 1, 458755, 5, 1, 458756, 5, 1, 458757, 5, 1, 458758, 5, 1, 458759, 5, 1, 458760, 5, 1, 458761, 5, 1, 458762, 5, 1, 458763, 5, 1, 458764, 5, 1, 458765, 5, 2, 458766, 5, 1, 458767, 5, 1, 458768, 5, 1, 458769, 5, 1, 458770, 5, 1, 458771, 13, 0, 589819, 14, 0, 589820, 5, 1, 589821, 5, 1, 589822, 5, 1, 589823, 5, 1, 524288, 5, 1, 524289, 5, 1, 524290, 5, 1, 524291, 5, 1, 524292, 5, 1, 524293, 5, 1, 524294, 5, 1, 524295, 5, 1, 524296, 5, 1, 524297, 5, 1, 524298, 5, 1, 524299, 5, 1, 524300, 5, 1, 524301, 5, 1, 524302, 5, 1, 524303, 5, 1, 524304, 5, 1, 524305, 5, 1, 524306, 5, 1, 524307, 13, 0, 655355, 14, 0, 655356, 5, 1, 655357, 5, 1, 655358, 5, 1, 655359, 5, 1, 589824, 5, 1, 589825, 5, 1, 589826, 5, 1, 589827, 5, 1, 589828, 5, 1, 589829, 5, 1, 589830, 5, 1, 589831, 5, 1, 589832, 5, 1, 589833, 5, 1, 589834, 5, 1, 589835, 5, 1, 589836, 5, 1, 589837, 5, 1, 589838, 5, 1, 589839, 5, 1, 589840, 5, 1, 589841, 5, 1, 589842, 5, 1, 589843, 13, 0, 720891, 14, 0, 720892, 5, 1, 720893, 5, 1, 720894, 5, 1, 720895, 5, 1, 655360, 5, 1, 655361, 5, 1, 655362, 5, 1, 655363, 5, 1, 655364, 5, 1, 655365, 5, 1, 655366, 5, 1, 655367, 5, 1, 655368, 5, 1, 655369, 5, 1, 655370, 5, 1, 655371, 5, 1, 655372, 5, 1, 655373, 5, 1, 655374, 5, 1, 655375, 5, 1, 655376, 5, 1, 655377, 5, 1, 655378, 5, 1, 655379, 13, 0, 786427, 14, 0, 786428, 5, 1, 786429, 5, 1, 786430, 5, 1, 786431, 5, 1, 720896, 5, 1, 720897, 5, 1, 720898, 5, 1, 720899, 5, 1, 720900, 5, 1, 720901, 5, 1, 720902, 5, 1, 720903, 5, 1, 720904, 5, 1, 720905, 5, 1, 720906, 5, 1, 720907, 5, 1, 720908, 5, 1, 720909, 5, 1, 720910, 5, 1, 720911, 5, 1, 720912, 5, 1, 720913, 5, 1, 720914, 5, 1, 720915, 13, 0, 851963, 15, 2, 851964, 15, 0, 851965, 15, 0, 851966, 15, 0, 851967, 15, 0, 786432, 15, 0, 786433, 15, 0, 786434, 15, 0, 786435, 15, 0, 786436, 15, 0, 786437, 15, 0, 786438, 15, 0, 786439, 15, 0, 786440, 15, 0, 786441, 15, 0, 786442, 15, 0, 786443, 15, 0, 786444, 15, 0, 786445, 15, 0, 786446, 15, 0, 786447, 15, 0, 786448, 15, 0, 786449, 15, 0, 786450, 15, 0, 786451, 15, 1 )
+tile_data = PoolIntArray( 65535, 14, 0, 0, 0, 4, 1, 11, 0, 2, 0, 3, 3, 11, 0, 4, 11, 0, 5, 0, 4, 6, 11, 0, 7, 6, 0, 9, 11, 0, 10, 11, 0, 11, 0, 0, 12, 11, 0, 13, 11, 0, 14, 0, 4, 15, 13, 0, 131071, 14, 0, 65551, 13, 0, 196607, 14, 0, 131072, 5, 1, 131073, 5, 1, 131074, 5, 1, 131075, 5, 1, 131076, 5, 1, 131077, 5, 1, 131078, 5, 1, 131079, 5, 1, 131080, 5, 1, 131081, 5, 1, 131082, 5, 1, 131083, 5, 1, 131084, 5, 1, 131085, 5, 1, 131086, 5, 1, 131087, 13, 0, 262143, 14, 0, 196608, 5, 1, 196609, 5, 1, 196610, 5, 0, 196611, 5, 1, 196612, 5, 1, 196613, 5, 1, 196614, 5, 1, 196615, 5, 1, 196616, 5, 1, 196617, 5, 0, 196618, 5, 1, 196619, 5, 1, 196620, 5, 1, 196621, 5, 1, 196622, 5, 1, 196623, 0, 0, 196624, 13, 0, 327679, 14, 0, 262144, 5, 1, 262145, 5, 1, 262146, 5, 1, 262147, 5, 1, 262148, 5, 1, 262149, 5, 1, 262150, 5, 2, 262151, 5, 1, 262152, 5, 1, 262153, 5, 1, 262154, 5, 1, 262155, 5, 1, 262156, 5, 1, 262157, 5, 1, 262158, 5, 1, 262160, 13, 0, 393214, 14, 0, 393215, 11, 0, 327680, 5, 1, 327681, 5, 1, 327682, 5, 1, 327683, 5, 1, 327684, 5, 1, 327685, 5, 1, 327686, 5, 1, 327687, 5, 1, 327688, 5, 1, 327689, 5, 1, 327690, 5, 1, 327691, 5, 0, 327692, 5, 1, 327693, 5, 1, 327694, 5, 1, 327695, 5, 1, 327696, 13, 0, 458750, 14, 0, 393216, 5, 1, 393217, 5, 1, 393218, 5, 1, 393219, 5, 1, 393220, 5, 0, 393221, 5, 1, 393222, 5, 1, 393223, 5, 1, 393224, 5, 1, 393225, 5, 1, 393226, 5, 1, 393227, 5, 1, 393228, 5, 1, 393229, 5, 1, 393230, 5, 1, 393231, 5, 1, 393232, 13, 0, 524286, 14, 0, 524287, 5, 1, 458752, 5, 1, 458753, 5, 1, 458754, 5, 1, 458755, 5, 1, 458756, 5, 1, 458757, 5, 1, 458758, 5, 1, 458759, 5, 1, 458760, 5, 1, 458761, 5, 1, 458762, 5, 1, 458763, 5, 1, 458764, 5, 1, 458765, 5, 2, 458766, 5, 1, 458767, 5, 1, 458768, 13, 0, 589822, 14, 0, 589823, 5, 1, 524288, 5, 1, 524289, 5, 1, 524290, 5, 1, 524291, 5, 1, 524292, 5, 1, 524293, 5, 1, 524294, 5, 1, 524295, 5, 1, 524296, 5, 1, 524297, 5, 1, 524298, 5, 1, 524299, 5, 1, 524300, 5, 1, 524301, 5, 1, 524302, 5, 1, 524303, 5, 1, 524304, 13, 0, 655358, 14, 0, 655359, 5, 1, 589824, 5, 1, 589825, 5, 1, 589826, 5, 1, 589827, 5, 1, 589828, 5, 1, 589829, 5, 1, 589830, 5, 1, 589831, 5, 1, 589832, 5, 1, 589833, 5, 1, 589834, 5, 1, 589835, 5, 1, 589836, 5, 1, 589837, 5, 1, 589838, 5, 1, 589839, 5, 1, 589840, 13, 0, 720894, 14, 0, 720895, 5, 1, 655360, 5, 1, 655361, 5, 1, 655362, 5, 1, 655363, 5, 1, 655364, 5, 1, 655365, 5, 1, 655366, 5, 1, 655367, 5, 1, 655368, 5, 1, 655369, 5, 1, 655370, 5, 1, 655371, 5, 1, 655372, 5, 1, 655373, 5, 1, 655374, 5, 1, 655375, 5, 1, 655376, 13, 0, 786430, 14, 0, 786431, 5, 1, 720896, 5, 1, 720897, 5, 1, 720898, 5, 1, 720899, 5, 1, 720900, 5, 1, 720901, 5, 1, 720902, 5, 1, 720903, 5, 1, 720904, 5, 1, 720905, 5, 1, 720906, 5, 1, 720907, 5, 1, 720908, 5, 1, 720909, 5, 1, 720910, 5, 1, 720911, 5, 1, 720912, 13, 0, 851966, 15, 2, 851967, 15, 0, 786432, 15, 0, 786433, 15, 0, 786434, 15, 0, 786435, 15, 0, 786436, 15, 0, 786437, 15, 0, 786438, 15, 0, 786439, 15, 0, 786440, 15, 0, 786441, 15, 0, 786442, 15, 0, 786443, 15, 0, 786444, 15, 0, 786445, 15, 0, 786446, 15, 0, 786447, 15, 0, 786448, 15, 1 )
 
 [node name="Node2D" type="Node2D" parent="TileMap"]
 script = ExtResource( 4 )
@@ -58,10 +60,9 @@ position = Vector2( -6.44934, -34.8985 )
 shape = SubResource( 1 )
 
 [node name="Radiation Containment Unit" type="StaticBody2D" parent="."]
-position = Vector2( -210.971, 1008.13 )
+position = Vector2( 247.143, 1201.19 )
 script = ExtResource( 6 )
-resourceName = "Rad Pods"
-completionAmount = 8
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
 
 [node name="Sprite" type="Sprite" parent="Radiation Containment Unit"]
 position = Vector2( 0, -31.429 )
@@ -82,14 +83,15 @@ script = ExtResource( 4 )
 bob_time = 1
 
 [node name="Label" type="Label" parent="Radiation Containment Unit/Node2D"]
-margin_left = -247.76
-margin_top = -204.412
-margin_right = 256.24
-margin_bottom = -105.412
+margin_left = -254.11
+margin_top = -280.607
+margin_right = 249.89
+margin_bottom = -130.607
 custom_fonts/font = ExtResource( 5 )
-text = "Rad Pods
+text = "Mutation Speed
 0 out of 8 "
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -100,10 +102,10 @@ __meta__ = {
 position = Vector2( 870.499, 827.688 )
 
 [node name="Health Station" type="StaticBody2D" parent="."]
-position = Vector2( 2191.11, 1054.35 )
+position = Vector2( 1715.51, 1213.74 )
 script = ExtResource( 6 )
-resourceName = "Meds"
-completionAmount = 8
+id = 1
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
 
 [node name="Sprite" type="Sprite" parent="Health Station"]
 position = Vector2( 4.40967, 0.699097 )
@@ -129,7 +131,7 @@ margin_top = -204.412
 margin_right = 256.24
 margin_bottom = -105.412
 custom_fonts/font = ExtResource( 5 )
-text = "MEds
+text = "Max HP 
 0 out of 8 "
 align = 1
 __meta__ = {
@@ -138,10 +140,53 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="Health Station/Node2D"]
 
+[node name="Weapon Forge" type="StaticBody2D" parent="."]
+position = Vector2( 266.636, 499.966 )
+script = ExtResource( 6 )
+id = 2
+prompt = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Press E")
+
+[node name="Sprite" type="Sprite" parent="Weapon Forge"]
+position = Vector2( -0.629883, -14.42 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Forge"]
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Weapon Forge"]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon Forge/Area2D"]
+shape = SubResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="Weapon Forge"]
+script = ExtResource( 4 )
+bob_time = 1
+
+[node name="Label" type="Label" parent="Weapon Forge/Node2D"]
+margin_left = -247.76
+margin_top = -204.412
+margin_right = 256.24
+margin_bottom = -105.412
+custom_fonts/font = ExtResource( 5 )
+text = "Damage 
+0 out of 8 "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Weapon Forge/Node2D"]
+
+[node name="Hideout Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -9.0
+autoplay = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 12 )
-radpodsLabelPath = NodePath("MarginContainer/HBoxContainer/Radpods/Label")
-medsLabelPath = NodePath("MarginContainer/HBoxContainer/Meds2/Label")
+radpodsLabelPath = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Radpods/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -158,22 +203,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 margin_left = 40.0
 margin_top = 40.0
 margin_right = 1880.0
-margin_bottom = 168.0
-size_flags_vertical = 0
+margin_bottom = 1040.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+margin_right = 1840.0
+margin_bottom = 1000.0
+size_flags_vertical = 3
 custom_constants/separation = 100
 
-[node name="Radpods" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="Radpods" type="HBoxContainer" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 166.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 166, 128 )
 rect_pivot_offset = Vector2( -545.112, -71.8304 )
+size_flags_vertical = 0
 custom_constants/separation = 20
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/Radpods"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Radpods"]
 margin_right = 98.0
 margin_bottom = 128.0
 size_flags_horizontal = 3
@@ -181,7 +231,7 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/Radpods"]
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/Radpods"]
 margin_left = 118.0
 margin_top = 40.0
 margin_right = 166.0
@@ -189,40 +239,24 @@ margin_bottom = 88.0
 custom_fonts/font = ExtResource( 5 )
 text = "0"
 
-[node name="Meds2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-margin_left = 266.0
-margin_right = 432.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 166, 128 )
-rect_pivot_offset = Vector2( -545.112, -71.8304 )
-size_flags_vertical = 0
-custom_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HBoxContainer/Meds2"]
-margin_right = 98.0
-margin_bottom = 128.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/Meds2"]
-margin_left = 118.0
-margin_top = 40.0
-margin_right = 166.0
-margin_bottom = 88.0
-custom_fonts/font = ExtResource( 5 )
-text = "0"
-
-[node name="Meds" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-margin_left = 532.0
-margin_right = 532.0
-margin_bottom = 128.0
+[node name="Press E" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 901.0
+margin_right = 1840.0
+margin_bottom = 1000.0
+custom_fonts/font = ExtResource( 11 )
+text = "Press E
+"
+align = 1
+valign = 2
 
 [connection signal="body_entered" from="TileMap/Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="area_entered" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_Area_entered"]
+[connection signal="consume_resource" from="Radiation Containment Unit" to="CanvasLayer" method="_on_consume_resource"]
 [connection signal="body_entered" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_body_entered"]
-[connection signal="consume_resource" from="HideoutPlayer" to="CanvasLayer" method="_on_HideoutPlayer_consume_resource"]
-[connection signal="area_entered" from="Health Station/Area2D" to="Health Station" method="_on_Area_entered"]
+[connection signal="body_exited" from="Radiation Containment Unit/Area2D" to="Radiation Containment Unit" method="_on_body_exited"]
+[connection signal="consume_resource" from="Health Station" to="CanvasLayer" method="_on_consume_resource"]
 [connection signal="body_entered" from="Health Station/Area2D" to="Health Station" method="_on_body_entered"]
+[connection signal="body_exited" from="Health Station/Area2D" to="Health Station" method="_on_body_exited"]
+[connection signal="consume_resource" from="Weapon Forge" to="CanvasLayer" method="_on_consume_resource"]
+[connection signal="body_entered" from="Weapon Forge/Area2D" to="Weapon Forge" method="_on_body_entered"]
+[connection signal="body_exited" from="Weapon Forge/Area2D" to="Weapon Forge" method="_on_body_exited"]

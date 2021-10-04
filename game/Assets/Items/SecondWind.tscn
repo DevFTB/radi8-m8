@@ -11,7 +11,7 @@ height = 13.4265
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 3 )
 buff_name = "second_wind"
-value = 0.4
+value = 0.3
 buff_type = "invulnerability_period"
 
 [node name="Item" parent="." instance=ExtResource( 1 )]
