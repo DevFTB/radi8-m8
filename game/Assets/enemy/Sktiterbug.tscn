@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/enemy/mutations/gatling/Gatling Mutation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/enemy/mutations/claw/ClawMutation.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Sounds/sfx/enemy/skitterdeath.wav" type="AudioStream" id=10]
 [ext_resource path="res://Assets/enemy/mutations/armour/Armour Mutation.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Items/Coin.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/Sounds/sfx/enemy/enemyboostloop.wav" type="AudioStream" id=13]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 65.0602
@@ -53,6 +54,9 @@ playing = true
 position = Vector2( -10.4694, 15.2416 )
 scale = Vector2( 3, 3 )
 relativeProbability = 16
+boostMultiplier = 2.0
+duration = 2.0
+boostSound = ExtResource( 13 )
 
 [node name="Gatling Mutation" parent="Mutations" instance=ExtResource( 1 )]
 position = Vector2( 7.37799, -59.5948 )
