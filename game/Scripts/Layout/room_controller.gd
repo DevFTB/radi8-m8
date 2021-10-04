@@ -34,6 +34,7 @@ export (PackedScene) var shop
 export var shop_chance = 0.1
 export (int) var initial_edges = 120
 export (int) var mutate_edge_num = 10
+export (int) var mutate_room_num = 3
 var possible_connections = []
 var room_info = {}
 var max_room = 0
@@ -292,3 +293,15 @@ func get_max_room():
 
 func get_room_type(i, j):
 	return room[[i, j]].type
+
+func mutate_rooms():
+	var mutated = 0
+	var rooms = room.keys().duplicate(true)
+	rooms.shuffle()
+	while mutated < mutate_room_num and len(rooms) > 0:
+		var mutate_room = rooms.pop_back()
+		if get_room_type(mutate_room[0], mutate_room[1]) == TIER1 or get_room_type(mutate_room[0], mutate_room[1]) == TIER2:
+			room[mutate_room].type += 1
+			mutated +=1
+		
+	
